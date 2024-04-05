@@ -1,0 +1,101 @@
+.swiper-banner{
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.swiper-banner {
+    width: 100%;
+    height: 465px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.swiper-banner .swiper-slide {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.swiper-banner .swiper-slide h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.swiper-banner .swiper-slide p {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.swiper-banner .swiper-slide button {
+    background-color: #3490dc;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    /* background: rgba(0, 0, 0, 0.5); */
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.swiper-button-prev {
+    left: 10px;
+}
+
+.swiper-button-next {
+    right: 10px;
+}
+
+
+/*ESTILOS DEL SLIDER PARA PROFESORES*/
+
+.swiper-container {
+         
+    overflow-x: hidden;
+}
+
+.mySwiper{           
+    overflow-x: hidden;
+}
+    
+
+.card {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 250px; */
+}
+
+.swiper-slide img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+}

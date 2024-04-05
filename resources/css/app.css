@@ -1,0 +1,9 @@
+@import 'slider1.css';
+@import 'slider2.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+    display: none;
+}

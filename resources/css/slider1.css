@@ -1,0 +1,26 @@
+.fecha-publicacion {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fecha {
+    color: #888;
+    font-style: italic;
+    margin-right: 5px;
+}
+
+.fecha-label {
+    color: #666;
+    font-size: 0.8rem;
+    margin-right: 10px;
+}
+
+button {
+    width: 40px;
+    /* Ancho deseado */
+    height: 40px;
+    /* Altura deseada */
+    border-radius: 50%;
+    /* Para hacerlos cuadrados con esquinas redondeadas */
+}
