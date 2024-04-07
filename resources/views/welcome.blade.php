@@ -114,7 +114,7 @@
         <div class="p-8 md:p-12 lg:px-16 lg:py-24 bg-white">
             <div class="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                 <h2 class="text-2xl font-bold text-gray-900 md:text-3xl">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                    Empresa Coopsemul - Los que mas saben
                 </h2>
     
                 <p class="text-gray-500 md:mt-4 md:block">
