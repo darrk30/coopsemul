@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', ' - ' . $curso->nombre)
 
     <div class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div class="lg:max-w-[1440px] md:max-w-[744px] max-w-[375px] mx-auto bg-white lg:px-10 md:px-6 px-4 py-12 rounded-lg shadow-xl">

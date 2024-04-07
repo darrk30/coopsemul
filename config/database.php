@@ -93,6 +93,15 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'conexion_codigos' => [
+            'driver' => 'sqlsrv',
+            'host' => '127.0.0.1',
+            'port' => '1433',
+            'database' => 'pc_master_final',
+            'username' => 'sa',
+            'password' => '12345678',
+        ],
+
     ],
 
     /*

@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', '')
     <style>
         .swiper-container {
             width: 100%;

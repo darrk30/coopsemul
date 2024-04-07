@@ -1,5 +1,5 @@
 <x-app-layout>
-
+    @section('title', '- Cursos')
     <style>
         .swiper-container {
             width: 100%;

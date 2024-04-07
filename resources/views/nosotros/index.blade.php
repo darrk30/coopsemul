@@ -1,5 +1,5 @@
 <x-app-layout>
-
+    @section('title', '- Nosotros')
     <!-- Banner con imagen -->
     <section class="py-32 text-center text-black bg-fixed bg-cover bg-center"
         style="background-image: url(https://solkem.com.ar/wp-content/uploads/solkem_BANNER_NOSOTROS-min.png)">

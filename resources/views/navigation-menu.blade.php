@@ -22,8 +22,8 @@
         ],
         [
             'name' => 'Consultas',
-            'route' => route('noticias.index'),
-            'active' => request()->routeIs('noticias.index'),
+            'route' => route('consultas.index'),
+            'active' => request()->routeIs('consultas.index'),
         ],
     ];
 @endphp
