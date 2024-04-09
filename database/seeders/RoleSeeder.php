@@ -54,6 +54,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.libros.edit', 'description' => 'Editar Libro(Administrativo)'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.libros.descargar-libro', 'description' => 'Descargar Libro(General)'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.libros.abrir-archivo', 'description' => 'Abrir Libro(General)'])->syncRoles([$role1, $role2, $role3]);
+
+        
         //roles para la biblioteca del usuario
         Permission::create(['name' => 'admin.miBiblioteca.index', 'description' => 'Ver Lista de Libros(Aula Virtual)'])->syncRoles([$role1, $role2, $role3]);
         Permission::create(['name' => 'admin.miBiblioteca.show', 'description' => 'Ver libros de una categoria(Aula Virtual)'])->syncRoles([$role1, $role2, $role3]);
@@ -64,5 +66,29 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.colaboradores.create', 'description' => 'Crear Trabajadores'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.colaboradores.edit', 'description' => 'Editar Trabajadores'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.colaboradores.show', 'description' => 'Ver Perfil del Trabajadores'])->syncRoles([$role1]);
+
+
+        //roles para crear precios 
+        Permission::create(['name' => 'admin.precios.index','description' => 'Lista de Precios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.precios.create','description' => 'Crear Nuevo Precio'])->syncRoles([$role1]);
+        //Permission::create(['name' => 'admin.roles.edit','description' => 'Editar Rol'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.precios.destroy','description' => 'Eliminar Precios'])->syncRoles([$role1]);
+
+
+        //roles para crear categorias
+        Permission::create(['name' => 'admin.categorias.index','description' => 'Lista de Categorias'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.categorias.create','description' => 'Crear Nueva Categoria'])->syncRoles([$role1]);
+        //Permission::create(['name' => 'admin.roles.edit','description' => 'Editar Rol'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.categorias.destroy','description' => 'Eliminar Categorias'])->syncRoles([$role1]);
+
+
+        //roles para crear Niveles
+        Permission::create(['name' => 'admin.niveles.index','description' => 'Lista de Niveles'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.niveles.create','description' => 'Crear Nuevo Nivel'])->syncRoles([$role1]);
+        //Permission::create(['name' => 'admin.roles.edit','description' => 'Editar Rol'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.niveles.destroy','description' => 'Eliminar Niveles'])->syncRoles([$role1]);
+
+
+        
     }
 }

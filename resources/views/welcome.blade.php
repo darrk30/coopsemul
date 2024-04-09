@@ -151,7 +151,9 @@
             class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
             @foreach ($cursos as $curso)
             <article class="bg-white shadow-white rounded overflow-hidden">
-                <img class="w-full object-cover" src="https://d11cuk1a0j5b57.cloudfront.net/blog/wp-content/uploads/2022/08/18125803/Mejores-plataformas-de-cursos.jpg" alt="">
+                <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso"
+    class="lg:block md:hidden block rounded-lg shadow-lg" style="width: 400px; height: 300px;">
+
                 <div class="px-5 py-4">
                     <div class="mb-2 h-14">
                         <h1 class="text-base text-gray-700 mb-2 leading-6">{{ Str::limit($curso->nombre, 50, '...') }}</h1>

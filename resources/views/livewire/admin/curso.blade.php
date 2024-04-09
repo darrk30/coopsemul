@@ -31,8 +31,7 @@
                                 <tr>
                                     <td>
                                         @if ($curso->image)
-                                            <img src="{{ Storage::url($curso->image->url) }}" alt="Imagen del Curso"
-                                                style="width: 50px; height: 50px; border-radius: 50%;">
+                                        <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso" style="width: 50px; height: 50px; border-radius: 50%;">
                                         @else
                                             <!-- Si no hay imagen, puedes mostrar una imagen predeterminada o un marcador de posición -->
                                             <img src="ruta/a/imagen_predeterminada.jpg" alt="Imagen Predeterminada"

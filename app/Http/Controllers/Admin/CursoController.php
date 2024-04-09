@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Curso;
 use App\Models\Level;
+use App\Models\Link;
 use App\Models\Precio;
 use App\Models\Profile;
 use App\Models\User;
@@ -64,6 +65,8 @@ class CursoController extends Controller
             'level_id' => 'required|exists:levels,id',
             'status' => 'required|in:0,1',
             'slug' => 'required|unique:cursos',
+            'url' => 'nullable|unique:links',
+            'url' => ['nullable', 'regex:/^https:\/\/meet\.google\.com\/[a-z0-9-]+$/i', 'message' => 'El enlace debe ser de una reunión de Google Meet.'],
             'file' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'codigo.required' => 'El código es obligatorio.',
@@ -90,9 +93,18 @@ class CursoController extends Controller
 
         $curso = Curso::create($request->all());
         if ($request->file('file')) {
-            $url = Storage::put('public/cursos', $request->file('file'));
+            $url = Storage::disk('s3')->put('imagenesCursos', $request->file('file'));
             $curso->image()->create([
                 'url' => $url
+            ]);
+        }
+        // Crear el enlace si se proporciona una URL
+        if ($request->has('url')) {
+            $url = $request->url;
+            // Guardar el enlace en la tabla de enlaces
+            Link::create([
+                'url' => $url,
+                'curso_id' => $curso->id
             ]);
         }
         return redirect()->route('admin.curso.index', $curso);
@@ -108,6 +120,7 @@ class CursoController extends Controller
 
     public function update(Request $request, Curso $curso)
     {
+        $linkId = $curso->link->id ?? null;
         $request->validate([
             'codigo' => 'required|string|max:255',
             'nombre' => 'required|string|max:255',
@@ -132,6 +145,11 @@ class CursoController extends Controller
             'level_id' => 'required|exists:levels,id',
             'status' => 'required|in:0,1',
             'slug' => "required|unique:cursos,slug,$curso->id",
+            'url' => [
+                'nullable',
+                'regex:/^https:\/\/meet\.google\.com\/[a-z0-9-]+$/i',
+                "unique:links,url,{$linkId}", // Verifica que la URL sea única, excluyendo la actual del curso
+            ],
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'codigo.required' => 'El código es obligatorio.',
@@ -149,6 +167,7 @@ class CursoController extends Controller
             'status.required' => 'El estado es obligatorio.',
             'status.in' => 'El estado debe ser 0 o 1.',
             'slug.required' => 'El slug es obligatorio.',
+            'url.regex' => 'El enlace debe ser de una reunión de Google Meet.',
             'file.image' => 'El archivo debe ser una imagen.',
             'file.mimes' => 'La imagen debe ser de tipo jpeg, png, jpg o gif.',
             'file.max' => 'La imagen no debe ser mayor a 2MB.',
@@ -157,19 +176,27 @@ class CursoController extends Controller
 
         $curso->update($request->all());
 
-        if ($request->file('file')) {
-            $url = Storage::put('public/cursos', $request->file('file')); // el metodo put guarda la imagen en la carpeta public storage posts
-
+        // Verificar y actualizar la imagen del libro
+        if ($request->hasFile('file')) {
+            // Eliminar la imagen anterior si existe
             if ($curso->image) {
-                Storage::delete($curso->image->url);
-                $curso->image->update([
-                    'url' => $url
-                ]);
-            } else {
-                $curso->image()->create([
-                    'url' => $url
-                ]);
+                Storage::disk('s3')->delete($curso->image->url);
+                $curso->image()->delete();
             }
+            // Subir la nueva imagen al disco S3
+            $imagenUrl = $request->file('file')->store('imagenesCursos', 's3');
+            $curso->image()->create([
+                'url' => $imagenUrl,
+            ]);
+        }
+
+        // Verificar si el curso tiene un enlace asociado
+        if ($curso->link) {
+            // Si existe, actualizar la URL
+            $curso->link->update(['url' => $request->url]);
+        } else {
+            // Si no existe, crear un nuevo enlace con la URL proporcionada
+            $curso->link()->create(['url' => $request->url]);
         }
 
         return redirect()->route('admin.curso.index', $curso)->with('info', 'El curso se actualizo con exito');

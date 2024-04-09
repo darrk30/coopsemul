@@ -44,7 +44,7 @@ class BibliotecaController extends Controller
             'descripcion' => 'required|string',
             'anio_publicacion' => 'required|integer',
             'category_id' => 'required|exists:categories,id',
-            'archivo' => 'required_if:imagen,null|mimes:pdf,doc,docx', // requerido si no se envió una imagen
+            'archivo' => 'required_if:imagen,null|mimes:pdf,doc,docx|max:10240', // 10MB en kilobytes
             'image' => 'required_if:archivo,null|image|mimes:jpeg,png,jpg,gif|max:2048', // requerido si no se envió un archivo
         ]);
 

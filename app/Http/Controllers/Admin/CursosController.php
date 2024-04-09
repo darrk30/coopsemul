@@ -59,16 +59,24 @@ class CursosController extends Controller
 
     public function crear_recurso(Request $request, $id_semana)
     {
-        $name = $request->file('file')->getClientOriginalName();
-        //return $name;
-        // Guardar el archivo en la carpeta de almacenamiento
-        $documento = $request->file('file')->store('public/documentos');
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'file' => 'required|file|mimes:pdf,doc,docx,jpeg,png,gif|max:10240', // 10 MB como máximo
+            'urlRecurso' => 'nullable|url', // Opcional: debe ser una URL válida si se proporciona
+        ]);
+        // Subir archivo del documento a S3 si se envió
+        if ($request->hasFile('file')) {
+            $archivoPath = Storage::disk('s3')->put('RecursosAulaVirtual', $request->file('file'));
+            $name = $request->file('file')->getClientOriginalName();
+        } else {
+            $archivoPath = null;
+        }
 
         // Crear el recurso en la base de datos
         $recurso = new Recurso();
         $recurso->title = $request->title;
         $recurso->nombre = $name;
-        $recurso->documento = $documento; // Guardar la ruta del archivo en la base de datos
+        $recurso->documento = $archivoPath; // Guardar la ruta del archivo en el bucket de S3
         $recurso->url = $request->urlRecurso;
         $recurso->semana_id = $id_semana; // Asociar el recurso con la semana
         $recurso->save();
@@ -134,16 +142,16 @@ class CursosController extends Controller
             // Eliminar la semana y todos sus recursos asociados
             $semana = Semana::findOrFail($id);
             foreach ($semana->recursos as $recurso) {
-                // Eliminar el archivo asociado al recurso
-                Storage::delete($recurso->documento);
+                // Eliminar el archivo asociado al recurso en S3
+                Storage::disk('s3')->delete($recurso->documento);
                 $recurso->delete();
             }
             $semana->delete(); // Eliminar la semana
             return redirect()->back()->with('error', 'Semana eliminada correctamente');
         } elseif ($tipo === 'recurso') {
-            // Eliminar el recurso y su archivo asociado
+            // Eliminar el recurso y su archivo asociado en S3
             $recurso = Recurso::findOrFail($id);
-            Storage::delete($recurso->documento);
+            Storage::disk('s3')->delete($recurso->documento);
             $recurso->delete();
             return redirect()->back()->with('error', 'Recurso eliminado correctamente');
         } else {
@@ -180,13 +188,15 @@ class CursosController extends Controller
     {
         $recurso = Recurso::findOrFail($recursoId);
 
-        // Obtener la ruta del archivo
-        $rutaArchivo = $recurso->documento;
-
-        // Obtener el nombre original del archivo desde la base de datos
-        $nombreArchivo = $recurso->nombre;
+        // Obtener la URL del archivo en el disco S3
+        $urlArchivo = Storage::disk('s3')->url($recurso->documento);
+    
+         // Obtener el nombre original del archivo desde la base de datos
+         $nombreArchivo = $recurso->nombre;
 
         // Descargar el archivo con su nombre original y establecer el tipo de contenido
-        return Storage::download($rutaArchivo, $nombreArchivo, ['Content-Type' => 'application/octet-stream']);
+        return response()->streamDownload(function () use ($urlArchivo) {
+            echo file_get_contents($urlArchivo);
+        }, $nombreArchivo, ['Content-Type' => 'application/octet-stream']);
     }
 }

@@ -11,8 +11,8 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                {!! Form::label('nombre', 'Nombre') !!}
-                {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre']) !!}
+                {!! Form::label('nombre', 'Nombre del Curso') !!}
+                {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del curso']) !!}
                 @error('nombre')
                     <samp class="text-danger">{{ $message }}</samp>
                 @enderror
@@ -20,9 +20,9 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                {!! Form::label('profesor', 'Profesor') !!}
+                {!! Form::label('profesor', 'DNI del Profesor') !!}
                 <div class="input-group">
-                    <input type="text" id="searchProfesor" name="searchProfesor" class="form-control" placeholder="Ingrese el nombre del profesor" value="<?php echo isset($curso->user) && isset($curso->user->profile) ? $curso->user->profile->DNI : ''; ?>">
+                    <input type="text" id="searchProfesor" name="searchProfesor" class="form-control" placeholder="Ingrese el DNI del profesor" value="<?php echo isset($curso->user) && isset($curso->user->profile) ? $curso->user->profile->DNI : ''; ?>">
 
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button" onclick="buscarProfesor()">Buscar</button>
@@ -43,7 +43,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            {!! Form::label('descripcion', 'Descripción') !!}
+            {!! Form::label('descripcion', 'Descripción del Curso') !!}
             {!! Form::textarea('descripcion', null, [
                 'class' => 'form-control',
                 'placeholder' => 'Ingrese la descripción',
@@ -61,7 +61,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                {!! Form::label('duracion', 'Duración') !!}
+                {!! Form::label('duracion', 'Duración en Semanas') !!}
                 {!! Form::number('duracion', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la duración en horas']) !!}
                 @error('duracion')
                     <samp class="text-danger">{{ $message }}</samp>
@@ -133,11 +133,20 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            {!! Form::label('url', 'Link de la Clase') !!}
+            {!! Form::text('url', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el Link de la Clase']) !!}
+            @error('url')
+                <samp class="text-danger">{{ $message }}</samp>
+            @enderror
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-12">
             {!! Form::label('slug', 'Slug del Curso') !!}
-            {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la descripción']) !!}
+            {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la descripción', 'readonly']) !!}
             @error('slug')
                 <samp class="text-danger">{{ $message }}</samp>
             @enderror

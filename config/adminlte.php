@@ -301,7 +301,7 @@ return [
             'route'        => 'admin.home',
             'can'        => 'admin.home',
             'active'    => ['*admin/home*'],
-        ],      
+        ],
         [
             'text'       => 'Mis Cursos',
             'icon' => 'fas fa-fw fa-book',
@@ -316,8 +316,10 @@ return [
             'can'        => 'admin.miBiblioteca.index',
             'active'    => ['*admin/miBiblioteca*'],
         ],
-        ['header' => 'ADMINISTRADOR',
-        'can'        => 'admin.curso.index',],
+        [
+            'header' => 'ADMINISTRADOR',
+            'can'        => 'admin.curso.index',
+        ],
         [
             'text' => 'Lista de Curso',
             'route' => 'admin.curso.index',
@@ -346,7 +348,35 @@ return [
             'can'        => 'admin.roles.index',
             'active'    => ['*admin/roles*']
         ],
-        
+        [
+            'text' => 'Configuracion',
+            'icon' => 'fas fa-cogs',
+            'can'  => 'admin.precios.index',
+            'submenu' => [
+                [
+                    'text' => 'Precios',
+                    'icon' => 'fas fa-dollar-sign',
+                    'route'        => 'admin.precios.index',
+                    'can'        => 'admin.precios.index',
+                    'active'    => ['*admin/precios*']
+                ],
+                [
+                    'text' => 'Categorias',
+                    'icon' => 'fas fa-tags',                  
+                    'route'        => 'admin.categorias.index',
+                    'can'        => 'admin.categorias.index',
+                    'active'    => ['*admin/categorias*']
+                ],
+                [
+                    'text' => 'Niveles',
+                    'icon' => 'fas fa-layer-group',                   
+                    'route'        => 'admin.niveles.index',
+                    'can'        => 'admin.niveles.index',
+                    'active'    => ['*admin/niveles*']
+                ],
+            ],
+        ],
+
     ],
 
     /*

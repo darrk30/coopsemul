@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('precios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('nombre')->nullable();
             $table->double('value');
             $table->integer('status');
             $table->timestamps();

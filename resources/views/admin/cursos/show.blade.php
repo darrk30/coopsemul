@@ -30,8 +30,8 @@
                             <h3>Clases en linea</h3>
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-link mr-2"></i>
-                                {{-- <a href="{{ $curso->link->url }}" target="_blank" class="text-decoration-none">Ir a la
-                                    clase</a> --}}
+                                <a href="{{ $curso->link->url }}" target="_blank" class="text-decoration-none">Ir a la
+                                    clase</a>
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="descripcion">Descripcion de la semana</label>
-                                <input type="text" name="descripcion" class="form-control">
+                                <input type="text" name="descripcion" class="form-control" required>
                             </div>
                             <!-- Otros campos del formulario si es necesario -->
                         </div>

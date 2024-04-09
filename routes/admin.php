@@ -1,13 +1,18 @@
 <?php
 
 use App\Http\Controllers\Admin\BibliotecaController;
+use App\Http\Controllers\Admin\CategoriasController;
 use App\Http\Controllers\Admin\ColaboradoresController;
 use App\Http\Controllers\Admin\ContenidoController;
 use App\Http\Controllers\Admin\CursoController;
 use App\Http\Controllers\Admin\CursosController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\InscripcionController;
+use App\Http\Controllers\Admin\LeccionesController;
 use App\Http\Controllers\Admin\MiBiblioteca;
+use App\Http\Controllers\Admin\NivelesController;
+use App\Http\Controllers\Admin\Precios;
+use App\Http\Controllers\Admin\PreciosController;
 use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +57,22 @@ Route::get('miBiblioteca/show/{categoria}', [MiBiblioteca::class, 'show'])->name
 
 //rutas para administrar trabajadores
 Route::resource('users', ColaboradoresController::class)->names('admin.colaboradores');
+
+
+//ruta para administrar el contenido del curso
+Route::resource('contenidos', ContenidoController::class)->names('admin.contenidos');
+Route::post('contenidos/modificar', [ContenidoController::class, 'modificar'])->name('admin.contenidos.modificar');
+
+//ruta para administrar el contenido del curso
+Route::resource('lecciones', LeccionesController::class)->names('admin.lecciones');
+Route::post('lecciones/modificar', [LeccionesController::class, 'modificar'])->name('admin.lecciones.modificar');
+
+
+//ruta para configurar precios
+Route::resource('precios', PreciosController::class)->names('admin.precios');
+
+//ruta para configurar categorias
+Route::resource('categorias', CategoriasController::class)->names('admin.categorias');
+
+//ruta para configurar categorias
+Route::resource('niveles', NivelesController::class)->names('admin.niveles');

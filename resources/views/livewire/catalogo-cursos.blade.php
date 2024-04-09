@@ -36,9 +36,8 @@
                     <div class="mb-8">
                         <article class="bg-white rounded-lg overflow-hidden flex flex-col sm:flex-row">
                             <div class="w-full sm:w-1/3">
-                                <img class="h-60 w-full object-cover sm:h-auto sm:w-full"
-                                    src="https://d11cuk1a0j5b57.cloudfront.net/blog/wp-content/uploads/2022/08/18125803/Mejores-plataformas-de-cursos.jpg"
-                                    alt="">
+                                <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso"
+                                class="lg:block md:hidden block rounded-lg shadow-lg" style="width: 400px; height: 300px;">
                             </div>
                             <div class="w-full sm:w-2/3 p-4">
                                 <h1 class="text-xl text-gray-800 font-semibold mb-2">{{ $curso->nombre }}</h1>

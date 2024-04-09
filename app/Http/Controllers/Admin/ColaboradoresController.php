@@ -115,61 +115,60 @@ class ColaboradoresController extends Controller
 
     public function update(Request $request, User $user)
     {
+        $perfilID = $user->profile ? $user->profile->id : null;
         // Validar los datos del formulario
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'DNI' => 'required|string|max:8|unique:profiles,DNI,' . $user->profile->id,
+            'DNI' => 'required|string|max:8|unique:profiles,DNI,' . $perfilID,
             'apellidos' => 'required|string|max:100',
             'status' => 'required|in:0,1',
-            'biografia' => 'required|string|max:255',
-            'especialidad' => 'required|string|max:100',
+            'biografia' => 'nullable|string|max:255',
+            'especialidad' => 'nullable|string|max:100',
             'roles' => 'required|array|min:1',
         ]);
 
         // Actualizar los datos del usuario
         $user->name = $request->name;
         $user->email = $request->email;
+
         // Verificar si se ha enviado una nueva contraseña
         if ($request->filled('password')) {
             // Validar la contraseña
-            if (strlen($request->password) < 8) {
-                return redirect()->back()->withErrors(['password' => 'La contraseña debe tener al menos 8 caracteres.'])->withInput();
-            }
+            $request->validate([
+                'password' => 'string|min:8',
+            ]);
+
             // Hash y actualización de la contraseña
             $user->password = Hash::make($request->password);
         }
+
         // Guardar los cambios en el usuario
         $user->save();
 
-        // Actualizar los datos del perfil del usuario
-        $user->profile->apellidos = $request->apellidos;
-        $user->profile->DNI = $request->DNI;
-        $user->profile->biografia = $request->biografia;
-        $user->profile->especialidad = $request->especialidad;
-        // Actualizar los roles del usuario
+        // Validar si el usuario tiene un perfil
+        if ($user->profile) {
+            // Si tiene un perfil, actualizar sus datos
+            $user->profile->update([
+                'apellidos' => $request->apellidos,
+                'DNI' => $request->DNI,
+                'biografia' => $request->biografia,
+                'especialidad' => $request->especialidad,
+                'status' => $request->status,
+                // Otras actualizaciones del perfil...
+            ]);
+        } else {
+            // Si no tiene un perfil, crear uno nuevo
+            $user->profile()->create([
+                'apellidos' => $request->apellidos,
+                'DNI' => $request->DNI,
+                'biografia' => $request->biografia,
+                'especialidad' => $request->especialidad,
+                'status' => $request->status,
+                // Otros campos del perfil...
+            ]);
+        }
 
-        $perfilEstadoActual = $user->profile->status;
-        if ($request->status != $perfilEstadoActual || ($request->has('roles') && $request->roles != $user->roles()->pluck('id')->toArray())) {
-            if ($request->status == 0) {
-                $user->roles()->detach(); // Eliminar el rol asociado al usuario
-            } else {
-                if ($request->has('roles')) {
-                    $user->roles()->sync($request->roles);
-                } 
-            }
-            // Actualizar el estado del perfil
-            $user->profile->status = $request->status;
-        } 
-        // $user->profile->status = $request->status;
-        // // Actualizar los roles del usuario
-        // if ($request->has('roles')) {
-        //     $user->roles()->sync($request->roles);
-        // } else {
-        //     // Si no se seleccionaron roles, eliminar todos los roles asociados al usuario
-        //     $user->roles()->detach();
-        // }
-        $user->profile->save();
         // Redireccionar con un mensaje de éxito
         return redirect()->route('admin.colaboradores.index')->with('success', 'Usuario actualizado exitosamente.');
     }

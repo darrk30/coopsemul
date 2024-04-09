@@ -13,7 +13,7 @@
             @forelse ($MisCursos as $curso)
                 <div class="col-md-4 mb-4">
                     <div class="card curso-card shadow">
-                        <img src="{{ Storage::url($curso->image->url) }}" alt="Curso">
+                        <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Curso">
                         <div class="card-body">
                             <div style="height: 5rem;">
                                 <h2 class="card-title text-lg font-semibold text-gray-800">{{ $curso->nombre }}</h2>
