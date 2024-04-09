@@ -60,19 +60,21 @@ Route::resource('users', ColaboradoresController::class)->names('admin.colaborad
 
 
 //ruta para administrar el contenido del curso
-Route::resource('contenidos', ContenidoController::class)->names('admin.contenidos');
+Route::resource('contenidos', ContenidoController::class)->names('admin.contenidos')->except(['create','update','index','destroy', 'show', 'edit']);
 Route::post('contenidos/modificar', [ContenidoController::class, 'modificar'])->name('admin.contenidos.modificar');
+Route::post('contenidos/eliminar', [ContenidoController::class, 'eliminar'])->name('admin.contenidos.eliminar');
 
 //ruta para administrar el contenido del curso
-Route::resource('lecciones', LeccionesController::class)->names('admin.lecciones');
+Route::resource('lecciones', LeccionesController::class)->names('admin.lecciones')->except(['create','update','index','destroy', 'show', 'edit']);
 Route::post('lecciones/modificar', [LeccionesController::class, 'modificar'])->name('admin.lecciones.modificar');
+Route::post('lecciones/eliminar', [LeccionesController::class, 'eliminar'])->name('admin.lecciones.eliminar');
 
 
 //ruta para configurar precios
-Route::resource('precios', PreciosController::class)->names('admin.precios');
+Route::resource('precios', PreciosController::class)->names('admin.precios')->except(['show']);
 
 //ruta para configurar categorias
-Route::resource('categorias', CategoriasController::class)->names('admin.categorias');
+Route::resource('categorias', CategoriasController::class)->names('admin.categorias')->except(['show']);
 
 //ruta para configurar categorias
-Route::resource('niveles', NivelesController::class)->names('admin.niveles');
+Route::resource('niveles', NivelesController::class)->names('admin.niveles')->except(['show']);

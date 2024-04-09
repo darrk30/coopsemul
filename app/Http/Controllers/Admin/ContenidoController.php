@@ -9,14 +9,6 @@ use Illuminate\Http\Request;
 class ContenidoController extends Controller
 {
 
-    public function index()
-    {
-    }
-
-    public function create()
-    {
-    }
-
     public function store(Request $request)
     {
         // Validar los datos recibidos en la solicitud
@@ -43,15 +35,6 @@ class ContenidoController extends Controller
         ]);
     }
 
-
-    public function show(string $id)
-    {
-    }
-
-    public function edit(string $id)
-    {
-    }
-
     public function modificar(Request $request)
     {
         // Obtener el ID del contenido a modificar
@@ -74,12 +57,23 @@ class ContenidoController extends Controller
         ]);
     }
 
-    public function destroy(ContenidoCurso $contenido)
-    {
-        // Elimina el contenido
-        $contenido->delete();
+    public function eliminar(Request $request)
+    {        
+        $id = $request->id;
 
-        // Redirige a la página o retorna una respuesta JSON, según tus necesidades
-        return redirect()->back()->with('success', 'Contenido eliminado correctamente');
+        // Buscar el contenido del curso por su ID
+        $contenidoCurso = ContenidoCurso::find($id);
+
+        if ($contenidoCurso) {
+            // Si se encuentra el contenido del curso, eliminarlo
+            $contenidoCurso->delete();
+
+            // Retornar una respuesta exitosa
+            return response()->json(['message' => 'Contenido del curso eliminado correctamente']);
+        } else {
+            // Si no se encuentra el contenido del curso, retornar un mensaje de error
+            return response()->json(['message' => 'No se encontró el contenido del curso con el ID proporcionado'], 404);
+        }
     }
+ 
 }

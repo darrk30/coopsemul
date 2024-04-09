@@ -18,7 +18,7 @@
 
     <div class="contenido container">
         @foreach ($curso->contenidos as $contenido)
-            <div class="card contenido_card">
+            <div class="card contenido_card contenido_{{ $contenido->id }}">
                 <div class="card-body">
                     <strong>Contenido: </strong> <span
                         class="span_titulo_{{ $contenido->id }}">{{ $contenido->titulo }}</span>
@@ -34,24 +34,19 @@
                             data-toggle="tooltip" data-placement="top" title="Editar Contenido">
                             <i class="fas fa-edit"></i>
                         </button>
+                        <button type="button" class="btn btn-danger btn-sm ml-1"
+                            onclick="eliminarContenido(event, {{ $contenido->id }})" data-toggle="tooltip"
+                            data-placement="top" title="Eliminar Contenido">
+                            <i class="fas fa-trash"></i>
+                        </button>
 
-
-                        <form action="{{ route('admin.contenidos.destroy', $contenido) }}" method="POST"
-                            style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                                onclick="confirmarEliminar(event)" title="Eliminar Contenido">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
 
                     </span>
                 </div>
                 <div class="card-footer lession_card" id="lession_card_{{ $contenido->id }}" style="display: none;">
                     {{-- Agregamos un id único usando el id del contenido --}}
                     @foreach ($contenido->lesions as $lesion)
-                        <div class="card lession_card">
+                        <div class="card lession_card leccion_{{ $lesion->id }}">
                             <div class="card-body">
                                 <strong>Leccion: </strong><span
                                     class="span_nombre_{{ $lesion->id }}">{{ $lesion->nombre }}</span>
@@ -63,16 +58,11 @@
                                     </button>
 
 
-                                    <form action="{{ route('admin.lecciones.destroy', $lesion->id) }}" method="POST"
-                                        style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="confirmarEliminar(event)" data-placement="top"
-                                            title="Eliminar Lección">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
+                                    <button type="button" class="btn btn-danger btn-sm ml-1"
+                                        onclick="eliminarLeccion(event, {{ $lesion->id }})" data-toggle="tooltip"
+                                        data-placement="top" title="Eliminar Leccion">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </span>
                             </div>
                         </div>
@@ -224,7 +214,7 @@
                     success: function(response) {
                         // Actualiza la vista con el contenido recién agregado
                         var nuevoContenido =
-                            '<div class="card contenido_card"><div class="card-body"><strong>Contenido: </strong> <span class="span_titulo_' +
+                            '<div class="card contenido_card contenido_'+response.id+'"><div class="card-body"><strong>Contenido: </strong> <span class="span_titulo_' +
                             response.id + '">' +
                             response.titulo +
                             '</span><span class="float-right">' +
@@ -240,18 +230,11 @@
                             '" data-toggle="tooltip" data-placement="top" title="Editar Contenido">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
-                            '<form action="{{ isset($contenido->id) ? route('admin.contenidos.destroy', $contenido->id) : '' }}" method="POST" ' +
-                            'style="display: inline;">' +
-                            '@csrf' +
-                            '@method('DELETE')' +
-                            '<button type="submit" class="btn btn-danger btn-sm ml-1" onclick="confirmarEliminar(event)" ' +
-                            'data-toggle="tooltip" data-placement="top" title="Eliminar Contenido">' +
-                            '<i class="fas fa-trash"></i>' +
-                            '</button>' +
-                            '</form>' +
+                            '<button type="button" class="btn btn-danger btn-sm ml-1"onclick="eliminarContenido(event,'+ response.id +')" data-toggle="tooltip"data-placement="top" title="Eliminar Contenido"><i class="fas fa-trash"></i></button>'+                        
                             '</span>' +
                             '</div>' +
-                            '<div class="card-footer lession_card" id="lession_card_' + response.id + '"></div></div>';
+                            '<div class="card-footer lession_card" id="lession_card_' + response
+                            .id + '"></div></div>';
                         $('.contenido').append(nuevoContenido);
 
                         // Limpia el formulario y cierra el modal
@@ -278,7 +261,7 @@
                     success: function(response) {
                         // Actualiza la vista con la lección recién agregada
                         var nuevaLeccion =
-                            '<div class="card lession_card"><div class="card-body"><strong>Leccion: </strong> <span class="span_nombre_' +
+                            '<div class="card lession_card leccion_'+response.id+'"><div class="card-body"><strong>Leccion: </strong> <span class="span_nombre_' +
                             response.id + '">' +
                             response.nombre +
                             '</span><span class="float-right">' +
@@ -287,16 +270,8 @@
                             .id +
                             '" data-toggle="tooltip" data-placement="top" title="Editar Leccion">' +
                             '<i class="fas fa-edit"></i>' +
-                            '</button>' +
-                            '<form action="{{isset($lesion->id) ? route('admin.lecciones.destroy', $lesion->id) : '' }}" method="POST" ' +
-                            'style="display: inline;">' +
-                            '@csrf' +
-                            '@method('DELETE')' +
-                            '<button type="submit" class="btn btn-danger btn-sm ml-1" onclick="confirmarEliminar(event)" ' +
-                            'data-toggle="tooltip" data-placement="top" title="Eliminar Leccion">' +
-                            '<i class="fas fa-trash"></i>' +
-                            '</button>' +
-                            '</form>' +
+                            '</button>'  +
+                            '<button type="button" class="btn btn-danger btn-sm ml-1"onclick="eliminarLeccion(event,'+ response.id +')" data-toggle="tooltip"data-placement="top" title="Eliminar Leccion"><i class="fas fa-trash"></i></button>'+
                             '</span>' +
                             '</div></div>';
                         $('#lession_card_' + response.contenido_id).append(nuevaLeccion);
@@ -370,11 +345,11 @@
                 // Envía los datos del formulario mediante AJAX
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route('admin.lecciones.modificar') }}',                                        
+                    url: '{{ route('admin.lecciones.modificar') }}',
                     data: $(this).serialize(),
                     success: function(response) {
                         // Actualiza la vista con la lección recién agregada
-                        var LeccionActualizada = response.nombre;                  
+                        var LeccionActualizada = response.nombre;
 
                         $('.span_nombre_' + response.id).text(response.nombre);
 
@@ -402,17 +377,7 @@
 
         });
     </script>
-
-    <script>
-        // funcion para confirmar la eliminacion
-        function confirmarEliminar(event) {
-            event.preventDefault();
-            if (confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
-                // Si el usuario confirma, enviar el formulario
-                event.target.closest('form').submit();
-            }
-        }
-    </script>
+    
 
     <script>
         $(document).ready(function() {
@@ -423,4 +388,58 @@
             });
         });
     </script>
+
+    <script>
+        function eliminarContenido(event, id) {
+            event.preventDefault();
+
+            if (confirm('¿Estás seguro de que deseas eliminar este Contenido?')) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('admin.contenidos.eliminar') }}',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: id
+                    },
+                    success: function(response) {
+                        // Remover el elemento HTML correspondiente al contenido eliminado
+                        $('.contenido_' + id).remove();
+                        // Manejar la respuesta según sea necesario
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        // Manejar errores de la solicitud
+                        console.log(error);
+                    }
+                });
+            }
+        }
+    </script>
+    <script>
+        function eliminarLeccion(event, id) {
+            event.preventDefault();
+
+            if (confirm('¿Estás seguro de que deseas eliminar esta Leccion?')) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('admin.lecciones.eliminar') }}',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: id
+                    },
+                    success: function(response) {
+                        // Remover el elemento HTML correspondiente al contenido eliminado
+                        $('.leccion_' + id).remove();
+                        // Manejar la respuesta según sea necesario
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        // Manejar errores de la solicitud
+                        console.log(error);
+                    }
+                });
+            }
+        }
+    </script>
+
 @stop
