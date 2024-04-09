@@ -48,7 +48,8 @@
 
                     </span>
                 </div>
-                <div class="card-footer lession_card" id="lession_card_{{ $contenido->id }}" style="display: none;"> {{-- Agregamos un id único usando el id del contenido --}}
+                <div class="card-footer lession_card" id="lession_card_{{ $contenido->id }}" style="display: none;">
+                    {{-- Agregamos un id único usando el id del contenido --}}
                     @foreach ($contenido->lesions as $lesion)
                         <div class="card lession_card">
                             <div class="card-body">
@@ -157,7 +158,8 @@
                     @csrf
                     <!-- Campo oculto para el ID del curso -->
                     <input type="hidden" name="contenido_id" id="contenido_id"
-                        value="{{ $curso->contenidos->first()->id }}">
+                        value="{{ isset($curso->contenidos->first()->id) ? $curso->contenidos->first()->id : '' }}">
+
 
                     <!-- Campo para el nombre de la semana -->
                     <div class="modal-body">
@@ -238,7 +240,7 @@
                             '" data-toggle="tooltip" data-placement="top" title="Editar Contenido">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
-                            '<form action="{{ route('admin.contenidos.destroy', $contenido->id) }}" method="POST" ' +
+                            '<form action="{{ isset($contenido->id) ? route('admin.contenidos.destroy', $contenido->id) : '' }}" method="POST" ' +
                             'style="display: inline;">' +
                             '@csrf' +
                             '@method('DELETE')' +
@@ -249,9 +251,7 @@
                             '</form>' +
                             '</span>' +
                             '</div>' +
-                            '<div class="card-footer lession_card" id="lession_card_' + response
-                            .id + '"></div></div>';
-
+                            '<div class="card-footer lession_card" id="lession_card_' + response.id + '"></div></div>';
                         $('.contenido').append(nuevoContenido);
 
                         // Limpia el formulario y cierra el modal
@@ -278,28 +278,27 @@
                     success: function(response) {
                         // Actualiza la vista con la lección recién agregada
                         var nuevaLeccion =
-                            '<div class="card"><div class="card-body"><strong>Leccion: </strong> <span class="span_nombre_' +
+                            '<div class="card lession_card"><div class="card-body"><strong>Leccion: </strong> <span class="span_nombre_' +
                             response.id + '">' +
                             response.nombre +
                             '</span><span class="float-right">' +
                             '<button type="button" class="btn btn-primary btn-sm ml-2" data-toggle="modal" ' +
-                            'data-target="#modalEditarLeccion" data-contenido-id="' + response
-                            .contenido_id +
+                            'data-target="#modalEditarLeccion" data-leccion-id="' + response
+                            .id +
                             '" data-toggle="tooltip" data-placement="top" title="Editar Leccion">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
-                            '<form action="{{ route('admin.lecciones.destroy', $lesion->id) }}" method="POST" ' +
+                            '<form action="{{isset($lesion->id) ? route('admin.lecciones.destroy', $lesion->id) : '' }}" method="POST" ' +
                             'style="display: inline;">' +
                             '@csrf' +
                             '@method('DELETE')' +
-                            '<button type="submit" class="btn btn-danger btn-sm" onclick="confirmarEliminar(event)" ' +
+                            '<button type="submit" class="btn btn-danger btn-sm ml-1" onclick="confirmarEliminar(event)" ' +
                             'data-toggle="tooltip" data-placement="top" title="Eliminar Leccion">' +
                             '<i class="fas fa-trash"></i>' +
                             '</button>' +
                             '</form>' +
                             '</span>' +
                             '</div></div>';
-
                         $('#lession_card_' + response.contenido_id).append(nuevaLeccion);
 
                         // Limpia el formulario y cierra el modal
@@ -371,11 +370,11 @@
                 // Envía los datos del formulario mediante AJAX
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route('admin.lecciones.modificar') }}',
+                    url: '{{ route('admin.lecciones.modificar') }}',                                        
                     data: $(this).serialize(),
                     success: function(response) {
                         // Actualiza la vista con la lección recién agregada
-                        var LeccionActualizada = response.nombre;
+                        var LeccionActualizada = response.nombre;                  
 
                         $('.span_nombre_' + response.id).text(response.nombre);
 
@@ -415,13 +414,13 @@
         }
     </script>
 
-<script>
-    $(document).ready(function() {
-        $('.card-body').click(function(event) {               
-            if (!$(event.target).is('button')) {
-                $(this).siblings('.card-footer').slideToggle();
-            }
+    <script>
+        $(document).ready(function() {
+            $('.card-body').click(function(event) {
+                if (!$(event.target).is('button')) {
+                    $(this).siblings('.card-footer').slideToggle();
+                }
+            });
         });
-    });
-</script>
+    </script>
 @stop

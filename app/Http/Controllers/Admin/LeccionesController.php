@@ -34,9 +34,9 @@ class LeccionesController extends Controller
         // Puedes devolver la respuesta con el contenido creado
         return response()->json([
             'success' => true,
+            'id' => $leccion->id,
             'nombre' => $leccion->nombre,
-            'contenido_id' => $leccion->contenido_curso_id,
-            // Agrega otros datos que quieras devolver
+            'contenido_id' => $leccion->contenido_curso_id,            // Agrega otros datos que quieras devolver
         ]);
     }
 
@@ -51,7 +51,7 @@ class LeccionesController extends Controller
     }
 
     public function modificar(Request $request)
-    {
+    {       
         // Obtener el ID del contenido a modificar
         $leccionId = $request->leccion_id;
 
