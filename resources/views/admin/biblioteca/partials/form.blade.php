@@ -5,6 +5,7 @@
         <p class="text-danger">{{ $message }}</p>
     @enderror
 </div>
+
 <div class="col-md-6">
     {!! Form::label('autor', 'Autor', ['class' => 'form-label']) !!}
     {!! Form::text('autor', null, ['class' => 'form-control', 'required']) !!}
@@ -12,6 +13,7 @@
         <p class="text-danger">{{ $message }}</p>
     @enderror
 </div>
+
 <div class="col-12">
     {!! Form::label('descripcion', 'Descripción', ['class' => 'form-label']) !!}
     {!! Form::textarea('descripcion', null, ['class' => 'form-control', 'rows' => 3, 'required']) !!}
@@ -19,6 +21,7 @@
         <p class="text-danger">{{ $message }}</p>
     @enderror
 </div>
+
 <div class="col-md-4">
     {!! Form::label('anio_publicacion', 'Año de Publicación', ['class' => 'form-label']) !!}
     {!! Form::number('anio_publicacion', null, ['class' => 'form-control', 'required']) !!}
@@ -26,6 +29,7 @@
         <p class="text-danger">{{ $message }}</p>
     @enderror
 </div>
+
 <div class="col-md-4">
     <div class="form-group">
         {!! Form::label('category_id', 'Categoría') !!}
@@ -34,10 +38,11 @@
             'placeholder' => 'Seleccione una categoría',
         ]) !!}
         @error('category_id')
-            <samp class="text-danger">{{ $message }}</samp>
+            <p class="text-danger">{{ $message }}</p>
         @enderror
     </div>
 </div>
+
 <div class="col-md-4">
     <div class="form-group">
         {!! Form::label('status', 'Estado') !!}
@@ -46,10 +51,11 @@
             'placeholder' => 'Seleccione una opción',
         ]) !!}
         @error('status')
-            <samp class="text-danger">{{ $message }}</samp>
+            <p class="text-danger">{{ $message }}</p>
         @enderror
     </div>
 </div>
+
 <div class="col-md-6">
     <div class="form-group">
         {!! Form::label('image', 'Imagen del Libro') !!}
@@ -67,14 +73,14 @@
                         @endisset
                     </figure>
                 </div>
-                <div >
+                <div>
                     <div>
                         {!! Form::file('image', ['class' => 'form-control p-1', 'id' => 'image']) !!}
                     </div>
                 </div>
             </div>
             @error('image')
-                <samp class="text-danger">{{ $message }}</samp>
+                <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
     </div>

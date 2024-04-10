@@ -35,19 +35,18 @@
             }
         }
     </style>
+
     <div class="swiper-container">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <img class="swiper-slide-pc"
-                    src="{{ asset('img/home/catalogo.png') }}"
-                    alt="Banner para PC">
+                <img class="swiper-slide-pc" src="{{ asset('img/home/catalogo.png') }}" alt="Banner para PC">
                 <img class="swiper-slide-mobile" src="https://stsci-opo.org/STScI-01EVT7Y3Z5FY1FJ6TGH49V9SKR.jpg"
                     alt="Banner para móvil">
             </div>
-        </div>     
+        </div>
     </div>
 
-    
-    
-    @livewire('catalogo-cursos')     
+
+
+    @livewire('catalogo-cursos')
 </x-app-layout>

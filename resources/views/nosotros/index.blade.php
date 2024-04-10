@@ -1,8 +1,8 @@
 <x-app-layout>
     @section('title', '- Nosotros')
+
     <!-- Banner con imagen -->
-    <section class="py-32 text-center text-black bg-fixed bg-cover bg-center"
-        style="background-image: url(https://solkem.com.ar/wp-content/uploads/solkem_BANNER_NOSOTROS-min.png)">
+    <section class="py-32 text-center text-black bg-fixed bg-cover bg-center banner"  style="background-image: url(https://solkem.com.ar/wp-content/uploads/solkem_BANNER_NOSOTROS-min.png)">
         <div class="container mx-auto">
             <h1 class="text-4xl font-bold mb-4 text-white">Bienvenidos a Nuestra Empresa</h1>
             <p class="text-lg text-white">Descubre más sobre nuestra historia y nuestros valores.</p>
@@ -22,12 +22,10 @@
             <!-- Imagen de la Historia de la Empresa -->
             <div class="md:w-1/2">
                 <img src="https://kinsta.com/es/wp-content/uploads/sites/8/2021/12/about-us-page-1024x512.png"
-                    alt="Imagen de la Empresa" class="mx-auto rounded-lg mb-8 shadow-lg md:ml-12" style="width: 400px;">
+                    alt="Imagen de la Empresa" class="mx-auto rounded-lg mb-8 shadow-lg md:ml-12 img-history">
             </div>
         </div>
     </section>
-
-
 
     <!-- Contenedor principal con margen superior e inferior -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
@@ -36,7 +34,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <!-- Sección de Visión -->
-            <div class="border border-gray-300 p-8">
+            <div class="border border-gray-300 p-8 vision">
                 <section class="text-center">
                     <h2 class="text-2xl font-bold mb-4">Nuestra Visión</h2>
                     <p class="text-gray-700 text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -45,7 +43,7 @@
             </div>
 
             <!-- Sección de Misión -->
-            <div class="border border-gray-300 p-8">
+            <div class="border border-gray-300 p-8 mission">
                 <section class="text-center">
                     <h2 class="text-2xl font-bold mb-4">Nuestra Misión</h2>
                     <p class="text-gray-700 text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -54,7 +52,7 @@
             </div>
 
             <!-- Sección de Valores -->
-            <div class="border border-gray-300 p-8">
+            <div class="border border-gray-300 p-8 values">
                 <section class="text-left">
                     <h2 class="text-2xl font-bold mb-4">Nuestros Valores</h2>
                     <ul class="text-gray-700">
@@ -73,7 +71,7 @@
             </div>
 
             <!-- Sección de Objetivos -->
-            <div class="border border-gray-300 p-8">
+            <div class="border border-gray-300 p-8 objectives">
                 <section class="text-left">
                     <h2 class="text-2xl font-bold mb-4">Nuestros Objetivos</h2>
                     <ul class="text-gray-700">
@@ -93,7 +91,7 @@
         </div>
     </div>
 
-    <section class="mt-24 bg-gray-700 py-12">
+    <section class="mt-24 bg-gray-700 py-12 contact">
         <h1 class="text-center text-white text-3xl">Contáctanos</h1>
         <div class="flex flex-wrap justify-center items-center gap-4 mt-10">
             <a href="https://wa.me/942407799?text=hola%20coopsemul%20quiero%20informacion%20!!"
@@ -118,14 +116,11 @@
                     +51 1 234 567 890
                 </a>
         </div>
-
     </section>
 
-
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 swiper-container mySwiper" style="margin-bottom:3rem">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 swiper-container mySwiper">
         <h1 class="text-gray-600 text-center text-3xl mb-6">NUESTROS DOCENTES</h1>
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper teachers">
             @foreach ($profesoresConPerfil as $profesor)
                 <div class="swiper-slide">
                     <div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -150,16 +145,10 @@
                     </div>
                 </div>
             @endforeach
-
-
-
-
         </div>
     </div>
 
     <!-- Add Pagination -->
     <div class="swiper-pagination" style="position: relative; margin-top: 10px"></div>
     <!-- Agrega botones de navegación -->
-    </div>
-
 </x-app-layout>

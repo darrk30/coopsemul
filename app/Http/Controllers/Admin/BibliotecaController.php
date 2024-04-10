@@ -17,7 +17,7 @@ class BibliotecaController extends Controller
     {
         $this->middleware('can:admin.libros.index')->only('index');
         $this->middleware('can:admin.libros.create')->only('store, create');
-        $this->middleware('can:admin.libros.edit')->only('edit', 'update');       
+        $this->middleware('can:admin.libros.edit')->only('edit', 'update');
         $this->middleware('can:admin.libros.descargar-libro')->only('descargarLibro');
         $this->middleware('can:admin.libros.abrir-archivo')->only('abrirArchivo');
     }
@@ -44,24 +44,17 @@ class BibliotecaController extends Controller
             'descripcion' => 'required|string',
             'anio_publicacion' => 'required|integer',
             'category_id' => 'required|exists:categories,id',
-            'archivo' => 'required_if:imagen,null|mimes:pdf,doc,docx|max:10240', // 10MB en kilobytes
-            'image' => 'required_if:archivo,null|image|mimes:jpeg,png,jpg,gif|max:2048', // requerido si no se envió un archivo
+            'archivo' => 'required_without:image|mimes:pdf,doc,docx|max:10240', // 10MB en kilobytes
+            'image' => 'required_without:archivo|image|mimes:jpeg,png,jpg,gif|max:2048', // requerido si no se envió un archivo
         ]);
 
-        // Subir archivo del libro a S3 si se envió
-        if ($request->hasFile('archivo')) {
-            $archivoPath = Storage::disk('s3')->put('libros', $request->file('archivo'));
-            $name = $request->file('archivo')->getClientOriginalName();
-        } else {
-            $archivoPath = null;
-        }
+        // Asignar $archivoPath y $name utilizando operador ternario
+        $archivoPath = $request->hasFile('archivo') ? Storage::disk('s3')->put('libros', $request->file('archivo')) : null;
+        $name = $request->hasFile('archivo') ? $request->file('archivo')->getClientOriginalName() : null;
 
-        // Subir imagen del libro a S3 si se envió
-        if ($request->hasFile('image')) {
-            $imagePath = Storage::disk('s3')->put('imagenlibro', $request->file('image'));
-        } else {
-            $imagePath = null;
-        }
+        // Asignar $imagePath utilizando operador ternario
+        $imagePath = $request->hasFile('image') ? Storage::disk('s3')->put('imagenlibro', $request->file('image')) : null;
+
 
         // Crear una nueva instancia del modelo Libro
         $libro = new Libro();
@@ -71,21 +64,22 @@ class BibliotecaController extends Controller
         $libro->anio_publicacion = $request->anio_publicacion;
         $libro->category_id = $request->category_id;
         $libro->status = $request->status;
-        $libro->url = $archivoPath; // Guardar la ruta del archivo en S3
+
+        // Asignar la ruta del archivo y el nombre
+        $libro->url = $archivoPath;
         $libro->nombreArchivo = $name;
+
+        // Guardar el libro
         $libro->save();
 
         // Guardar la imagen en la tabla polimórfica Image si se envió
         if ($imagePath) {
-            $image = new Image();
-            $image->url = $imagePath;
-            $image->imageable_id = $libro->id;
-            $image->imageable_type = Libro::class;
-            $image->save();
+            $libro->image()->create(['url' => $imagePath]);
         }
 
         return redirect()->route('admin.libros.index')->with('info', 'Libro creado correctamente.');
     }
+
 
     public function show(string $id)
     {
@@ -200,5 +194,4 @@ class BibliotecaController extends Controller
         // Verificar la autenticación y los permisos del usuario aquí
         return view('admin.biblioteca.verArchivo', compact('urlArchivo'));
     }
- 
 }
