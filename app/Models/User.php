@@ -100,15 +100,14 @@ class User extends Authenticatable
     }
     
     //para obtener los cursos del profesor
-    public function curso()
-    {
-        return $this->hasMany('App\Models\Curso');
-    }
-
-    //para obtener los cursos del alumno
     public function cursos()
     {
-        return $this->belongsToMany('App\Models\Curso')->withPivot('status');;
+        return $this->hasMany(Curso::class);
+    }
+
+    public function ciclos()
+    {
+        return $this->belongsToMany(Ciclo::class)->withPivot('status');
     }
 
     public function profile()

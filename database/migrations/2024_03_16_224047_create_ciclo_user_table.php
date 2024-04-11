@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('semanas', function (Blueprint $table) {
+        Schema::create('ciclo_user', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('descripcion');
             $table->unsignedBigInteger('ciclo_id')->nullable();
-            $table->foreign( 'ciclo_id' )->references( 'id' )->on('ciclos');
+            $table->foreign( 'ciclo_id' )->references( 'id' )->on( 'ciclos' )->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign( 'user_id' )->references( 'id' )->on( 'users' )->onDelete('cascade');
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('semanas');
+        Schema::dropIfExists('ciclo_user');
     }
 };

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Ciclo;
 use App\Models\Curso;
 use App\Models\Profile;
 use App\Models\User;
@@ -53,11 +53,11 @@ class InscripcionController extends Controller
 
             $user_id = $request->user_id;
             if ($user_id) {
-                $curso_id = $request->id;
+                $ciclo_id = $request->id;
                 $user = User::where('id', $user_id)->first();
                 // Verificar si el usuario ya está inscrito en el curso
-                $inscripcionExistente = DB::table('curso_user')
-                    ->where('curso_id', $curso_id)
+                $inscripcionExistente = DB::table('ciclo_user')
+                    ->where('ciclo_id', $ciclo_id)
                     ->where('user_id', $user_id)
                     ->exists();
                 if ($inscripcionExistente) {
@@ -66,8 +66,8 @@ class InscripcionController extends Controller
                     return back()->withErrors(['info' => 'El usuario ya esta matriculado en el curso']);
                 } else {
                     $user->assignRole('estudiante');
-                    DB::table('curso_user')->insert([
-                        'curso_id' => $curso_id,
+                    DB::table('ciclo_user')->insert([
+                        'ciclo_id' => $ciclo_id,
                         'user_id' => $user_id,
                         'status' => 1,
                     ]);
@@ -102,11 +102,11 @@ class InscripcionController extends Controller
                 $profile->save();
 
                 // Obtener el ID del curso desde el formulario
-                $curso_id = $request->id;
+                $ciclo_id = $request->id;
 
                 // Guardar la relación entre el usuario y el curso en la tabla intermedia
-                DB::table('curso_user')->insert([
-                    'curso_id' => $curso_id,
+                DB::table('ciclo_user')->insert([
+                    'ciclo_id' => $ciclo_id,
                     'user_id' => $user_id,
                     'status' => $request->status,
                 ]);
@@ -116,7 +116,7 @@ class InscripcionController extends Controller
             }
 
             // Redireccionar a donde quieras después de guardar los datos
-            return redirect()->route('admin.curso.index');
+            return redirect()->route('admin.ciclos.index');
         } catch (Throwable $e) {
             // En caso de error, revertir la transacción
             DB::rollBack();
@@ -183,14 +183,15 @@ class InscripcionController extends Controller
     {
     }
 
-    public function editar(Curso $curso, User $user)
+    public function editar(Ciclo $ciclo, User $user)
     {
-        return view('admin.inscripciones.edit', compact('user', 'curso'));
+        $cursos = Curso::pluck('nombre', 'id');
+        return view('admin.inscripciones.edit', compact('user', 'ciclo', 'cursos'));
     }
 
     public function update(Request $request, User $user)
     {
-        $curso_id = $request->id;
+        $ciclo_id = $request->id;
         $user_id = $request->user_id;
         $request->validate([
             'email' => 'required|email|unique:users,email,' . $user->id,
@@ -205,26 +206,39 @@ class InscripcionController extends Controller
         }
 
         // Verificar si se ha activado el cambio de curso y se ha proporcionado un código de curso
-        if ($request->filled('codigo')) {
+        if ($request->filled('curso_id')) {
             // Buscar el curso por el código proporcionado
-            $curso = Curso::where('codigo', $request->codigo)->first();
+            $curso = Curso::where('id', $request->curso_id)->first();
 
-            if ($curso) {
-                // Verificar si el usuario ya está inscrito en el nuevo curso
-                $inscripcionExistente = DB::table('curso_user')
-                    ->where('curso_id', $curso->id)
-                    ->where('user_id', $user_id)
-                    ->exists();
+            if ($curso && $curso->status == 1) {
+                
+                // Verificar si hay ciclos asociados al curso
+                if ($curso->ciclo->isNotEmpty()) {
+                    
+                    foreach ($curso->ciclo as $ciclo) {                        
+                        if ($ciclo->status == 1) {                           
+                            // Verificar si el usuario ya está inscrito en el nuevo curso
+                            $inscripcionExistente = DB::table('ciclo_user')
+                                ->where('ciclo_id', $ciclo->id)
+                                ->where('user_id', $user_id)
+                                ->exists();
 
-                if ($inscripcionExistente) {
-                    return back()->withErrors(['error' => 'El usuario ya está matriculado en el curso al que intenta cambiar.']);
+                            if ($inscripcionExistente) {
+                                return back()->withErrors(['error' => 'El usuario ya está matriculado en el curso al que intenta cambiar.']);
+                            }
+                            // Desvincular al usuario del curso anterior
+                            $user->ciclos()->detach($ciclo_id);
+                            // Vincular al usuario con el nuevo curso y actualizar su estado
+                            $user->ciclos()->attach($ciclo->id, ['status' => $request->status]);
+                        }else{
+                            return back()->withErrors(['error' => 'El curso no tiene ciclos activos']);
+                        }
+                    }
+                } else {
+                    return back()->withErrors(['error' => 'El curso no tiene ciclos asociados']);
                 }
-                // Desvincular al usuario del curso anterior
-                $user->cursos()->detach($curso_id);
-                // Vincular al usuario con el nuevo curso y actualizar su estado
-                $user->cursos()->attach($curso->id, ['status' => $request->status]);
             } else {
-                return back()->withErrors(['error' => 'El código de curso proporcionado no es válido.']);
+                return back()->withErrors(['error' => 'El curso no esta activo']);
             }
         }
 
@@ -233,86 +247,31 @@ class InscripcionController extends Controller
         $user->save();
 
         // Obtener la entrada en la tabla intermedia curso_user para el usuario y el curso en cuestión
-        $cursoUserEntry = DB::table('curso_user')
+        $cursoUserEntry = DB::table('ciclo_user')
             ->where('user_id', $user_id)
-            ->where('curso_id', $curso_id)
+            ->where('ciclo_id', $ciclo_id)
             ->first();
 
         // Si se encontró la entrada en la tabla intermedia, actualizar el estado
         if ($cursoUserEntry) {
-            DB::table('curso_user')
+            DB::table('ciclo_user')
                 ->where('user_id', $user_id)
-                ->where('curso_id', $curso_id)
+                ->where('ciclo_id', $ciclo_id)
                 ->update(['status' => $request->status]);
         }
 
         // Redireccionar con un mensaje de éxito
-        return redirect()->route('admin.curso.index')->with('success', 'Usuario actualizado correctamente.');
+        return redirect()->route('admin.ciclos.index')->with('success', 'Usuario actualizado correctamente.');
     }
-
-
-    // public function update(Request $request, User $user)
-    // {
-
-    //     $request->validate([
-    //         'email' => 'required|email|unique:users,email,' . $user->id,
-    //         'status' => 'required|in:0,1',
-    //         'password' => 'nullable|string|min:8',
-    //         'status' => 'required|in:0,1',
-    //         'curso' => 'nullable|string', // Aquí puedes ajustar la validación según tus necesidades
-    //     ]);
-
-    //     // Verificar si se ha ingresado una nueva contraseña
-    //     if ($request->filled('password')) {
-    //         $user->password = bcrypt($request->password);
-    //     }
-
-    //     // Verificar si se ha activado el cambio de curso y se ha proporcionado un código de curso
-    //     if ($request->filled('codigo')) {
-    //         // Buscar el curso por el código proporcionado
-    //         $curso = Curso::where('codigo', $request->codigo)->first();
-
-    //         if ($curso) {
-    //             // Actualizar la relación entre el usuario y el curso
-    //             $user->cursos()->sync([$curso->id]);
-    //         } else {
-    //             return back()->withErrors(['error' => 'El código de curso proporcionado no es válido.']);
-    //         }
-    //     }
-    //     // Actualizar datos del usuario
-    //     $user->email = $request->email;
-
-    //     // Obtener el estado actual del perfil
-    //     $perfilEstadoActual = $user->profile->status;
-
-    //     if ($request->status != $perfilEstadoActual) {
-    //         // Si el estado ha cambiado, realizar las acciones necesarias
-    //         if ($request->status == 0) {
-    //             $user->roles()->detach(); // Eliminar el rol asociado al usuario
-    //         } else {
-    //             $user->assignRole('Estudiante');
-    //         }
-
-    //         DB::table('curso_user')->insert([                
-    //             'status' => $request->status, // Aquí se actualiza el estado en la tabla curso_user
-    //         ]);
-    //         $user->profile->save();
-    //     }
-
-
-    //     $user->save();
-    //     // Redireccionar con un mensaje de éxito
-    //     return redirect()->route('admin.curso.index')->with('success', 'Usuario actualizado correctamente.');
-    // }
-
 
     public function destroy(string $id)
     {
+        
     }
 
 
-    public function matricular(Curso $curso)
+    public function matricular(Ciclo $ciclo)
     {
-        return view('admin.inscripciones.create', compact('curso'));
+        return view('admin.inscripciones.create', compact('ciclo'));
     }
 }

@@ -1,9 +1,8 @@
 <x-app-layout>
     @section('title', '- Consultas')
     <section class="container mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Contenedor de la información -->
-            <div class="max-w-md bg-white rounded-lg shadow-md p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" >
+            <div class="mx-auto max-w-md bg-white rounded-lg shadow-md p-6" style="border: solid;">
                 <h1 class="text-3xl font-bold mb-2 text-gray-800">Centro de Capacitación Profesional</h1>
                 <h2 class="text-xl font-bold mb-4 text-gray-700">Los Que Más Saben - AI PAEC</h2>
                 <div class="flex flex-col">
@@ -12,11 +11,10 @@
                     <span class="text-gray-600">Nombres: <span id="spnNombres"></span></span>
                 </div>
             </div>
-            <!-- Formulario de consultas -->
-            <div class="max-w-md">
+
+            <div class="max-w-md mx-auto" style="border: solid;">
                 <div class="bg-white rounded-lg overflow-hidden shadow-md">
                     <form id="form-consultas" class="p-6">
-
                         <div class="mb-4">
                             <img src="../Recursos/images/logo.png" alt="logo" class="w-24 mx-auto mb-4">
                         </div>
@@ -32,7 +30,6 @@
                             <label for="Resolucion" class="block mb-1">Seleccionar la Resolución</label>
                             <select id="Resolucion" name="Resolucion"
                                 class="w-full border border-gray-300 rounded-md py-2 px-3">
-                                <!-- Opciones generadas dinámicamente desde la base de datos -->
                                 <option value="1">Seleccionar</option>
                                 <option value="2">001-A2022-DUPG/CC.SS</option>
                                 <option value="3">909/2021 EPG - UNT</option>
@@ -45,7 +42,8 @@
                                 class="w-full border border-gray-300 rounded-md py-2 px-3">
                         </div>
                         <div class="mb-4">
-                            <button type="button" onclick="consultar()" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">CONSULTAR</button>
+                            <button type="button" onclick="consultar()"
+                                class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">CONSULTAR</button>
                             <p class="text-sm text-center">DUPGCCSSCONSULTAS@GMAIL.COM</p>
                         </div>
                         <div class="text-sm text-gray-600">
@@ -75,7 +73,8 @@
 
                     if (data.success) {
                         if (data.data.documento === "75235618") {
-                            spnDocumento.html('<span class="certificado-text">Certificado de:</span><br>' + data.data.documento);
+                            spnDocumento.html('<span class="certificado-text">Certificado de:</span><br>' + data
+                                .data.documento);
                         } else {
                             spnDocumento.text(data.data.documento);
                         }

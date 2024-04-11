@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\Admin\Ciclo;
 
 use App\Models\Ciclo;
-use App\Models\Curso as ModelsCurso;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Curso extends Component
+class CicloIndex extends Component
 {
     use WithPagination;
 
@@ -19,12 +18,13 @@ class Curso extends Component
     {
         $this->resetPage();
     }
-
     public function render()
     {
         //withCount es para contar los usuarios registrados en los cursos
-        $cursos = ModelsCurso::where('nombre', 'LIKE', '%' . $this->search . '%')->latest('id')->paginate(10);
-           
-        return view('livewire.admin.curso', compact('cursos'));
+        $ciclos = Ciclo::withCount('users')
+            ->where('nombre', 'LIKE', '%' . $this->search . '%')
+            ->latest('id')
+            ->paginate(10);
+        return view('livewire.admin.ciclo.ciclo-index', compact('ciclos'));
     }
 }

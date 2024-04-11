@@ -17,12 +17,7 @@
                     <li class="breadcrumb-item">
                         <a href="{{ route('admin.curso.contenido', $curso) }}" class="{{ request()->routeIs('admin.curso.contenido') ? 'text-blue font-weight-bold' : 'text-gray' }}">Contenido</a>
                     </li>
-                    @endcan
-                    @can('admin.curso.students')
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('admin.curso.students', $curso) }}" class="{{ request()->routeIs('admin.curso.students') ? 'text-blue font-weight-bold' : 'text-gray' }}">Estudiantes</a>
-                    </li>
-                    @endcan
+                    @endcan                  
                 </ol>
             </nav>
         </div>

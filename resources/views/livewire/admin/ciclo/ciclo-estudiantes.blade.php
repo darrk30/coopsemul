@@ -26,8 +26,8 @@
                                         <th>Apellidos</th>
                                         <th>DNI</th>
                                         <th>Email</th>
-                                        <th>Acciones</th>
                                         <th>Estado</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,10 +44,13 @@
                                             <td>{{ $estudiante->email }}</td>
                                             <td>
 
-                                                @foreach ($estudiante->cursos as $cours)
-                                                    @if ($cours->pivot->curso_id == $curso->id && $cours->pivot->user_id == $estudiante->id && $cours->pivot->status == 1)
+                                                @foreach ($estudiante->ciclos as $index)
+ 
+                                                    @if (
+                                                        $index->pivot->ciclo_id == $ciclo->id && $index->pivot->user_id == $estudiante->id && $index->pivot->status == 1)
                                                         <span class="badge badge-success">Inscrito</span>
-                                                    @elseif($cours->pivot->curso_id == $curso->id && $cours->pivot->user_id == $estudiante->id && $cours->pivot->status == 0)
+                                                    @elseif(
+                                                        $index->pivot->ciclo_id == $ciclo->id && $index->pivot->user_id == $estudiante->id && $index->pivot->status == 0)
                                                         <span class="badge badge-danger">Retirado</span>
                                                     @endif
                                                 @endforeach
@@ -60,7 +63,7 @@
                                             </td>
 
                                             <td>
-                                                <a href="{{ route('admin.matricula.editar', ['user' => $estudiante, 'curso' => $curso]) }}"
+                                                <a href="{{ route('admin.matricula.editar', ['user' => $estudiante, 'ciclo' => $ciclo]) }}"
                                                     class="btn btn-primary btn-sm">Editar</a>
                                             </td>
                                         </tr>

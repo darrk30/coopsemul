@@ -2,15 +2,16 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="text-slate-500 text-xl">Lista de Cursos</h1>
-        @can('admin.curso.create')
+        {{-- @can('admin.curso.create')
             <a class="btn btn-primary btn-sm" href="{{ route('admin.curso.create') }}">Nuevo Curso</a>
-        @endcan
+        @endcan --}}
+        <a class="btn btn-primary btn-sm" href="{{ route('admin.curso.create') }}">Nuevo Curso</a>
     </div>
     <div class="input-group mb-3">
         <input wire:model.live="search" type="text" class="form-control rounded" placeholder="Buscar Curso">
     </div>
 
-    @if ($cursos->count())
+    {{-- @if ($cursos->count())
         <div class="container">
             <div class="card-body">
                 <div class="table-responsive">
@@ -43,7 +44,7 @@
                                     <td>{{ $curso->descripcion }}</td>
                                     <td>
                                         <a href="{{ route('admin.curso.students', $curso) }}">
-                                            <i class="fas fa-users"></i> {{ $curso->users_count }}
+                                            <i class="fas fa-users"></i> {{ $curso->ciclo->users_count }}
                                         </a>
                                     </td>
 
@@ -69,6 +70,82 @@
                                     @endcan
                                 </tr>
                             @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                {{ $cursos->links() }}
+            </div>
+        </div>
+    @else
+        <div class="card-body text-center">
+            <strong>No se encontro registro para <span class="text-red">{{ $search }}</span></strong>
+        </div>
+    @endif --}}
+
+
+    @if ($cursos->count())
+        <div class="container">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table  class="table table-striped table-auto">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Semanas</th>
+                                <th>Certificación</th>                            
+                                <th>Precio</th>
+                                <th>Estado</th>
+                                <th>Creado</th>
+                                <th colspan="2">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($cursos as $curso)
+                                <tr>
+                                    <td>
+                                        @if ($curso->image)
+                                            <img src="{{ Storage::disk('s3')->url($curso->image->url) }}"
+                                                alt="Imagen del Curso"
+                                                style="width: 50px; height: 50px; border-radius: 50%;">
+                                        @else
+                                            <img src="ruta/a/imagen_predeterminada.jpg" alt="Imagen Predeterminada"
+                                                style="width: 50px; height: 50px; border-radius: 50%;">
+                                        @endif
+                                    </td>
+                                    <td>{{ $curso->codigo}}</td>
+                                    <td>{{ $curso->nombre }}</td>
+                                    <td>{{ $curso->duracion }}</td>
+                                    <td>
+                                        @if ($curso->certificado == 1)
+                                            Sí
+                                        @else
+                                            No
+                                        @endif
+                                    </td>
+                                    <td>S/ {{ $curso->precio->value }}</td>                                
+                                    <td>
+                                        @if ($curso->status == 1)
+                                            <span class="badge badge-success">Activo</span>
+                                        @else
+                                            <span class="badge badge-secondary">No activo</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $curso->created_at }}</td>
+                                    @can('admin.curso.edit')
+                                        <td width="10px">
+                                            <a href="{{ route('admin.curso.edit', $curso) }}"
+                                                class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                        </td>
+                                    @endcan
+                                </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>

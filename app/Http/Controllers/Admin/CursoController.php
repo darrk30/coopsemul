@@ -224,8 +224,5 @@ class CursoController extends Controller
         return view('admin.curso.contenido', compact('curso'));
     }
 
-    public function Students(Curso $curso)
-    {
-        return view('admin.curso.students', compact('curso'));
-    }
+    
 }

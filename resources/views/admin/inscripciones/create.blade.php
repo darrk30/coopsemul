@@ -32,8 +32,8 @@
 
                 <div class="form-group">
                     {!! Form::label('curso', 'Curso:') !!}
-                    {!! Form::text('curso', $curso->nombre, ['class' => 'form-control', 'placeholder' => 'Curso', 'readonly']) !!}
-                    {!! Form::hidden('id', $curso->id, ['class' => 'form-control', 'readonly']) !!}
+                    {!! Form::text('curso', $ciclo->curso->nombre, ['class' => 'form-control', 'placeholder' => 'Curso', 'readonly']) !!}
+                    {!! Form::hidden('id', $ciclo->id, ['class' => 'form-control', 'readonly']) !!}
                     @error('curso')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror

@@ -308,6 +308,7 @@ return [
             'route'        => 'admin.cursos.index',
             'can'        => 'admin.cursos.index',
             'active'    => ['*admin/cursos*'],
+            'active'    => ['*admin/ciclos/*'],
         ],
         [
             'text'       => 'Mi Biblioteca',
@@ -321,7 +322,15 @@ return [
             'can'        => 'admin.curso.index',
         ],
         [
-            'text' => 'Lista de Curso',
+            'text' => 'Lista de Ciclos',
+            'route' => 'admin.ciclos.index',
+            'icon' => 'fas fa-sync-alt',
+            'can'        => 'admin.ciclos.index',
+            'active'    => ['*admin/ciclos*'],
+            'active' => ['*admin/matricula*'],
+        ],
+        [
+            'text' => 'Lista de Cursos',
             'route' => 'admin.curso.index',
             'icon' => 'fas fa-fw fa-book',
             'can'        => 'admin.curso.index',

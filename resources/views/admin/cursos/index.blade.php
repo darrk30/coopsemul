@@ -9,30 +9,61 @@
 
 @section('content')
     <section class="container">
-        <div class="row">
-            @forelse ($MisCursos as $curso)
-                <div class="col-md-4 mb-4">
-                    <div class="card curso-card shadow">
-                        <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Curso">
-                        <div class="card-body">
-                            <div style="height: 5rem;">
-                                <h2 class="card-title text-lg font-semibold text-gray-800">{{ $curso->nombre }}</h2>
+        @if (Auth::user()->hasRole('Profesor'))
+
+            <div class="row">
+                @forelse ($MisCursos as $curso)
+                    @foreach ($curso->ciclo as $Ciclo)
+                        <div class="col-md-4 mb-4">
+                            <div class="card curso-card shadow">
+                                <img src="{{ Storage::disk('s3')->url($Ciclo->curso->image->url) }}" alt="Curso">
+                                <div class="card-body">
+                                    <div style="height: 5rem;">
+                                        <h2 class="card-title text-lg font-semibold text-gray-800">{{ $Ciclo->curso->nombre }}</h2>
+                                    </div>
+                                    <p class=" text-gray-600">Ciclo: {{ $Ciclo->nombre }}</p>
+                                    <p class=" text-gray-600">Profesor: {{ $Ciclo->curso->user->name }}</p>
+                                    <a href="{{ route('admin.ciclos.show', $Ciclo) }}" class="btn btn-primary">Ir al
+                                        Curso</a>
+                                </div>
                             </div>
-                            
-                            <p class=" text-gray-600">Profesor: {{ $curso->user->name }}</p>
-                            <a href="{{ route('admin.cursos.show', $curso) }}"
-                                class="btn btn-primary">Ir al Curso</a>
+                        </div>
+                    @endforeach
+
+                @empty
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+                            <h4 class="alert-heading">No Tiene cursos asignados en este momento.</h4>
                         </div>
                     </div>
-                </div>
-            @empty
-                <div class="col-md-12">
-                    <div class="alert alert-info" role="alert">
-                        <h4 class="alert-heading">No Tiene cursos asignados en este momento.</h4>
+                @endforelse
+            </div>
+        @else
+            <div class="row">
+                @forelse ($MisCiclos as $ciclo)
+                    <div class="col-md-4 mb-4">
+                        <div class="card curso-card shadow">
+                            <img src="{{ Storage::disk('s3')->url($ciclo->curso->image->url) }}" alt="Curso">
+                            <div class="card-body">
+                                <div style="height: 5rem;">
+                                    <h2 class="card-title text-lg font-semibold text-gray-800">{{ $ciclo->curso->nombre }}
+                                    </h2>
+                                </div>
+
+                                <p class=" text-gray-600">Profesor: {{ $ciclo->curso->user->name }}</p>
+                                <a href="{{ route('admin.ciclos.show', $ciclo) }}" class="btn btn-primary">Ir al Curso</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            @endforelse
-        </div>
+                @empty
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+                            <h4 class="alert-heading">No Tiene cursos asignados en este momento.</h4>
+                        </div>
+                    </div>
+                @endforelse
+            </div>
+        @endif
     </section>
 
     <style>

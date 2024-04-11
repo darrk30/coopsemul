@@ -10,9 +10,9 @@ class Semana extends Model
     protected $guarded = ['id'];
     use HasFactory;
 
-    public function curso()
+    public function ciclo()
     {
-        return $this->belongsTo('App\Models\Curso');
+        return $this->belongsTo('App\Models\Ciclo');
     }
 
     public function recursos()

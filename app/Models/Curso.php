@@ -16,11 +16,8 @@ class Curso extends Model
         return "slug";
     }
 
-    public function cantidadUsuarios()
-    {
-        return $this->users()->count();
-    }
-            
+
+
     public function image(){
         return $this->morphOne('App\Models\Image', 'imageable');
     }
@@ -32,21 +29,26 @@ class Curso extends Model
     public function contenidos(){
         return $this->hasMany(ContenidoCurso::class);
     }
+
+    // public function user(){
+    //     return $this->belongsTo('App\Models\User');
+    // }
+
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class)->withPivot('status');;
+    // }
+    public function ciclo(){
+        return $this->hasMany('App\Models\Ciclo');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
     
-    public function user(){
-        return $this->belongsTo('App\Models\User');
-    }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class)->withPivot('status');;
-    }
-
-
-    public function semanas()
-    {
-        return $this->hasMany('App\Models\Semana');
-    }
 
     public function link()
     {
@@ -60,5 +62,5 @@ class Curso extends Model
     public function level(){
         return $this->belongsTo('App\Models\Level');
     }
-    
+
 }

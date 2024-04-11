@@ -5,28 +5,6 @@
 <x-breadcrumb-curso :curso="$curso">
 </x-breadcrumb-curso>
 
-{{-- 
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item bg-gray-400"><a href="{{ route('admin.curso.index') }}"
-                                class="bg-gray-300">Home</a>
-                        </li>
-                        <li class="breadcrumb-item" aria-current="page"><a href="{{ route('admin.curso.edit', $curso) }}"
-                                class="bg-blue-500">Editar</a></li>
-                        <li class="breadcrumb-item  bg-gray-400"><a href="{{ route('admin.curso.contenido', $curso) }}"
-                                class="bg-gray-300">Contenido</a></li>
-                        <li class="breadcrumb-item  bg-gray-400"><a href="{{ route('admin.curso.students', $curso) }}"
-                                class="bg-gray-300">Estudiantes</a></li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div> --}}
-
-
 @stop
 
 @section('content')

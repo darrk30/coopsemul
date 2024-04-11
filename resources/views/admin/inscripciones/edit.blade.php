@@ -36,10 +36,11 @@
                                     'class' => 'custom-control-input',
                                     'id' => 'activate_curso',
                                 ]) !!}
-                                <label class="custom-control-label" id="label_cambio" for="activate_curso">Cambiar Curso</label>
+                                <label class="custom-control-label" id="label_cambio" for="activate_curso">Cambiar
+                                    Curso</label>
                             </div>
-                            
-                            
+
+
                             {{-- <div class="custom-control custom-checkbox d-inline-block"> <!-- Hacer el checkbox en línea -->
                                 {!! Form::checkbox('activate_curso', 'activate', false, [
                                     'class' => 'custom-control-input',
@@ -65,15 +66,81 @@
                         </ul>
                     </div>
                 @endif
+
                 <div class="form-group">
                     {!! Form::label('curso', 'Curso:') !!}
-                    {!! Form::text('curso', $curso->nombre, ['class' => 'form-control', 'placeholder' => 'Curso', 'readonly', 'id' => 'curso']) !!}
-                    {!! Form::hidden('id', $curso->id, ['class' => 'form-control', 'id' => 'codigo']) !!}
+                    {!! Form::text('curso', $ciclo->curso->nombre, [
+                        'class' => 'form-control',
+                        'placeholder' => 'Curso',
+                        'readonly',
+                        'id' => 'curso',
+                    ]) !!}
+                    {!! Form::hidden('id', $ciclo->id, ['class' => 'form-control', 'id' => 'codigo']) !!}
                     @error('curso')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+                <div class="form-group" id="select_curso" style="display: none;">
+                    {!! Form::label('curso_id', 'Curso:') !!}
+                    {!! Form::select('curso_id', $cursos, null, ['class' => 'form-control', 'placeholder' => 'Seleccione un curso']) !!}
+                    @error('curso_id')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+
                 <script>
+                    document.getElementById('activate_curso').addEventListener('change', function() {
+                        var checkbox = this;
+                        var cursoInput = document.getElementById('curso');
+                        var cicloIdInput = document.getElementById('codigo');
+                        var selectCurso = document.getElementById('select_curso');
+                        var labelCurso = document.querySelector('label[for="curso"]');
+                        var labelCambio = document.getElementById('label_cambio');
+                
+                        if (checkbox.checked) {
+                            cursoInput.style.display = 'none';
+                            cursoInput.value = ''; // Limpiar el campo de texto
+                            cicloIdInput.style.display = 'none';
+                            cicloIdInput.value = ''; // Limpiar el campo oculto
+                            labelCurso.style.display = 'none'; // Ocultar el label del campo de texto
+                
+                            // Mostrar el campo de selección
+                            selectCurso.style.display = 'block';
+                
+                            // Limpiar el contenido del campo de selección
+                            selectCurso.value = '';
+                
+                            // Cambiar el texto y estilo del label del checkbox
+                            labelCambio.textContent = 'Cancelar Cambio';
+                            labelCambio.style.color = 'red';
+                        } else {
+                            // Mostrar el campo de texto y el input hidden
+                            cursoInput.style.display = 'block';
+                            cursoInput.value = '{{ $ciclo->curso->nombre }}';
+                            cicloIdInput.style.display = 'block';
+                            cicloIdInput.value = '{{ $ciclo->id }}';
+                            labelCurso.style.display = 'block'; // Mostrar el label del campo de texto
+                
+                            // Ocultar el campo de selección
+                            selectCurso.style.display = 'none';
+                
+                            // Limpiar el contenido del campo de selección
+                            selectCurso.value = '';
+                
+                            // Cambiar el texto y estilo del label del checkbox
+                            labelCambio.textContent = 'Cambiar Curso';
+                            labelCambio.style.color = 'black';
+                        }
+                    });
+                </script>
+                
+
+
+
+
+
+                {{-- <script>
                     document.getElementById('activate_curso').addEventListener('change', function() {
                         var checkbox = this;
                         var cursoInput = document.getElementById('curso');
@@ -102,7 +169,7 @@
                             location.reload();
                         }
                     });
-                </script>
+                </script> --}}
                 {{-- <div class="form-group">
                     {!! Form::label('curso', 'Curso:') !!}
                     {!! Form::text('curso', $curso->nombre, ['class' => 'form-control', 'placeholder' => 'Curso', 'readonly']) !!}
@@ -120,7 +187,7 @@
                             'id' => 'dni',
                             'readonly',
                         ]) !!}
-                         {!! Form::hidden('user_id', $user->id, ['class' => 'form-control', 'id' => 'user_id']) !!}
+                        {!! Form::hidden('user_id', $user->id, ['class' => 'form-control', 'id' => 'user_id']) !!}
                     </div>
 
                     @error('dni')
@@ -157,7 +224,10 @@
 
                 <div class="form-group">
                     {!! Form::label('email', 'Email:') !!}
-                    {!! Form::email('email', $user->email ?? null, ['class' => 'form-control', 'placeholder' => 'Ingrese el Correo del estudiante']) !!}
+                    {!! Form::email('email', $user->email ?? null, [
+                        'class' => 'form-control',
+                        'placeholder' => 'Ingrese el Correo del estudiante',
+                    ]) !!}
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -191,7 +261,12 @@
 
                 <div class="form-group">
                     {!! Form::label('status', 'Status:') !!}
-                    {!! Form::select('status', ['1' => 'Inscrito', '0' => 'Retirado'], $user->cursos()->where('curso_id', $curso->id)->first()->pivot->status ?? null, ['class' => 'form-control']) !!}
+                    {!! Form::select(
+                        'status',
+                        ['1' => 'Inscrito', '0' => 'Retirado'],
+                        $user->ciclos()->where('ciclo_id', $ciclo->id)->first()->pivot->status ?? null,
+                        ['class' => 'form-control'],
+                    ) !!}
 
                     @error('status')
                         <span class="text-danger">{{ $message }}</span>
