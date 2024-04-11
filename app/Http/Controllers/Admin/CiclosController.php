@@ -110,8 +110,10 @@ class CiclosController extends Controller
     {
         // Aquí puedes obtener la semana_id del request y usarla para generar el formulario
         $semana_id = $request->input('semana_id');
+        $curso_nombre = $request->curso_nombre;
+        $ciclo_nombre = $request->ciclo_nombre;
 
-        $formulario = '<form action="' . route('admin.ciclos.crear_recurso', ['semana_id' => $semana_id]) . '" method="POST" enctype="multipart/form-data">';
+        $formulario = '<form action="' . route('admin.ciclos.crear_recurso', ['semana_id' => $semana_id, 'curso_nombre' => $curso_nombre, 'ciclo_nombre' => $ciclo_nombre]) . '" method="POST" enctype="multipart/form-data">';
         $formulario .= csrf_field(); // Agregamos el token CSRF de forma dinámica
         $formulario .= '<div class="form-group">';
         $formulario .= '<label for="title">Titulo</label>';
@@ -172,7 +174,7 @@ class CiclosController extends Controller
     }
 
 
-    public function crear_recurso(Request $request, $id_semana)
+    public function crear_recurso(Request $request, $id_semana, $curso_nombre, $ciclo_nombre)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -181,7 +183,7 @@ class CiclosController extends Controller
         ]);
         // Subir archivo del documento a S3 si se envió
         if ($request->hasFile('file')) {
-            $archivoPath = Storage::disk('s3')->put('RecursosAulaVirtual', $request->file('file'));
+            $archivoPath = Storage::disk('s3')->put('RecursosAulaVirtual/' . $curso_nombre . '/' . $ciclo_nombre . '/', $request->file('file'));
             $name = $request->file('file')->getClientOriginalName();
         } else {
             $archivoPath = null;

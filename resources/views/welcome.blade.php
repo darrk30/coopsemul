@@ -38,15 +38,16 @@
     <div class="swiper-container">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <img class="swiper-slide-pc" src="{{ asset('img/baners/PORTADA_1_PC.jpg') }}" alt="Banner para PC">
+                <img class="swiper-slide-pc" src="{{ asset('img/baners/PORTADA_1_PC.jpg') }}" alt="Capacitación docente">
                 <img class="swiper-slide-mobile" src="{{ asset('img/baners/PORTADA_2_MOVIL.jpg') }}"
                     alt="Banner para móvil">
-            </div>
+            </div>          
             <div class="swiper-slide">
-                <img class="swiper-slide-pc" src="{{ asset('img/baners/PORTADA_1_PC.jpg') }}" alt="Banner para PC">
-                <img class="swiper-slide-mobile" src="{{ asset('img/baners/PORTADA_2_MOVIL.jpg') }}"
-                    alt="Banner para móvil">
+                <img class="swiper-slide-pc" src="{{ asset('img/baners/baner_03.png') }}" alt="Capacitación docente">
+                {{-- <img class="swiper-slide-mobile" src="{{ asset('img/baners/PORTADA_2_MOVIL.jpg') }}"
+                    alt="Banner para móvil"> --}}
             </div>
+
             <!-- Agrega más slides según sea necesario -->
         </div>
         <!-- Controles de navegación -->
@@ -111,25 +112,33 @@
 
 
     <section class="mt-24 bg-gray-700 py-12">
-        <h1 class="text-center text-white text-3xl">¿Estas listo para tu Nombramiento?</h1>
-        <p class="text-center text-white mt-2">Dirígete a nuestro catalogo de cursos</p>
+        <h1 class="text-center text-white text-3xl">¿ESTÁS BUSCANDO TU ESTABILIDAD LABORAL Y UNA MEJOR REMUNERACIÓN
+            MENSUAL?</h1>
+        <p class="text-center text-white mt-2">Dirígete a nuestro catálogo de cursos</p>
         <div class="flex justify-center mt-5">
             <a href="{{ route('curso.index') }}"
                 class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nuestro
-                Catalogo</a>
+                Catálogo</a>
         </div>
 
     </section>
 
 
     <section class="mt-24 mb-5">
-        <h1 class="text-center text-3xl text-gray-700 mb-6">ULTIMOS CURSOS</h1>
+        <h1 class="text-center text-3xl text-gray-700 mb-6">NUESTROS CURSOS</h1>
         <div
             class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
             @foreach ($cursos as $curso)
                 <article class="bg-white shadow-white rounded overflow-hidden">
-                    <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso"
-                        class="lg:block md:hidden block rounded-lg shadow-lg" style="width: 400px; height: 300px;">
+                    @if (isset($curso->image->url))
+                        <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso"
+                            class="lg:block md:hidden block rounded-lg shadow-lg" style="width: 400px; height: 300px;">
+                    @else
+                        <!-- Aquí puedes poner una imagen predeterminada o dejarlo en blanco según prefieras -->
+                        <img src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg" alt="Imagen predeterminada del Curso"
+                            class="lg:block md:hidden block rounded-lg shadow-lg" style="width: 400px; height: 300px;">
+                    @endif
+
                     <div class="px-5 py-4">
                         <div class="mb-2 h-14">
                             <h1 class="text-base text-gray-700 mb-2 leading-6">
@@ -137,7 +146,9 @@
                         </div>
 
                         <div class="mb-2">
-                            <p class="text-gray-500 text-sm">Prof: {{ $curso->user->name }}</p>
+                            @if (isset($curso->user->name))
+                            <p class="text-gray-500 text-sm">Prof: {{ $curso->user->name }} {{ $curso->user->profile->apellidos }}</p>
+                            @endif
                         </div>
                         <div class="mb-2">
                             <p class="text-gray-500 text-sm">Fecha de Publicación:

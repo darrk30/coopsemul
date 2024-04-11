@@ -89,7 +89,7 @@ Route::get('ciclos/recurso/formulario', [CiclosController::class, 'formularioRec
 
 Route::delete('ciclos/eliminar/{tipo}/{id}', [CiclosController::class, 'eliminar'])->name('admin.ciclos.eliminar_S_R');
 
-Route::post('ciclos/crear_recurso/{semana_id}', [CiclosController::class, 'crear_recurso'])->name('admin.ciclos.crear_recurso');
+Route::post('ciclos/crear_recurso/{semana_id}/{curso_nombre}/{ciclo_nombre}', [CiclosController::class, 'crear_recurso'])->name('admin.ciclos.crear_recurso');
 
 Route::post('ciclos/descargar-recurso/{recursoId}', [CiclosController::class, 'descargarRecurso'])->name('admin.ciclos.descargar_recurso');
 

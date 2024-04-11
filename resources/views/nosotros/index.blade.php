@@ -2,7 +2,8 @@
     @section('title', '- Nosotros')
 
     <!-- Banner con imagen -->
-    <section class="py-32 text-center text-black bg-fixed bg-cover bg-center banner"  style="background-image: url(https://solkem.com.ar/wp-content/uploads/solkem_BANNER_NOSOTROS-min.png)">
+    <section class="py-32 text-center text-black bg-fixed bg-cover bg-center banner"
+        style="background-image: url(https://solkem.com.ar/wp-content/uploads/solkem_BANNER_NOSOTROS-min.png)">
         <div class="container mx-auto">
             <h1 class="text-4xl font-bold mb-4 text-white">Bienvenidos a Nuestra Empresa</h1>
             <p class="text-lg text-white">Descubre más sobre nuestra historia y nuestros valores.</p>
@@ -37,8 +38,10 @@
             <div class="border border-gray-300 p-8 vision">
                 <section class="text-center">
                     <h2 class="text-2xl font-bold mb-4">Nuestra Visión</h2>
-                    <p class="text-gray-700 text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer eget justo id turpis elementum ultricies nec at sem.</p>
+                    <p class="text-gray-700 text-justify">Ser una institución líder y referente en cuanto a capacitación
+                        docente y ascenso de escala y nombramiento, reconocida por su excelencia académica, su enfoque
+                        innovador en la enseñanza y el aprendizaje, y su capacidad para desarrollar docentes globales
+                        críticos, éticos y comprometidos con el cambio positivo en sus comunidades y en el mundo.</p>
                 </section>
             </div>
 
@@ -46,8 +49,12 @@
             <div class="border border-gray-300 p-8 mission">
                 <section class="text-center">
                     <h2 class="text-2xl font-bold mb-4">Nuestra Misión</h2>
-                    <p class="text-gray-700 text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer eget justo id turpis elementum ultricies nec at sem.</p>
+                    <p class="text-gray-700 text-justify">Nuestra misión es proporcionar una educación integral,
+                        innovadora y de alta calidad que empodere a los maestros para alcanzar su máximo potencial
+                        académico, personal y social. Nos comprometemos a ofrecer un entorno de aprendizaje seguro,
+                        inclusivo y estimulante que prepare a nuestros docentes para tener éxito en un mundo
+                        globalizado, fomentando al mismo tiempo el respeto por la diversidad y la responsabilidad
+                        social.</p>
                 </section>
             </div>
 
@@ -63,8 +70,58 @@
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm2-6a1 1 0 011 1v4a1 1 0 11-2 0V4a1 1 0 011-1z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Calidad
+                            Excelencia Académica: Compromiso con los más altos estándares de enseñanza y aprendizaje.
                         </li>
+                        <li class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm2-6a1 1 0 011 1v4a1 1 0 11-2 0V4a1 1 0 011-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Innovación: Búsqueda constante de métodos y prácticas educativas innovadoras que respondan a
+                            las necesidades del siglo XXI.
+                        </li>
+                        <li class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm2-6a1 1 0 011 1v4a1 1 0 11-2 0V4a1 1 0 011-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Integridad: Actuación con honestidad, transparencia y responsabilidad en todas nuestras
+                            acciones.
+                        </li>
+                        <li class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm2-6a1 1 0 011 1v4a1 1 0 11-2 0V4a1 1 0 011-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Sostenibilidad: Integración de prácticas sostenibles en nuestra operativa y currículo
+                            educativo para contribuir a la protección del medio ambiente.
+                        </li>
+                        <li class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm2-6a1 1 0 011 1v4a1 1 0 11-2 0V4a1 1 0 011-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Respeto: Fomento de un ambiente de respeto mutuo, inclusión y diversidad.
+                        </li>
+                        <li class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm2-6a1 1 0 011 1v4a1 1 0 11-2 0V4a1 1 0 011-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Compromiso con la Comunidad: Promoción de la participación activa de los docentes en
+                            proyectos sociales, fomentando el sentido de responsabilidad y compromiso con su entorno.
+                        </li>
+
                         <!-- Añade más elementos de la lista aquí -->
                     </ul>
                 </section>
@@ -76,14 +133,18 @@
                     <h2 class="text-2xl font-bold mb-4">Nuestros Objetivos</h2>
                     <ul class="text-gray-700">
                         <li class="flex items-center mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm2-6a1 1 0 011 1v4a1 1 0 11-2 0V4a1 1 0 011-1z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Satisfacción del Cliente
+                            ■ Académicos:Mejorar continuamente la calidad y relevancia del currículo educativo para
+                            cumplir y superar
+                            los estándares académicos nacionales e internacionales.<br>
+                            Incorporar tecnologías de información y comunicación en el proceso de enseñanza-aprendizaje
+                            para enriquecer la experiencia educativa de los estudiantes.
                         </li>
+                        <li class="flex items-center mb-2">
+                            ■ Desarrollo Personal y Social:Fomentar el desarrollo integral de los estudiantes a través de programas que promuevan el liderazgo, el trabajo en equipo, la empatía y la autoeficacia.<br>
+                            Implementar programas de orientación y apoyo psicológico que atiendan las necesidades
+                            emocionales y sociales de los estudiantes.
+                        </li>
+
                         <!-- Añade más elementos de la lista aquí -->
                     </ul>
                 </section>

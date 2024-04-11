@@ -2,7 +2,7 @@
 @section('title', 'Dashboard | Coopsemul')
 
 @section('content_header')
-    <div class="container">
+    <div class="container">        
         <h1 class="text-4xl text-center font-semibold">{{ $ciclo->curso->nombre }}</h1>
         <div class="d-flex justify-content-start align-items-center">
             @can('admin.ciclos.agregarSemana')
@@ -50,7 +50,7 @@
                                         @can('admin.ciclos.crear_recurso')
                                             <!-- Botón para crear un nuevo recurso -->
                                             <button type="button" class="btn btn-secondary btn-sm ml-2" data-toggle="modal"
-                                                data-target="#modalAgregarRecurso" data-semana-id="{{ $semana->id }}"
+                                                data-target="#modalAgregarRecurso" data-semana-id="{{ $semana->id }}" data-curso-nombre="{{ $ciclo->curso->nombre  }}" data-ciclo-nombre="{{ $ciclo->nombre  }}"
                                                 data-toggle="tooltip" data-placement="top" title="Crear Recurso">
                                                 <i class="fas fa-plus"></i>
                                             </button>
@@ -218,11 +218,15 @@
         $('#modalAgregarRecurso').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); 
             var semana_id = button.data('semana-id'); 
+            var curso_nombre = button.data('curso-nombre'); 
+            var ciclo_nombre = button.data('ciclo-nombre'); 
             $.ajax({
                 url: "{{ route('admin.ciclos.formulario') }}",
                 type: "GET",
                 data: {
-                    semana_id: semana_id 
+                    semana_id: semana_id,
+                    curso_nombre: curso_nombre,
+                    ciclo_nombre: ciclo_nombre,
                 },
                 success: function(response) {
                     $('#modalBodyAgregarRecurso').html(

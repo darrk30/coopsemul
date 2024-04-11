@@ -48,7 +48,7 @@
                     @foreach ($contenido->lesions as $lesion)
                         <div class="card lession_card leccion_{{ $lesion->id }}">
                             <div class="card-body">
-                                <strong>Leccion: </strong><span
+                                <strong>Lección: </strong><span
                                     class="span_nombre_{{ $lesion->id }}">{{ $lesion->nombre }}</span>
                                 <span class="float-right">
                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"

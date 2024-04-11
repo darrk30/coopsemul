@@ -35,7 +35,9 @@
                             <div class="w-full sm:w-2/3 p-4">
                                 <h1 class="text-xl text-gray-800 font-semibold mb-2">{{ $curso->nombre }}</h1>
                                 <p class="text-gray-500 text-sm mb-2">{{ $curso->descripcion }}</p>
+                                @if (isset($curso->user->name))
                                 <p class="text-gray-500 text-sm mb-2">Profesor: {{ $curso->user->name }}</p>
+                                @endif
                                 <p class="text-gray-500 text-sm mb-2">Fecha de publicación:
                                     {{ $curso->created_at->format('d/m/Y') }}</p>
                                 <p class="text-gray-500 text-lg mb-2 font-bold">S/ {{ $curso->precio->value }}</p>
