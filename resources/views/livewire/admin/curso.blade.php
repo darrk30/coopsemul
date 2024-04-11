@@ -8,7 +8,7 @@
         <a class="btn btn-primary btn-sm" href="{{ route('admin.curso.create') }}">Nuevo Curso</a>
     </div>
     <div class="input-group mb-3">
-        <input wire:model.live="search" type="text" class="form-control rounded" placeholder="Buscar Curso">
+        <input wire:model.live.debounce.250ms="search" type="text" class="form-control rounded" placeholder="Buscar Curso">
     </div>
 
     {{-- @if ($cursos->count())

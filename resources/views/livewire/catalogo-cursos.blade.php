@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div class="flex flex-wrap mb-4">
             <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
-                <input wire:model.live="search" type="text" class="form-input rounded w-full" placeholder="Buscar Curso">
+                <input wire:model.live.debounce.250ms="search" type="text" class="form-input rounded w-full" placeholder="Buscar Curso">
             </div>
             <div class="w-full md:w-1/3 px-2">
                 <select wire:model.live="categoria_id" class="form-select w-full rounded">

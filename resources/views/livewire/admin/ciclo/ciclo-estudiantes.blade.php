@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="input-group">
-                            <input wire:model.live="search" type="text" class="form-control rounded"
+                            <input wire:model.live.debounce.250ms="search" type="text" class="form-control rounded"
                                 placeholder="Buscar Curso">
                         </div>
                     </div>

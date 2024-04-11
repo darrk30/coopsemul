@@ -7,7 +7,7 @@
         {{-- @endcan --}}
     </div>
     <div class="input-group mb-3">
-        <input wire:model.live="search" type="text" class="form-control rounded" placeholder="Buscar Colaborador">
+        <input wire:model.live.debounce.250ms="search" type="text" class="form-control rounded" placeholder="Buscar Colaborador">
     </div>
 
     @if ($colaboradores->count())
