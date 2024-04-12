@@ -47,12 +47,14 @@
             <div class="bg-white rounded-md p-4 shadow-md md:flex-2 md:ml-4 w-full md:w-2/5" style="height: 100%;">
                 <h2 class="text-xl font-bold mb-2  text-amber-400">Documentos</h2>
                 <div class="flex flex-col">
-                    @foreach ($documentos as $key => $documento)
+                    {{-- @foreach ($documentos as $key => $documento) --}}
                         <div class="bg-blue-200 p-2 rounded-md my-2">
-                            <a href="{{ $documento->url }}" download
-                                class="text-blue-600 hover:underline">{{ $documento->titulo }}</a>
+                            <a href="{{asset('img/noticias/cronograma_actividades.png')}}" download
+                                class="text-blue-600 hover:underline">Cronograma de Actividades</a>
+                            {{-- <a href="{{asset('img/noticias/cronograma_actividades.png')}}" download
+                                class="text-blue-600 hover:underline">{{ $documento->titulo }}</a> --}}
                         </div>
-                    @endforeach
+                    {{-- @endforeach --}}
                 </div>
             </div>
         </div>

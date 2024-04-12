@@ -63,8 +63,6 @@ class CiclosController extends Controller
 
     public function show(Ciclo $ciclo)
     {
-
-        //return $curso;
         //Verificar si el usuario tiene permiso para ver el curso
         $user = Auth::user();
         // Verificar si el usuario es el profesor del curso
