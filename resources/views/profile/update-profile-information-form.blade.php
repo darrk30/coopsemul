@@ -69,7 +69,9 @@
         {{-- Apellidos --}}
         <div class="col-span-6 sm:col-span-4">
             <x-label for="apellidos" value="{{ __('Apellidos') }}" />
-            <x-input id="apellidos" type="text" class="mt-1 block w-full" value="{{ Auth::user()->profile->apellidos }}" disabled
+            @if (isset(Auth::user()->profile->apellidos))
+                <x-input id="apellidos" type="text" class="mt-1 block w-full" value="{{ Auth::user()->profile->apellidos }}" disabled                
+            @endif
                 autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
         </div>
