@@ -61,7 +61,15 @@
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="name" value="{{ __('Nombre') }}" />
-            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required
+            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" disabled
+                autocomplete="name"/>
+            <x-input-error for="name" class="mt-2" />
+        </div>
+
+        {{-- Apellidos --}}
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="apellidos" value="{{ __('Apellidos') }}" />
+            <x-input id="apellidos" type="text" class="mt-1 block w-full" value="{{ Auth::user()->profile->apellidos }}" disabled
                 autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
         </div>
@@ -70,7 +78,7 @@
         <div class="col-span-6 sm:col-span-4">
             <x-label for="email" value="{{ __('Correo Electronico') }}" />
             <x-input id="email" type="email" class="mt-1 block w-full" wire:model="state.email" required
-                autocomplete="username" />
+                autocomplete="username" disabled/>
             <x-input-error for="email" class="mt-2" />
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) &&

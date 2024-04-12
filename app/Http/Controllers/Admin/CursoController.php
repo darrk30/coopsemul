@@ -20,8 +20,7 @@ class CursoController extends Controller
         $this->middleware('can:admin.curso.index')->only('index');
         $this->middleware('can:admin.curso.edit')->only('edit', 'update');
         $this->middleware('can:admin.curso.create')->only('create', 'store');
-        $this->middleware('can:admin.curso.contenido')->only('Contenido');
-        $this->middleware('can:admin.curso.students')->only('Students');
+        $this->middleware('can:admin.curso.contenido')->only('Contenido');       
     }
 
     public function index()

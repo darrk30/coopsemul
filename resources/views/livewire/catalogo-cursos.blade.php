@@ -5,7 +5,7 @@
             <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
                 <input wire:model.live.debounce.250ms="search" type="text" class="form-input rounded w-full" placeholder="Buscar Curso">
             </div>
-            <div class="w-full md:w-1/3 px-2">
+            <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
                 <select wire:model.live="categoria_id" class="form-select w-full rounded">
                     <option value="">Seleccionar categoría</option>
                     @foreach ($categorias as $categoria)
@@ -13,7 +13,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="w-full md:w-1/3 px-2">
+            <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
                 <select wire:model.live="level_id" class="form-select w-full rounded">
                     <option value="">Seleccionar Nivel</option>
                     @foreach ($levels as $level)
@@ -34,7 +34,7 @@
                             </div>
                             <div class="w-full sm:w-2/3 p-4">
                                 <h1 class="text-xl text-gray-800 font-semibold mb-2">{{ $curso->nombre }}</h1>
-                                <p class="text-gray-500 text-sm mb-2">{{ $curso->descripcion }}</p>
+                                <p class="text-gray-500 text-sm mb-2 text-justify">{{ $curso->descripcion }}</p>
                                 @if (isset($curso->user->name))
                                 <p class="text-gray-500 text-sm mb-2">Profesor: {{ $curso->user->name }}</p>
                                 @endif

@@ -41,7 +41,7 @@
                 <img class="swiper-slide-pc" src="{{ asset('img/baners/PORTADA_1_PC.jpg') }}" alt="Capacitación docente">
                 <img class="swiper-slide-mobile" src="{{ asset('img/baners/PORTADA_2_MOVIL.jpg') }}"
                     alt="Banner para móvil">
-            </div>          
+            </div>
             <div class="swiper-slide">
                 <img class="swiper-slide-pc" src="{{ asset('img/baners/baner_03.png') }}" alt="Capacitación docente">
                 {{-- <img class="swiper-slide-mobile" src="{{ asset('img/baners/PORTADA_2_MOVIL.jpg') }}"
@@ -67,7 +67,7 @@
                 </figure>
                 <header class="mt-2">
                     <h2 class="text-center text-xl text-gray-700">Diplomados</h2>
-                    <p class="text-sm text-gray-500">Accede a una amplia gama de recursos educativos desde la comodidad
+                    <p class="text-sm text-gray-500 text-justify">Accede a una amplia gama de recursos educativos desde la comodidad
                         de tu hogar. Explora, descubre y aprende en cualquier momento y lugar.</p>
                 </header>
             </article>
@@ -79,7 +79,7 @@
                 </figure>
                 <header class="mt-2">
                     <h2 class="text-center text-xl text-gray-700">Aprende desde Casa</h2>
-                    <p class="text-sm text-gray-500">Únete a nuestras clases interactivas y dinámicas impartidas por
+                    <p class="text-sm text-gray-500 text-justify">Únete a nuestras clases interactivas y dinámicas impartidas por
                         expertos en diversas áreas. Aprende a tu ritmo y según tu horario.</p>
                 </header>
             </article>
@@ -91,7 +91,7 @@
                 </figure>
                 <header class="mt-2">
                     <h2 class="text-center text-xl text-gray-700">Capacitaciones Especializadas</h2>
-                    <p class="text-sm text-gray-500">Adquiere nuevas habilidades y conocimientos para destacar en tu
+                    <p class="text-sm text-gray-500 text-justify">Adquiere nuevas habilidades y conocimientos para destacar en tu
                         carrera profesional con nuestros programas de capacitación especializados.</p>
                 </header>
             </article>
@@ -103,7 +103,7 @@
                 </figure>
                 <header class="mt-2">
                     <h2 class="text-center text-xl text-gray-700">Conéctate y Colabora</h2>
-                    <p class="text-sm text-gray-500">Únete a nuestro grupo de WhatsApp para interactuar con otros
+                    <p class="text-sm text-gray-500 text-justify">Únete a nuestro grupo de WhatsApp para interactuar con otros
                         estudiantes, hacer preguntas y compartir recursos educativos. ¡Aprende en comunidad!</p>
                 </header>
             </article>
@@ -135,8 +135,9 @@
                             class="lg:block md:hidden block rounded-lg shadow-lg" style="width: 400px; height: 300px;">
                     @else
                         <!-- Aquí puedes poner una imagen predeterminada o dejarlo en blanco según prefieras -->
-                        <img src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg" alt="Imagen predeterminada del Curso"
-                            class="lg:block md:hidden block rounded-lg shadow-lg" style="width: 400px; height: 300px;">
+                        <img src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"
+                            alt="Imagen predeterminada del Curso" class="lg:block md:hidden block rounded-lg shadow-lg"
+                            style="width: 400px; height: 300px;">
                     @endif
 
                     <div class="px-5 py-4">
@@ -146,8 +147,9 @@
                         </div>
 
                         <div class="mb-2">
-                            @if (isset($curso->user->name))
-                            <p class="text-gray-500 text-sm">Prof: {{ $curso->user->name }} {{ $curso->user->profile->apellidos }}</p>
+                            @if (isset($curso->user->name) && isset($curso->user->profile->apellidos))
+                                <p class="text-gray-500 text-sm">Prof: {{ $curso->user->name }}
+                                    {{ $curso->user->profile->apellidos }}</p>
                             @endif
                         </div>
                         <div class="mb-2">

@@ -11,14 +11,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+use Aws\S3\S3Client;
+
 class CiclosController extends Controller
 {
 
-    // $this->middleware('can:admin.cursos.crear_recurso')->only('crear_recurso');
-    // $this->middleware('can:admin.cursos.formulario')->only('formularioRecurso');
-    // $this->middleware('can:admin.cursos.descargar_recurso')->only('descargarRecurso');
-    // $this->middleware('can:admin.cursos.eliminar_S_R')->only('eliminar');
-
+    public function __construct()
+    {
+        $this->middleware('can:admin.ciclos.index')->only('index');
+        $this->middleware('can:admin.ciclos.create')->only('create', 'store');
+        $this->middleware('can:admin.ciclos.show')->only('show');
+        $this->middleware('can:admin.ciclos.students')->only('Students');
+        $this->middleware('can:admin.ciclos.agregarSemana')->only('agregarSemana');
+        $this->middleware('can:admin.ciclos.crear_recurso')->only('crear_recurso');
+        $this->middleware('can:admin.ciclos.formulario')->only('formularioRecurso');
+        $this->middleware('can:admin.ciclos.descargar-recurso')->only('descargar_recurso');
+        $this->middleware('can:admin.ciclos.eliminar_S_R')->only('eliminar');
+    }
 
     public function index()
     {
@@ -88,15 +97,37 @@ class CiclosController extends Controller
     }
 
 
+    public function descargar_recurso($recursoId)
+    {
+        $recurso = Recurso::findOrFail($recursoId);
+
+        // Obtener la URL del archivo en el disco S3
+        $urlArchivo = Storage::disk('s3')->url($recurso->documento);
+
+        // Obtener el nombre original del archivo desde la base de datos
+        $nombreArchivo = $recurso->nombre;
+
+        // Descargar el archivo con su nombre original y establecer el tipo de contenido
+        return response()->streamDownload(function () use ($urlArchivo) {
+            $file = fopen($urlArchivo, 'r');
+            fpassthru($file);
+            fclose($file);
+        }, $nombreArchivo, [
+            'Content-Type' => 'application/octet-stream',
+        ]);
+    }
+
+
     public function Students(Ciclo $ciclo)
     {
         return view('admin.ciclos.students', compact('ciclo'));
     }
 
-    public function agregarSemana(Request $request){
+    public function agregarSemana(Request $request)
+    {
         //return $request;
         $request->validate([
-            'nombre' => 'required|string',                        
+            'nombre' => 'required|string',
         ]);
         $semana = new Semana();
         $semana->nombre = $request->nombre;
@@ -157,23 +188,6 @@ class CiclosController extends Controller
         }
     }
 
-    public function descargarRecurso($recursoId)
-    {
-        $recurso = Recurso::findOrFail($recursoId);
-
-        // Obtener la URL del archivo en el disco S3
-        $urlArchivo = Storage::disk('s3')->url($recurso->documento);
-
-        // Obtener el nombre original del archivo desde la base de datos
-        $nombreArchivo = $recurso->nombre;
-
-        // Descargar el archivo con su nombre original y establecer el tipo de contenido
-        return response()->streamDownload(function () use ($urlArchivo) {
-            echo file_get_contents($urlArchivo);
-        }, $nombreArchivo, ['Content-Type' => 'application/octet-stream']);
-    }
-
-
     public function crear_recurso(Request $request, $id_semana, $curso_nombre, $ciclo_nombre)
     {
         $request->validate([
@@ -181,9 +195,11 @@ class CiclosController extends Controller
             'file' => 'required|file|mimes:pdf,doc,docx,jpeg,png,gif|max:10240', // 10 MB como máximo
             'urlRecurso' => 'nullable|url', // Opcional: debe ser una URL válida si se proporciona
         ]);
+        $curso_nombre = $this->normalizeString($curso_nombre);
+        $ciclo_nombre = $this->normalizeString($ciclo_nombre);
         // Subir archivo del documento a S3 si se envió
         if ($request->hasFile('file')) {
-            $archivoPath = Storage::disk('s3')->put('RecursosAulaVirtual/' . $curso_nombre . '/' . $ciclo_nombre . '/', $request->file('file'));
+            $archivoPath = Storage::disk('s3')->put('recursosaulavirtual/' . $curso_nombre . '/' . $ciclo_nombre , $request->file('file'));            
             $name = $request->file('file')->getClientOriginalName();
         } else {
             $archivoPath = null;
@@ -200,5 +216,17 @@ class CiclosController extends Controller
 
         // Redireccionar o devolver una respuesta JSON o lo que sea necesario
         return redirect()->back()->with('success', 'Recurso creado correctamente.');
+    }
+
+
+    private function normalizeString($string)
+    {
+        $string = strtolower($string); // Convertir a minúsculas
+        $string = str_replace(
+            ['á', 'é', 'í', 'ó', 'ú', 'ñ', 'Á', 'É', 'Í', 'Ó', 'Ú', 'Ñ'],
+            ['a', 'e', 'i', 'o', 'u', 'n', 'a', 'e', 'i', 'o', 'u', 'n'],
+            $string
+        );
+        return preg_replace('/[^a-z0-9]/', '', $string); // Eliminar caracteres no alfanuméricos
     }
 }

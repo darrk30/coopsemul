@@ -2,7 +2,7 @@
 @section('title', 'Dashboard | Coopsemul')
 
 @section('content_header')
-    <div class="container">        
+    <div class="container">
         <h1 class="text-4xl text-center font-semibold">{{ $ciclo->curso->nombre }}</h1>
         <div class="d-flex justify-content-start align-items-center">
             @can('admin.ciclos.agregarSemana')
@@ -30,8 +30,11 @@
                             <h3>Clases en linea</h3>
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-link mr-2"></i>
-                                <a href="{{ $ciclo->curso->link->url }}" target="_blank" class="text-decoration-none">Ir a la
-                                    clase</a>
+                                @if ($ciclo->curso->link && $ciclo->curso->link->url)
+                                    <a href="{{ $ciclo->curso->link->url }}" target="_blank" class="text-decoration-none">Ir
+                                        a la clase</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -39,7 +42,7 @@
             </div>
 
             <div class="row mt-3">
-                @foreach ($semanas as $semana)                    
+                @foreach ($semanas as $semana)
                     <div class="col-md-12">
                         <div class="card mb-3">
                             <div class="card-body">
@@ -50,8 +53,10 @@
                                         @can('admin.ciclos.crear_recurso')
                                             <!-- Botón para crear un nuevo recurso -->
                                             <button type="button" class="btn btn-secondary btn-sm ml-2" data-toggle="modal"
-                                                data-target="#modalAgregarRecurso" data-semana-id="{{ $semana->id }}" data-curso-nombre="{{ $ciclo->curso->nombre  }}" data-ciclo-nombre="{{ $ciclo->nombre  }}"
-                                                data-toggle="tooltip" data-placement="top" title="Crear Recurso">
+                                                data-target="#modalAgregarRecurso" data-semana-id="{{ $semana->id }}"
+                                                data-curso-nombre="{{ $ciclo->curso->nombre }}"
+                                                data-ciclo-nombre="{{ $ciclo->nombre }}" data-toggle="tooltip"
+                                                data-placement="top" title="Crear Recurso">
                                                 <i class="fas fa-plus"></i>
                                             </button>
                                         @endcan
@@ -77,7 +82,7 @@
                             <div class="card-footer" style="display: none;">
                                 <div class="row">
                                     @foreach ($semana->recursos as $recurso)
-                                        <div class="col-md-12">                                        
+                                        <div class="col-md-12">
                                             <div class="card mb-3">
                                                 <div class="card-body" style="position: relative;">
                                                     @can('admin.ciclos.eliminar_S_R')
@@ -116,11 +121,9 @@
                                                         style="position: absolute; bottom: 5px; right: 5px;">
                                                         Fecha de Creacion: {{ $recurso->created_at->format('d/m/Y') }}
                                                     </div>
-                                                    @can('admin.ciclos.descargar_recurso')
+                                                    @can('admin.ciclos.descargar-recurso')
                                                         {{-- boton para descargar recurso --}}
-                                                        <form
-                                                            action="{{ route('admin.ciclos.descargar_recurso', ['recursoId' => $recurso->id]) }}"
-                                                            method="POST" style="display: inline; margin-left: 10px;">
+                                                        <form action="{{ route('admin.ciclos.descargar-recurso', ['recursoId' => $recurso->id]) }}" method="POST" style="display: inline; margin-left: 10px;">
                                                             @csrf
                                                             <button type="submit" class="btn btn-primary btn-sm "
                                                                 data-toggle="tooltip" data-placement="top"
@@ -216,10 +219,10 @@
     <script>
         // Función para cargar el formulario dentro del modal cuando se abre
         $('#modalAgregarRecurso').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget); 
-            var semana_id = button.data('semana-id'); 
-            var curso_nombre = button.data('curso-nombre'); 
-            var ciclo_nombre = button.data('ciclo-nombre'); 
+            var button = $(event.relatedTarget);
+            var semana_id = button.data('semana-id');
+            var curso_nombre = button.data('curso-nombre');
+            var ciclo_nombre = button.data('ciclo-nombre');
             $.ajax({
                 url: "{{ route('admin.ciclos.formulario') }}",
                 type: "GET",
@@ -230,7 +233,7 @@
                 },
                 success: function(response) {
                     $('#modalBodyAgregarRecurso').html(
-                        response); 
+                        response);
                 },
                 error: function(xhr) {
                     console.error('Error al cargar el formulario:', xhr.responseText);
@@ -241,7 +244,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.card-body').click(function(event) {               
+            $('.card-body').click(function(event) {
                 if (!$(event.target).is('button')) {
                     $(this).siblings('.card-footer').slideToggle();
                 }
@@ -252,7 +255,7 @@
 
     <script>
         // funcion para confirmar la eliminacion
-        function confirmarEliminar(event) {           
+        function confirmarEliminar(event) {
             event.preventDefault();
             if (confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
                 // Si el usuario confirma, enviar el formulario

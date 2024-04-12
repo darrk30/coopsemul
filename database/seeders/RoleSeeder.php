@@ -88,16 +88,16 @@ class RoleSeeder extends Seeder
         //roles para crear ciclo
         Permission::create(['name' => 'admin.ciclos.index', 'description' => 'Lista de ciclos'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.ciclos.create', 'description' => 'Crear Ciclo'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.ciclos.show', 'description' => 'Ingresear al curso(Profesor y Alumno)'])->syncRoles([$role2, $role3]);
 
         //roles para accedesr a los ciclos del curso AULA VIRTUAL
+        Permission::create(['name' => 'admin.ciclos.students', 'description' => 'Ver lista de Matriculados de un Curso(Administrativo)'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.ciclos.agregarSemana', 'description' => 'Crear Semana(Profesor)'])->syncRoles([$role2]);
         Permission::create(['name' => 'admin.ciclos.crear_recurso', 'description' => 'Crear Recurso(Profesor)'])->syncRoles([$role2]);
-        Permission::create(['name' => 'admin.ciclos.eliminar_S_R', 'description' => 'Eliminar Semana o Recurso(Profesor)'])->syncRoles([$role2]);
         Permission::create(['name' => 'admin.ciclos.formulario', 'description' => 'Ver Formulario para Crear Recurso(Profesor)'])->syncRoles([$role2]);
-        Permission::create(['name' => 'admin.ciclos.show', 'description' => 'Ingresear al curso(Profesor y Alumno)'])->syncRoles([$role2, $role3]);
-        Permission::create(['name' => 'admin.ciclos.descargar_recurso', 'description' => 'Descargar Recurso(Profesor y Alumno)'])->syncRoles([$role2, $role3]);
+        Permission::create(['name' => 'admin.ciclos.descargar-recurso', 'description' => 'Descargar Recurso(Profesor y Alumno)'])->syncRoles([$role2, $role3]);
+        Permission::create(['name' => 'admin.ciclos.eliminar_S_R', 'description' => 'Eliminar Semana o Recurso(Profesor)'])->syncRoles([$role2]);
 
-        Permission::create(['name' => 'admin.ciclos.students', 'description' => 'Ver lista de Matriculados de un Curso(Administrativo)'])->syncRoles([$role1]);
 
 
         

@@ -140,7 +140,9 @@
                             para enriquecer la experiencia educativa de los estudiantes.
                         </li>
                         <li class="flex items-center mb-2">
-                            ■ Desarrollo Personal y Social:Fomentar el desarrollo integral de los estudiantes a través de programas que promuevan el liderazgo, el trabajo en equipo, la empatía y la autoeficacia.<br>
+                            ■ Desarrollo Personal y Social:Fomentar el desarrollo integral de los estudiantes a través
+                            de programas que promuevan el liderazgo, el trabajo en equipo, la empatía y la
+                            autoeficacia.<br>
                             Implementar programas de orientación y apoyo psicológico que atiendan las necesidades
                             emocionales y sociales de los estudiantes.
                         </li>
@@ -185,24 +187,23 @@
             @foreach ($profesoresConPerfil as $profesor)
                 <div class="swiper-slide">
                     <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                        @if ($profesor->profile)
-                            <img class="mx-auto" style="width: 200px"
-                                src="{{ Storage::url($profesor->profile->image->url ?? '') }}"
-                                alt="Imagen del profesor">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2">{{ $profesor->name }}</div>
-                                <p class="text-gray-700 text-base">
-                                    {{ $profesor->profile->descripcion }}
-                                </p>
-                            </div>
+                        @if ($profesor->profile && $profesor->profile_photo_path)
+                            <img src="{{ optional($profesor)->profile_photo_path ? asset('storage/' . $profesor->profile_photo_path) : 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png' }}"
+                                alt="Foto de perfil"
+                                class="object-cover h-64 w-full sm:h-full ">
                         @else
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2">{{ $profesor->name }}</div>
-                                <p class="text-gray-700 text-base">
-                                    Este profesor no tiene un perfil configurado.
-                                </p>
-                            </div>
+                            <!-- Imagen por defecto si no hay foto -->
+                            <img class="mx-auto rounded-full h-32 w-32 mt-4" style="object-fit: cover;"
+                                src="https://ui-avatars.com/api/?name={{ urlencode($profesor->name) }}&color=7F9CF5&background=EBF4FF"
+                                alt="Imagen del profesor">
                         @endif
+                        <div class="px-6 py-4">
+                            <h2 class="font-bold text-xl mb-1">{{ $profesor->name }} {{ $profesor->last_name ?? '' }}
+                            </h2>
+                            <p class="text-gray-700 text-base text-justify">
+                                {{ $profesor->profile->biografia ?? 'Este profesor no tiene un perfil configurado.' }}
+                            </p>
+                        </div>
                     </div>
                 </div>
             @endforeach

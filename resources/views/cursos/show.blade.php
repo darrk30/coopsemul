@@ -2,36 +2,29 @@
     @section('title', ' - ' . $curso->nombre)
 
     <div class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div
-            class="lg:max-w-[1440px] md:max-w-[744px] max-w-[375px] mx-auto bg-white px-4 md:px-6 py-12 rounded-lg shadow-xl">
+        <div class="lg:max-w-[1440px] md:max-w-[744px] max-w-[375px] mx-auto bg-white px-4 md:px-6 py-12 rounded-lg shadow-xl">
             <div class="md:flex justify-center items-center gap-8 relative">
-                <div>
-                    <div class="relative">
+                <div class="w-full md:w-1/2">
+                    <div class="relative overflow-hidden rounded-lg shadow-lg">
                         <!-- Imagen del curso -->
-                        <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso"
-                            class="lg:block md:hidden block rounded-lg shadow-lg" style="width: 100%; height: 300px;">
-
-
+                        <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso" class="w-full h-auto md:h-full object-cover">
+    
                         <!-- Categorías -->
-                        <div
-                            class="absolute top-0 right-0 mr-4 mt-4 bg-yellow-400 text-gray-800 px-3 py-1 font-bold rounded-full text-xs">
+                        <div class="absolute top-0 right-0 mr-4 mt-4 bg-yellow-400 text-gray-800 px-3 py-1 font-bold rounded-full text-xs">
                             {{ $curso->category->nombre }}
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="w-full md:w-1/2">
                     <!-- Contenido del curso -->
                     <h2 class="text-3xl font-semibold text-gray-600">{{ $curso->nombre }}</h2>
                     <ul class="mt-4 text-gray-600">
                         <li class="flex items-center mb-2"><i class="fas fa-wifi mr-2"></i><span>En Vivo</span></li>
                         @if (isset($curso->user->name))
-                            <li class="flex items-center mb-2"><i class="fas fa-user-tie mr-2"></i><span>Profesor:
-                                    {{ $curso->user->name }} {{ $curso->user->profile->apellidos }}</span></li>
+                            <li class="flex items-center mb-2"><i class="fas fa-user-tie mr-2"></i><span>Profesor: {{ $curso->user->name }} {{ $curso->user->profile->apellidos }}</span></li>
                         @endif
-                        <li class="flex items-center mb-2"><i class="fas fa-headset mr-2"></i><span>Comunicación directa
-                                con el docente</span></li>
-                        <li class="flex items-center mb-2"><i class="fas fa-comments mr-2"></i><span>Chat en vivo</span>
-                        </li>
+                        <li class="flex items-center mb-2"><i class="fas fa-headset mr-2"></i><span>Comunicación directa con el docente</span></li>
+                        <li class="flex items-center mb-2"><i class="fas fa-comments mr-2"></i><span>Chat en vivo</span></li>
                         <li>
                             <div class="bg-sky-700 rounded-lg p-4">
                                 <i class="far fa-clock mr-2 text-gray-100"></i>
@@ -40,12 +33,12 @@
                             </div>
                         </li>
                     </ul>
-                    <p class="mt-4 text-lg text-gray-700">Ahora: S/. <span
-                            class="text-gray-800 font-bold">{{ $curso->precio->value }}</span></p>
+                    <p class="mt-4 text-lg text-gray-700">Ahora: S/. <span class="text-gray-800 font-bold">{{ $curso->precio->value }}</span></p>
                 </div>
             </div>
         </div>
     </div>
+    
 
     <div class="mx-auto px-4 py-12 relative bg-gradient-to-r bg-slate-300"
         style="background-image: url(https://www.openenglish.es/blog/wp-content/uploads/sites/3/2022/08/Curso-de-ingles-online-con-certificado-Header.jpg); background-size: cover; background-position: center; background-attachment: fixed;">
@@ -53,12 +46,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white relative z-10">
             <h1 class="text-3xl font-bold">¿EN QUÉ CONSISTE ESTE CURSO?</h1>
             <div class="text-justify mb-8 text-xl">
-                <p>{{ $curso->descripcion }}</p>
-                <p>¡Tu nombramiento docente está a un paso de distancia!</p>
+                <p class="text-justify">{{ $curso->descripcion }}</p>
             </div>
             <div class="text-center">
-                <a href="https://wa.me/51942407799" target="_blank"
-                    class="inline-block px-6 py-3 rounded-lg  bg-amber-300 text-slate-700 font-semibold hover:bg-cyan-400 transition duration-300 ease-in-out">ADQUIERA EL CURSO AHORA</a>
+                <a href="https://wa.me/51942407799?text=Estoy%20interesado(a)%20en%20adquirir%20el%20curso%20{{ urlencode($curso->nombre) }},%20por%20favor%20env%C3%ADenme%20m%C3%A1s%20informaci%C3%B3n"
+                    target="_blank"
+                    class="inline-block px-6 py-3 rounded-lg bg-amber-300 text-slate-700 font-semibold hover:bg-cyan-400 transition duration-300 ease-in-out">ADQUIERA EL CURSO AHORA
+                </a>
             </div>
         </div>
     </div>
@@ -108,10 +102,13 @@
             <div
                 class="relative flex flex-col sm:flex-row w-full max-w-[48rem] rounded-xl bg-white shadow-md overflow-hidden">
                 <div class="w-full sm:w-1/3 bg-gradient-to-r flex justify-center items-center">
-                    
-                    <img src="{{ auth()->check() && auth()->user()->profile_photo_path ? asset(auth()->user()->profile_photo_path) : 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png' }}"
+
+                    <img src="{{ optional($curso->user)->profile_photo_path ? asset('storage/' . $curso->user->profile_photo_path) : 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png' }}"
                         alt="Foto de perfil"
                         class="object-cover h-64 w-full sm:h-full rounded-tl-xl sm:rounded-tl-none sm:rounded-l-xl">
+
+
+
                 </div>
                 <div class="p-6 w-full sm:w-2/3">
                     <h6 class="mb-2 flex items-center text-sm font-semibold text-gray-600 uppercase">
@@ -119,29 +116,29 @@
                     </h6>
 
                     @if (isset($curso->user->name))
-                    <h4 class="mb-3 text-2xl font-semibold text-gray-800">
-                        
-                        {{ $curso->user->name . ' ' . $curso->user->profile->apellidos }}
-                    </h4>
+                        <h4 class="mb-3 text-2xl font-semibold text-gray-800">
+
+                            {{ $curso->user->name . ' ' . $curso->user->profile->apellidos }}
+                        </h4>
                     @endif
                     @if (isset($curso->user->profile->biografia))
-                    <p class="mb-4 text-base text-gray-700">{{ $curso->user->profile->biografia }}</p>
+                        <p class="mb-4 text-base text-gray-700">{{ $curso->user->profile->biografia }}</p>
                     @endif
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
                         <div class="mb-4 sm:mb-0">
                             <h6 class="mb-2 flex items-center text-sm font-semibold text-gray-600 uppercase">
                                 <i class="fas fa-graduation-cap mr-2"></i> Especialidad
                             </h6>
-                            @if (isset( $curso->user->profile->especialidad ))
-                            <p class="text-base text-gray-700">{{ $curso->user->profile->especialidad }}</p>
+                            @if (isset($curso->user->profile->especialidad))
+                                <p class="text-base text-gray-700">{{ $curso->user->profile->especialidad }}</p>
                             @endif
                         </div>
                         <div>
                             <h6 class="mb-2 flex items-center text-sm font-semibold text-gray-600 uppercase">
                                 <i class="fas fa-envelope mr-2"></i> Contacto
                             </h6>
-                            @if (isset($curso->user->email ))
-                            <p class="text-base text-gray-700">{{ $curso->user->email }}</p>
+                            @if (isset($curso->user->email))
+                                <p class="text-base text-gray-700">{{ $curso->user->email }}</p>
                             @endif
                         </div>
                     </div>
