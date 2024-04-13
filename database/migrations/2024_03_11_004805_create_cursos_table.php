@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('codigo')->unique();
             $table->string('nombre');                                    
             $table->text('descripcion');            
-            $table->string('duracion')->nullable();
-            //$table->double('precio')->nullable();      
+            $table->string('duracion')->nullable();     
+            $table->string('horario')->nullable();                  
             $table->integer('certificado')->nullable();
             $table->string('slug')->nullable();                       
             $table->integer('status');

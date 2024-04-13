@@ -23,6 +23,14 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('link_Wspp', 'Link del Grupo de WhatsApp') !!}
+    {!! Form::text('link_Wspp', null, ['class' => 'form-control', 'placeholder' => 'Link de WhatsApp del Curso']) !!}
+    @error('link_Wspp')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group">
     {!! Form::label('status', 'Status') !!}
     {!! Form::select('status', [1 => 'Activo', 0 => 'Inactivo'], null, ['class' => 'form-control']) !!}
     @error('status')

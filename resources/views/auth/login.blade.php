@@ -36,12 +36,12 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
+                {{-- @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         href="{{ route('password.request') }}">
                         {{ __('Olvidaste tu contraseña?') }}
                     </a>
-                @endif
+                @endif --}}
                 <button wire:loading.attr="disabled" wire:target="photo"
                     class="bg-slate-700 hover:bg-slate-900 text-white font-bold py-2 px-4 w-auto rounded ml-5">
                     {{ __('Iniciar') }}

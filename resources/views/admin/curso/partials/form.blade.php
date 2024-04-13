@@ -133,7 +133,16 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            {!! Form::label('horario', 'Horario') !!}
+            {!! Form::text('horario', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el horario de la Clase']) !!}
+            @error('horario')
+                <samp class="text-danger">{{ $message }}</samp>
+            @enderror
+        </div>
+    </div>
+    <div class="row mb-3">
         <div class="col-md-12">
             {!! Form::label('url', 'Link de la Clase') !!}
             {!! Form::text('url', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el Link de la Clase']) !!}
@@ -143,7 +152,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-12">
             {!! Form::label('slug', 'Slug del Curso') !!}
             {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la descripción', 'readonly']) !!}

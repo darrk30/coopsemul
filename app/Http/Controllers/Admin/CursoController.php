@@ -63,6 +63,7 @@ class CursoController extends Controller
             'precio_id' => 'required|exists:precios,id',
             'level_id' => 'required|exists:levels,id',
             'status' => 'required|in:0,1',
+            'horario' => 'required',
             'slug' => 'required|unique:cursos',
             'url' => 'nullable|unique:links',
             'url' => ['nullable', 'regex:/^https:\/\/meet\.google\.com\/[a-z0-9-]+$/i', 'message' => 'El enlace debe ser de una reunión de Google Meet.'],
@@ -143,6 +144,7 @@ class CursoController extends Controller
             'precio_id' => 'required|exists:precios,id',
             'level_id' => 'required|exists:levels,id',
             'status' => 'required|in:0,1',
+            'horario' => 'required',
             'slug' => "required|unique:cursos,slug,$curso->id",
             'url' => [
                 'nullable',

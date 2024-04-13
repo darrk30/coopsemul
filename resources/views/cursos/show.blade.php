@@ -2,15 +2,18 @@
     @section('title', ' - ' . $curso->nombre)
 
     <div class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div class="lg:max-w-[1440px] md:max-w-[744px] max-w-[375px] mx-auto bg-white px-4 md:px-6 py-12 rounded-lg shadow-xl">
+        <div
+            class="lg:max-w-[1440px] md:max-w-[744px] max-w-[375px] mx-auto bg-white px-4 md:px-6 py-12 rounded-lg shadow-xl">
             <div class="md:flex justify-center items-center gap-8 relative">
                 <div class="w-full md:w-1/2">
                     <div class="relative overflow-hidden rounded-lg shadow-lg">
                         <!-- Imagen del curso -->
-                        <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso" class="w-full h-auto md:h-full object-cover">
-    
+                        <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso"
+                            class="w-full h-auto md:h-full object-cover">
+
                         <!-- Categorías -->
-                        <div class="absolute top-0 right-0 mr-4 mt-4 bg-yellow-400 text-gray-800 px-3 py-1 font-bold rounded-full text-xs">
+                        <div
+                            class="absolute top-0 right-0 mr-4 mt-4 bg-yellow-400 text-gray-800 px-3 py-1 font-bold rounded-full text-xs">
                             {{ $curso->category->nombre }}
                         </div>
                     </div>
@@ -21,24 +24,30 @@
                     <ul class="mt-4 text-gray-600">
                         <li class="flex items-center mb-2"><i class="fas fa-wifi mr-2"></i><span>En Vivo</span></li>
                         @if (isset($curso->user->name))
-                            <li class="flex items-center mb-2"><i class="fas fa-user-tie mr-2"></i><span>Profesor: {{ $curso->user->name }} {{ $curso->user->profile->apellidos }}</span></li>
+                            <li class="flex items-center mb-2"><i class="fas fa-user-tie mr-2"></i><span>Profesor:
+                                    {{ $curso->user->name }} {{ $curso->user->profile->apellidos }}</span></li>
                         @endif
-                        <li class="flex items-center mb-2"><i class="fas fa-headset mr-2"></i><span>Comunicación directa con el docente</span></li>
-                        <li class="flex items-center mb-2"><i class="fas fa-comments mr-2"></i><span>Chat en vivo</span></li>
+                        <li class="flex items-center mb-2"><i class="fas fa-headset mr-2"></i><span>Comunicación directa
+                                con el docente</span></li>
+                        <li class="flex items-center mb-2"><i class="fas fa-comments mr-2"></i><span>Chat en vivo</span>
+                        </li>
                         <li>
                             <div class="bg-sky-700 rounded-lg p-4">
                                 <i class="far fa-clock mr-2 text-gray-100"></i>
                                 <span class="text-gray-100 font-bold">HORARIO</span><br>
-                                <span class="text-gray-100 font-bold">De Lunes a Sábado de 8:00 p.m. a 10:00 p.m.</span>
+                                @if (isset($curso->horario))
+                                    <span class="text-gray-100 font-bold">{{$curso->horario}}</span>
+                                @endif
                             </div>
                         </li>
                     </ul>
-                    <p class="mt-4 text-lg text-gray-700">Inversión: S/. <span class="text-gray-800 font-bold">{{ $curso->precio->value }}</span></p>
+                    <p class="mt-4 text-lg text-gray-700">Inversión: S/. <span
+                            class="text-gray-800 font-bold">{{ $curso->precio->value }}</span></p>
                 </div>
             </div>
         </div>
     </div>
-    
+
 
     <div class="mx-auto px-4 py-12 relative bg-gradient-to-r bg-slate-300"
         style="background-image: url(https://moxit.com.ar/wp-content/uploads/2021/10/istockphoto-1213778711-612x612-1.jpg); background-size: cover; background-position: center; background-attachment: fixed;">
@@ -51,7 +60,8 @@
             <div class="text-center">
                 <a href="https://wa.me/51967607828?text=Estoy%20interesado(a)%20en%20adquirir%20el%20curso%20{{ urlencode($curso->nombre) }},%20por%20favor%20env%C3%ADenme%20m%C3%A1s%20informaci%C3%B3n"
                     target="_blank"
-                    class="inline-block px-6 py-3 rounded-lg bg-amber-300 text-slate-700 font-semibold hover:bg-cyan-400 transition duration-300 ease-in-out">ADQUIERA EL CURSO AHORA
+                    class="inline-block px-6 py-3 rounded-lg bg-amber-300 text-slate-700 font-semibold hover:bg-cyan-400 transition duration-300 ease-in-out">ADQUIERA
+                    EL CURSO AHORA
                 </a>
             </div>
         </div>

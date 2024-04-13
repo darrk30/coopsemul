@@ -49,13 +49,15 @@ class CiclosController extends Controller
             'fechaFin' => 'required|date|after:fechaInicio',
             'status' => 'required|boolean',
             'curso_id' => 'required|exists:cursos,id',
+            'link_Wspp' => [
+                'nullable',
+                'regex:/https?\:\/\/chat\.whatsapp\.com\/[A-Za-z0-9]{20,}/'
+            ]
         ]);
+
 
         // Crear un nuevo ciclo
         Ciclo::create($request->all());
-
-        // Registrar la actividad
-        //activity()->log('Creó un nuevo ciclo: ' . $ciclo->nombre);
 
         // Retornar una respuesta exitosa
         return view('admin.ciclos.index')->with('info', 'Se Creo el ciclo con exito');
@@ -82,13 +84,35 @@ class CiclosController extends Controller
         return view('admin.ciclos.show', compact('ciclo', 'semanas'));
     }
 
-    public function edit(string $id)
+    public function edit(Ciclo $ciclo)
     {
+        $cursos = Curso::pluck('nombre', 'id'); // Obtener los cursos como un array de id => nombre
+        return view('admin.ciclos.edit', compact('ciclo', 'cursos'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Ciclo $ciclo)
     {
+        // Validar los datos de entrada
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',  // Ejemplo de validación del nombre
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after:fechaInicio',
+            'status' => 'required|boolean',
+            'curso_id' => 'required|exists:cursos,id',
+            'link_Wspp' => [
+                'nullable',
+                'regex:/https?\:\/\/chat\.whatsapp\.com\/[A-Za-z0-9]{20,}/'
+            ]
+        ]);
+
+        // Actualizar el ciclo con los datos validados
+        $ciclo->update($validated);
+
+        // Redireccionar al usuario a una vista específica, por ejemplo, la vista de detalles del ciclo actualizado
+        return redirect()->route('admin.ciclos.index')->with('success', 'Ciclo actualizado correctamente.');
     }
+
+
 
     public function destroy(string $id)
     {
@@ -150,10 +174,10 @@ class CiclosController extends Controller
         $formulario .= '</div>';
         $formulario .= '<div class="form-group">';
         $formulario .= '<label for="archivo">Archivo</label>';
-        $formulario .= '<input type="file" class="form-control-file" id="file" name="file" required>';
+        $formulario .= '<input type="file" class="form-control-file" id="file" name="file" >';
         $formulario .= '</div>';
         $formulario .= '<div class="form-group">';
-        $formulario .= '<label for="urlRecurso">Url del video (opcional)</label>';
+        $formulario .= '<label for="urlRecurso">Link de la Clase Grabada (opcional)</label>';
         $formulario .= '<input type="text" class="form-control" id="urlRecurso" name="urlRecurso">';
         $formulario .= '</div>';
         $formulario .= '<button type="submit" class="btn btn-primary">Guardar</button>';
@@ -188,33 +212,49 @@ class CiclosController extends Controller
 
     public function crear_recurso(Request $request, $id_semana, $curso_nombre, $ciclo_nombre)
     {
+        // Validar los campos del formulario
         $request->validate([
             'title' => 'required|string|max:255',
-            'file' => 'required|file|mimes:pdf,doc,docx,jpeg,png,gif|max:10240', // 10 MB como máximo
-            'urlRecurso' => 'nullable|url', // Opcional: debe ser una URL válida si se proporciona
+            'file' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,gif|max:10240', // 10 MB como máximo
+            'urlRecurso' => [
+                'nullable', 'url',
+                function ($attribute, $value, $fail) {
+                    // Verificar que la URL es de Google Drive y contiene indicadores de ser una grabación de Google Meet
+                    $pattern = "/https:\/\/drive\.google\.com\/file\/d\/.+/"; // Ajusta este patrón según necesidades específicas
+                    if (!preg_match($pattern, $value)) {
+                        return $fail($attribute . ' no es un enlace válido de Google Drive de una grabación de Google Meet.');
+                    }
+                },
+            ],
         ]);
+
+        // Normalizar nombres
         $curso_nombre = $this->normalizeString($curso_nombre);
         $ciclo_nombre = $this->normalizeString($ciclo_nombre);
-        // Subir archivo del documento a S3 si se envió
+
+        $name = null;  // Inicializar $name como null para evitar usar un valor no definido
+        $archivoPath = null; // Establecer por defecto archivoPath como null
+
+        // Subir archivo del documento a S3 y obtener el nombre si se envió
         if ($request->hasFile('file')) {
-            $archivoPath = Storage::disk('s3')->put('recursosaulavirtual/' . $curso_nombre . '/' . $ciclo_nombre , $request->file('file'));            
-            $name = $request->file('file')->getClientOriginalName();
-        } else {
-            $archivoPath = null;
+            $archivoPath = Storage::disk('s3')->put('recursosaulavirtual/' . $curso_nombre . '/' . $ciclo_nombre, $request->file('file'));
+            $name = $request->file('file')->getClientOriginalName(); // Obtener el nombre original del archivo subido
         }
 
         // Crear el recurso en la base de datos
         $recurso = new Recurso();
         $recurso->title = $request->title;
-        $recurso->nombre = $name;
-        $recurso->documento = $archivoPath; // Guardar la ruta del archivo en el bucket de S3
-        $recurso->url = $request->urlRecurso;
+        $recurso->nombre = $name; // Guardar el nombre del archivo o null si no se subió archivo
+        $recurso->documento = $archivoPath; // Guardar la ruta del archivo en el bucket de S3 o null
+        $recurso->url = $request->urlRecurso; // Guardar el URL del recurso o null si no se proporcionó
         $recurso->semana_id = $id_semana; // Asociar el recurso con la semana
         $recurso->save();
 
-        // Redireccionar o devolver una respuesta JSON o lo que sea necesario
+        // Redireccionar o devolver una respuesta
         return redirect()->back()->with('success', 'Recurso creado correctamente.');
     }
+
+
 
 
     private function normalizeString($string)

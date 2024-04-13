@@ -19,9 +19,11 @@
 @section('content')
     <section>
         <div class="container">
-            <a href="Wsp.com" class="btn btn-success mb-3 mr-3" target="_blank">
-                <i class="fab fa-whatsapp mr-1"></i> Grupo de Cursos
-            </a>
+            @if (isset($ciclo->link_Wspp))
+                <a href="{{ $ciclo->link_Wspp }}" class="btn btn-success mb-3 mr-3" target="_blank">
+                    <i class="fab fa-whatsapp mr-1"></i> Grupo de Cursos
+                </a>
+            @endif
             {{-- carta para las clases --}}
             <div class="card">
                 <div class="card-body">
@@ -48,6 +50,7 @@
                             <div class="card-body">
                                 <h3>
                                     <span>{{ $semana->nombre }}</span>
+
                                     <span class="float-right">
                                         {{-- boton para crear un recurso de la semana --}}
                                         @can('admin.ciclos.crear_recurso')
@@ -100,39 +103,39 @@
                                                             </button>
                                                         </form>
                                                     @endcan
-                                                    <h5 class="card-title">{{ $recurso->title }}<h5>                                                    
-                                                    @if (Str::startsWith($recurso->documento, 'recursosaulavirtual/quoplaceatpraesentiumsedut/ciclodeprueba2'))
+                                                    <h5 class="card-title">{{ $recurso->title }}<h5><br>
+                                                            @if (isset($recurso->url))
+                                                                <a href="{{ $recurso->url }}">{{ $recurso->url }}</a>
+                                                            @endif
+                                                            @if (isset($recurso->documento) && in_array(strtolower(pathinfo($recurso->documento, PATHINFO_EXTENSION)), ['jpg','jpeg','png']))
+                                                                <img src="{{ Storage::disk('s3')->url($recurso->documento) }}"
+                                                                    alt="Imagen del recurso" class="img-fluid"
+                                                                    width="150px" style="margin-bottom: 5px;"><br>
+                                                            @endif
 
-                                                        @php
-                                                            // Obtener la extensión del archivo
-                                                            $extension = pathinfo(
-                                                                $recurso->documento,
-                                                                PATHINFO_EXTENSION,
-                                                            );
-                                                            // Lista de extensiones de imagen válidas
-                                                            $extensionesImagen = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-                                                        @endphp
-                                                        @if (in_array(strtolower($extension), $extensionesImagen))
-                                                            {{-- El archivo es una imagen --}}
-                                                            <img src="{{ Storage::url($recurso->documento) }}"
-                                                                alt="Imagen" class="img-fluid" width="150px">
-                                                        @endif
-                                                    @endif
-                                                    <div class="text-muted"
-                                                        style="position: absolute; bottom: 5px; right: 5px;">
-                                                        Fecha de Creacion: {{ $recurso->created_at->format('d/m/Y') }}
-                                                    </div>
-                                                    @can('admin.ciclos.descargar-recurso')
-                                                        {{-- boton para descargar recurso --}}
-                                                        <form action="{{ route('admin.ciclos.descargar-recurso', ['recursoId' => $recurso->id]) }}" method="POST" style="display: inline; margin-left: 10px;">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-primary btn-sm "
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Descargar Recurso">
-                                                                {{ $recurso->nombre }}<i class="fas fa-download ml-2"></i>
-                                                            </button>
-                                                        </form>
-                                                    @endcan
+
+                                                            <div class="text-muted"
+                                                                style="position: absolute; bottom: 5px; right: 5px;">
+                                                                Fecha de Creacion:
+                                                                {{ $recurso->created_at->format('d/m/Y') }}
+                                                            </div>
+                                                            @if (isset($recurso->documento))
+                                                                @can('admin.ciclos.descargar-recurso')
+                                                                    {{-- boton para descargar recurso --}}
+                                                                    <form
+                                                                        action="{{ route('admin.ciclos.descargar-recurso', ['recursoId' => $recurso->id]) }}"
+                                                                        method="POST"
+                                                                        style="display: inline; margin-left: 10px;">
+                                                                        @csrf
+                                                                        <button type="submit" class="btn btn-primary btn-sm "
+                                                                            data-toggle="tooltip" data-placement="top"
+                                                                            title="Descargar Recurso">
+                                                                            {{ $recurso->nombre }}<i
+                                                                                class="fas fa-download ml-2"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                @endcan
+                                                            @endif
                                                 </div>
                                             </div>
                                         </div>

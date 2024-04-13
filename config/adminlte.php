@@ -328,6 +328,7 @@ return [
             'can'        => 'admin.ciclos.index',
             'active'    => ['*admin/ciclos*'],
             'active' => ['*admin/matricula*'],
+            'active' => ['*admin/ciclos/create*'],
         ],
         [
             'text' => 'Lista de Cursos',

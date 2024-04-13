@@ -60,16 +60,16 @@
                                             <span class="badge badge-secondary">No activo</span>
                                         @endif
                                     </td>
-                                    {{-- @can('admin.curso.edit')
-                                        <td width="10px">
-                                            <a href="{{ route('admin.curso.edit', $ciclo) }}"
-                                                class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                        </td>
-                                    @endcan --}}
                                     @can('admin.matricular.crear')
+                                    <td width="10px">
+                                        <a href="{{ route('admin.matricular.crear', $ciclo) }}"
+                                        class="btn btn-success btn-sm"><i class="fas fa-user-graduate"></i></a>
+                                    </td>
+                                    @endcan
+                                    @can('admin.ciclos.create')
                                         <td width="10px">
-                                            <a href="{{ route('admin.matricular.crear', $ciclo) }}"
-                                                class="btn btn-success btn-sm"><i class="fas fa-user-graduate"></i></a>
+                                            <a href="{{ route('admin.ciclos.edit', $ciclo) }}"
+                                                class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
                                         </td>
                                     @endcan
                                 </tr>

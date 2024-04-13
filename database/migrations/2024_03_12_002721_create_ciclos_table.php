@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->date('fechaInicio');
             $table->date('fechaFin');
+            $table->string('link_Wspp')->nullable();
             $table->integer('status');
             $table->unsignedBigInteger('curso_id')->nullable();
             $table->foreign( 'curso_id' )->references( 'id' )->on( 'cursos' );

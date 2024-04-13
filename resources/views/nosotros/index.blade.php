@@ -185,16 +185,16 @@
                 <img src="https://cdn.icon-icons.com/icons2/2992/PNG/512/whatsapp_logo_icon_187323.png" alt="WhatsApp"
                     class="w-6 h-6 mr-2">
                 +51 967 607 828
-                <a href="https://www.facebook.com/tuempresa" target="_blank"
+                <a href="https://www.facebook.com/profile.php?id=61558340403358" target="_blank"
                     class="text-white text-lg hover:underline flex items-center">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png"
                         alt="Facebook" class="w-6 h-6 mr-2">
                     Facebook
                 </a>
-                <a href="mailto:info@tuempresa.com" class="text-white text-lg hover:underline flex items-center">
+                <a href="mailto:losquemassabenperu@gmail.com" class="text-white text-lg hover:underline flex items-center">
                     <img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" alt="Correo electrónico"
                         class="w-6 h-6 mr-2">
-                    info@tuempresa.com
+                        losquemassabenperu@gmail.com
                 </a>
                 <a href="tel:+51980126922" class="text-white text-lg hover:underline flex items-center">
                     <img src="https://w7.pngwing.com/pngs/367/604/png-transparent-blue-icon-telephone-web-blue-phone-blue-web-blue-telephone-thumbnail.png"
