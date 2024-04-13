@@ -140,7 +140,7 @@
                             <x-slot name="content">
                                 <!-- Account Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Manage Account') }}
+                                    {{ __('Administrar cuenta') }}
                                 </div>
 
                                 <x-dropdown-link href="{{ route('profile.show') }}">
@@ -248,7 +248,7 @@
                         @if (auth()->user()->profile && auth()->user()->profile->status == 1)
                             @if (auth()->user()->roles->isNotEmpty())
                                 <x-dropdown-link href="{{ route('admin.home') }}">
-                                    {{ __('Dashboard') }}
+                                    {{ __('Aula Virtual') }}
                                 </x-dropdown-link>
                             @endif
                         @endif

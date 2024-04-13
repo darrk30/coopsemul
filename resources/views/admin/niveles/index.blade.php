@@ -46,12 +46,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($niveles as $nivel)
+                                    @foreach ($niveles as $level)
                                         <tr>
-                                            <td>{{ $nivel->id }}</td>
-                                            <td>{{ $nivel->nombre }}</td>
+                                            <td>{{ $level->id }}</td>
+                                            <td>{{ $level->nombre }}</td>
                                             <td>
-                                                @if ($nivel->status == 1)
+                                                @if ($level->status == 1)
                                                     <span class="badge bg-success">Activo</span>
                                                 @else
                                                     <span class="badge bg-danger">Inactivo</span>
@@ -60,15 +60,15 @@
 
                                             {{-- <td width=10px>
                                                 <a href="#" class="btn btn-primary btn-sm">Editar</a>
-                                            </td> --}}
-                                            @can('admin.precios.destroy')
+                                            </td> --}}                                            
+                                            @can('admin.niveles.destroy')
                                             <td style="width: 10px;">
-                                                <form id="eliminar-form-{{ $nivel->id }}"
-                                                    action="{{ route('admin.niveles.destroy', $nivel) }}" method="POST">
+                                                <form id="eliminar-form-{{ $level->id }}"
+                                                    action="{{ route('admin.niveles.destroy', $level) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        onclick="confirmarEliminar({{ $nivel->id }})">Eliminar
+                                                        onclick="confirmarEliminar({{ $level->id }})">Eliminar
                                                     </button>
                                                 </form>
                                             </td>
@@ -114,7 +114,7 @@
 
 @section('js')
     <script>
-        function confirmarEliminar(id) {
+        function confirmarEliminar(id) {    
             if (confirm('¿Estás seguro de que deseas eliminar este precio?')) {
                 // Si el usuario confirma, enviar el formulario de eliminación
                 document.getElementById('eliminar-form-' + id).submit();

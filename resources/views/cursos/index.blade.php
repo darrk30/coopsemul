@@ -38,9 +38,9 @@
 
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img class="swiper-slide-pc" src="{{ asset('img/home/catalogo.png') }}" alt="Banner para PC">
-                <img class="swiper-slide-mobile" src="https://stsci-opo.org/STScI-01EVT7Y3Z5FY1FJ6TGH49V9SKR.jpg"
+            <div class="swiper-slide" >
+                <img class="swiper-slide-pc" src="{{ asset('img/baners/catalogoCursos.png') }}" alt="Banner para PC" width="100%">
+                <img class="swiper-slide-mobile" src="{{ asset('img/baners/catalogoCursos.png') }}"
                     alt="Banner para móvil">
             </div>
         </div>

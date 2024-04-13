@@ -100,8 +100,9 @@
                                                             </button>
                                                         </form>
                                                     @endcan
-                                                    <h5 class="card-title">{{ $recurso->title }}</h5>
-                                                    @if (Str::startsWith($recurso->documento, 'public/documentos'))
+                                                    <h5 class="card-title">{{ $recurso->title }}<h5>                                                    
+                                                    @if (Str::startsWith($recurso->documento, 'recursosaulavirtual/quoplaceatpraesentiumsedut/ciclodeprueba2'))
+
                                                         @php
                                                             // Obtener la extensión del archivo
                                                             $extension = pathinfo(

@@ -29,11 +29,11 @@
                             <div class="bg-sky-700 rounded-lg p-4">
                                 <i class="far fa-clock mr-2 text-gray-100"></i>
                                 <span class="text-gray-100 font-bold">HORARIO</span><br>
-                                <span class="text-gray-100 font-bold">De Lunes a Sábado de 7:00 p.m. a 9:00 p.m.</span>
+                                <span class="text-gray-100 font-bold">De Lunes a Sábado de 8:00 p.m. a 10:00 p.m.</span>
                             </div>
                         </li>
                     </ul>
-                    <p class="mt-4 text-lg text-gray-700">Ahora: S/. <span class="text-gray-800 font-bold">{{ $curso->precio->value }}</span></p>
+                    <p class="mt-4 text-lg text-gray-700">Inversión: S/. <span class="text-gray-800 font-bold">{{ $curso->precio->value }}</span></p>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
     
 
     <div class="mx-auto px-4 py-12 relative bg-gradient-to-r bg-slate-300"
-        style="background-image: url(https://www.openenglish.es/blog/wp-content/uploads/sites/3/2022/08/Curso-de-ingles-online-con-certificado-Header.jpg); background-size: cover; background-position: center; background-attachment: fixed;">
+        style="background-image: url(https://moxit.com.ar/wp-content/uploads/2021/10/istockphoto-1213778711-612x612-1.jpg); background-size: cover; background-position: center; background-attachment: fixed;">
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white relative z-10">
             <h1 class="text-3xl font-bold">¿EN QUÉ CONSISTE ESTE CURSO?</h1>
@@ -49,7 +49,7 @@
                 <p class="text-justify">{{ $curso->descripcion }}</p>
             </div>
             <div class="text-center">
-                <a href="https://wa.me/51942407799?text=Estoy%20interesado(a)%20en%20adquirir%20el%20curso%20{{ urlencode($curso->nombre) }},%20por%20favor%20env%C3%ADenme%20m%C3%A1s%20informaci%C3%B3n"
+                <a href="https://wa.me/51967607828?text=Estoy%20interesado(a)%20en%20adquirir%20el%20curso%20{{ urlencode($curso->nombre) }},%20por%20favor%20env%C3%ADenme%20m%C3%A1s%20informaci%C3%B3n"
                     target="_blank"
                     class="inline-block px-6 py-3 rounded-lg bg-amber-300 text-slate-700 font-semibold hover:bg-cyan-400 transition duration-300 ease-in-out">ADQUIERA EL CURSO AHORA
                 </a>

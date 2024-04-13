@@ -4,9 +4,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="swiper-banner mt-10 rounded-xl">
             <div class="swiper-wrapper">
-                <div class="swiper-slide " style="background-image: url(https://bitwaretechnologies.com/wp-content/uploads/2017/04/Background-1200-x-400.jpg)"></div>
+                <div class="swiper-slide " style="background-image: url({{asset('img/baners/noticiaNombramiento.jpg')}})"></div>
                 {{-- <div class="swiper-slide" style="background-image: url({{ asset('img/home/baner_home.png') }})"></div> --}}
-                <div class="swiper-slide" style="background-image: url(https://img.freepik.com/vector-premium/cursos-online-publicitarios-portada-facebook-plantilla-banner_349013-84.jpg)"></div>
+                <div class="swiper-slide" style="background-image: url({{asset('img/baners/Noticacomunicado.jpeg')}})"></div>
                 <!-- Agrega más slides según sea necesario -->
             </div>
             <!-- Add Pagination -->

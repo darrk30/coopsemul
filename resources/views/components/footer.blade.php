@@ -2,12 +2,12 @@
     <div class="container px-6 py-12 mx-auto">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
             <div class="sm:col-span-2">
-                <h1 class="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl dark:text-white">Matriculate y se parte de nuestra familia Coopsemul y logra tu Nombramiento</h1>
+                <h1 class="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl dark:text-white">Matricúlate y sé parte de nuestra familia Coopsemul y logra tu nombramiento.</h1>
 
                 <div class="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row">
-                    <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-blue-600 rounded-lg hover:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                    <a href="https://wa.me/51967607828?text=Hola%20Coopsemul%2C%20quiero%20matricularme%20en%20un%20curso%20para%20lograr%20mi%20nombramiento" target="_blank" class="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-blue-600 rounded-lg hover:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                         Matriculate Ahora
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -15,12 +15,12 @@
                 <p class="font-semibold text-gray-800 dark:text-white">Enlaces Rápidos</p>
 
                 <div class="flex flex-col items-start mt-5 space-y-2">
-                    <a href="#" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Inicio</a>
-                    <a href="#" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Quiénes Somos</a>
-                    <a href="#" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Nuestra Filosofía</a>
+                    <a href="https://losquemassaben.com" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Inicio</a>
+                    <a href="https://losquemassaben.com/nosotros" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Quiénes Somos</a>
+                    <a href="https://losquemassaben.com/noticias" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Ultimas Noticias</a>
+                    <a href="https://losquemassaben.com/cursos" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Cursos</a>
                 </div>
             </div>
-
             {{-- <div>
                 <p class="font-semibold text-gray-800 dark:text-white">Industrias</p>
 

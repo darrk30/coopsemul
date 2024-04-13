@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado</label>
-                    <select class="form-control" id="estado" name="estado" required>
+                    <select class="form-control" id="status" name="status" required>
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                     </select>

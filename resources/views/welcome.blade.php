@@ -62,48 +62,53 @@
             <!-- Diplomados -->
             <article class="service-card">
                 <figure class="flex-grow">
-                    <img class="rounded-xl h-full w-full object-cover" src="{{ asset('img/baners/DIPLOMADOS.jpg') }}"
-                        alt="Diplomados">
+                    <img class="rounded-xl h-full w-full object-cover" src="{{ asset('img/home/diplomados.png') }}"
+                        alt="Diplomados" style="height: 200px;">
                 </figure>
                 <header class="mt-2">
                     <h2 class="text-center text-xl text-gray-700">Diplomados</h2>
-                    <p class="text-sm text-gray-500 text-justify">Accede a una amplia gama de recursos educativos desde la comodidad
+                    <p class="text-sm text-gray-500 text-justify">Accede a una amplia gama de recursos educativos desde
+                        la comodidad
                         de tu hogar. Explora, descubre y aprende en cualquier momento y lugar.</p>
                 </header>
             </article>
             <!-- Aprende desde Casa -->
             <article class="service-card">
                 <figure class="flex-grow">
-                    <img class="rounded-xl h-full w-full object-cover" src="{{ asset('img/home/clases_online.png') }}"
-                        alt="Aprende desde Casa">
+                    <img class="rounded-xl h-full w-full object-cover"
+                        src="{{ asset('img/home/aprendodesdecasa.jpg') }}" alt="Aprende desde Casa"
+                        style="height: 200px;">
                 </figure>
                 <header class="mt-2">
                     <h2 class="text-center text-xl text-gray-700">Aprende desde Casa</h2>
-                    <p class="text-sm text-gray-500 text-justify">Únete a nuestras clases interactivas y dinámicas impartidas por
+                    <p class="text-sm text-gray-500 text-justify">Únete a nuestras clases interactivas y dinámicas
+                        impartidas por
                         expertos en diversas áreas. Aprende a tu ritmo y según tu horario.</p>
                 </header>
             </article>
             <!-- Capacitaciones Especializadas -->
             <article class="service-card">
                 <figure class="flex-grow">
-                    <img class="rounded-xl h-full w-full object-cover" src="{{ asset('img/home/capacitaciones.png') }}"
-                        alt="Capacitaciones Especializadas">
+                    <img class="rounded-xl h-full w-full object-cover" src="{{ asset('img/home/capacitacion.jpg') }}"
+                        alt="Capacitaciones Especializadas" style="height: 200px;">
                 </figure>
                 <header class="mt-2">
                     <h2 class="text-center text-xl text-gray-700">Capacitaciones Especializadas</h2>
-                    <p class="text-sm text-gray-500 text-justify">Adquiere nuevas habilidades y conocimientos para destacar en tu
+                    <p class="text-sm text-gray-500 text-justify">Adquiere nuevas habilidades y conocimientos para
+                        destacar en tu
                         carrera profesional con nuestros programas de capacitación especializados.</p>
                 </header>
             </article>
             <!-- Conéctate y Colabora -->
             <article class="service-card">
                 <figure class="flex-grow">
-                    <img class="rounded-xl h-full w-full object-cover" src="{{ asset('img/home/grupo_wspp.png') }}"
-                        alt="Conéctate y Colabora">
+                    <img class="rounded-xl h-full w-full object-cover" src="{{ asset('img/home/grupoWspp.jpg') }}"
+                        alt="Conéctate y Colabora" style="height: 200px;">
                 </figure>
                 <header class="mt-2">
                     <h2 class="text-center text-xl text-gray-700">Conéctate y Colabora</h2>
-                    <p class="text-sm text-gray-500 text-justify">Únete a nuestro grupo de WhatsApp para interactuar con otros
+                    <p class="text-sm text-gray-500 text-justify">Únete a nuestro grupo de WhatsApp para interactuar con
+                        otros
                         estudiantes, hacer preguntas y compartir recursos educativos. ¡Aprende en comunidad!</p>
                 </header>
             </article>
@@ -111,7 +116,7 @@
     </section>
 
 
-    <section class="mt-24 bg-gray-700 py-12">
+    <section class="mt-24 bg-gray-700 py-12 mb-24">
         <h1 class="text-center text-white text-3xl">¿ESTÁS BUSCANDO TU ESTABILIDAD LABORAL Y UNA MEJOR REMUNERACIÓN
             MENSUAL?</h1>
         <p class="text-center text-white mt-2">Dirígete a nuestro catálogo de cursos</p>
@@ -122,6 +127,39 @@
         </div>
 
     </section>
+    <div class="container mx-auto text-gray-600 text-center mb-6 px-4">
+        <div class="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden mx-auto max-w-4xl">
+            <div class="md:w-1/3">
+                <img src="{{ asset('img/baners/GERENTE.jpg') }}" alt="Promotor General Percy Chingo Coronel"
+                    class="object-cover w-full h-full">
+            </div>
+            <div class="w-full md:w-2/3 p-4">
+                <h1 class="text-3xl font-bold text-gray-800">Promotor General Percy Chingo Coronel: Fundador de Coopsemul
+                    "Los que más saben"</h1>
+                <p class="mt-2 text-gray-600 text-justify text-xl">
+                    Percy Chingo Coronel, reconocido como uno de los pilares en la fundación de Coopsemul "Los que más
+                    saben", es una figura esencial en el campo de la educación profesional para docentes en la región.
+                    Su trayectoria como educador y líder ha sido fundamental para el desarrollo y expansión de esta
+                    institución educativa dedicada a la capacitación de profesores.
+    
+                    Desde sus inicios, Percy Chingo Coronel visionó a Coopsemul como un espacio innovador donde los
+                    docentes podrían no solo prepararse para exámenes de nombramiento y ascenso, sino también
+                    desarrollar habilidades pedagógicas que respondieran a las demandas del sistema educativo moderno.
+                    Su enfoque siempre ha estado en crear un entorno de aprendizaje que promueva el desarrollo integral
+                    del profesorado, equipándolos con herramientas pedagógicas y tecnológicas de vanguardia.
+    
+                    El Promotor General también ha sido clave en la formación de alianzas estratégicas con instituciones
+                    educativas y organizaciones gubernamentales, lo que ha ampliado el alcance y el impacto de Coopsemul
+                    "Los que más saben". Estas colaboraciones han permitido a la institución mantener su relevancia y
+                    asegurar que su currículo esté siempre alineado con los cambios y las necesidades del sector
+                    educativo.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+
+
 
 
     <section class="mt-24 mb-5">
