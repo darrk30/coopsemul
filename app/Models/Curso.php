@@ -36,6 +36,13 @@ class Curso extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    //muchos a muchos con usuarios(un curso dicta varios profesores)
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('status');
+    }
+
     public function link()
     {
         return $this->hasOne('App\Models\Link');

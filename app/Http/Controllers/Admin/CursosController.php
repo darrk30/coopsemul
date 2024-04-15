@@ -18,7 +18,6 @@ class CursosController extends Controller
     public function __construct()
     {
         $this->middleware('can:admin.cursos.index')->only('index');
-
     }
 
 
@@ -27,6 +26,7 @@ class CursosController extends Controller
     {
         $usuario = Auth::user();
         $id = $usuario->id;
+
 
         // Verifica si el usuario tiene roles asignados
         if ($usuario->roles->isNotEmpty()) {
@@ -43,7 +43,9 @@ class CursosController extends Controller
                         $query->where('status', 1);
                     })->get();
 
-                return view('admin.cursos.index', compact('MisCursos'));
+                $MisCursos2 = $usuario->curso()->get();
+                
+                return view('admin.cursos.index', compact('MisCursos', 'MisCursos2'));
             } elseif ($rol === "Estudiante") {
                 // Si el usuario es estudiante, también obtén los cursos del estudiante
                 $MisCiclos = $usuario->ciclos()
@@ -64,13 +66,11 @@ class CursosController extends Controller
 
     public function store(Request $request, Curso $curso)
     {
-
     }
 
 
     public function show(Curso $curso)
     {
-
     }
 
 
@@ -81,5 +81,4 @@ class CursosController extends Controller
     public function update(Request $request, string $id)
     {
     }
-
 }

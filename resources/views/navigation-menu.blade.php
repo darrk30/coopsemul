@@ -1,7 +1,7 @@
 @php
     $nav_links = [
         [
-            'name' => 'Home',
+            'name' => 'Inicio',
             'route' => route('Home'),
             'active' => request()->routeIs('home'),
         ],

@@ -326,9 +326,7 @@ return [
             'route' => 'admin.ciclos.index',
             'icon' => 'fas fa-sync-alt',
             'can'        => 'admin.ciclos.index',
-            'active'    => ['*admin/ciclos*'],
-            'active' => ['*admin/matricula*'],
-            'active' => ['*admin/ciclos/create*'],
+            'active'    => ['*admin/ciclos*'],           
         ],
         [
             'text' => 'Lista de Cursos',

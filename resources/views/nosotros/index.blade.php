@@ -17,7 +17,7 @@
             <div class="md:w-1/2 text-center md:text-left md:pr-12">
                 <h2 class="text-3xl font-bold mb-8">Nuestra Historia</h2>
                 <p class="text-gray-700 leading-relaxed mx-auto max-w-2xl text-justify">
-                    Coopsemul "Los que más saben" es una institución educativa fundada en 2010, dedicada a fortalecer y
+                    Coopsemul "Los que más saben" es una institución educativa fundada en 2019, dedicada a fortalecer y
                     enriquecer la carrera profesional de docentes en toda la región. Su misión desde el principio ha
                     sido clara: proporcionar a los educadores las herramientas y conocimientos necesarios para alcanzar
                     el éxito en los exigentes exámenes de nombramiento y ascenso en el sistema educativo. La idea surgió
@@ -84,7 +84,8 @@
             <!-- Sección de Valores -->
             <div class="border border-gray-300 p-8 values">
                 <section class="text-left">
-                    <h2 class="text-2xl font-bold mb-4">Nuestros Valores</h2>
+                    <img src="{{ asset('img/nosotros/valores.png') }}" alt="Imagen de la Empresa"
+                        class="rounded-lg mb-8 shadow-lg mx-auto w-full md:w-3/4 lg:w-1/2" style="height: 250px">                    
                     <ul class="text-gray-700">
                         <li class="flex items-center mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
@@ -153,7 +154,8 @@
             <!-- Sección de Objetivos -->
             <div class="border border-gray-300 p-8 objectives">
                 <section class="text-left">
-                    <h2 class="text-2xl font-bold mb-4">Nuestros Objetivos</h2>
+                    <img src="{{ asset('img/nosotros/objetivos.png') }}" alt="Imagen de la Empresa"
+                        class="rounded-lg mb-8 shadow-lg mx-auto w-full md:w-3/4 lg:w-1/2" style="height: 250px">                   
                     <ul class="text-gray-700">
                         <li class="flex items-center mb-2">
                             ■ Académicos:Mejorar continuamente la calidad y relevancia del currículo educativo para

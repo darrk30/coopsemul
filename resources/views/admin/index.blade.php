@@ -2,7 +2,6 @@
 @section('title', 'Dashboard | Coopsemul')
 
 @section('content_header')
-    <h1>Bienvenido a Coopsemul</h1>
      <!-- Fonts -->
      <link rel="preconnect" href="https://fonts.bunny.net">
      <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -17,24 +16,10 @@
    
     <div class="swiper-banner">
         <div class="swiper-wrapper">
-            <div class="swiper-slide "
-                style="background-image: url('https://kinsta.com/es/wp-content/uploads/sites/8/2021/07/performance-testing-tools-1024x512.png')">
-                <h1>ESTE ES EL TITULO</h1>
-                <p>ESTE ES UN SUBTITULO</p>
-                <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Contactenos</a>
-            </div>
             <div class="swiper-slide"
-                style="background-image: url('https://kinsta.com/es/wp-content/uploads/sites/8/2021/07/performance-testing-tools-1024x512.png')">
-                <h1>ESTE ES EL TITULO</h1>
-                <p>ESTE ES UN SUBTITULO</p>
-                <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Contactenos</a>
+                style="background-image: url('{{asset('img/baners/bienvenidos.png')}}'); ">
             </div>
-            <div class="swiper-slide"
-                style="background-image: url('https://kinsta.com/es/wp-content/uploads/sites/8/2021/07/performance-testing-tools-1024x512.png')">
-                <h1>ESTE ES EL TITULO</h1>
-                <p>ESTE ES UN SUBTITULO</p>
-                <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Contactenos</a>
-            </div>
+            
             <!-- Agrega más slides según sea necesario -->
         </div>
         <!-- Add Pagination -->

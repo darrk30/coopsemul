@@ -110,6 +110,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Ciclo::class)->withPivot('status');
     }
 
+    //muchos a muchos con con curso
+    public function curso()
+    {
+        return $this->belongsToMany(Curso::class)->withPivot('status');
+    }
+
     public function profile()
     {
         return $this->hasOne('App\Models\Profile');

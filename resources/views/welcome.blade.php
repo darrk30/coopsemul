@@ -165,7 +165,7 @@
     <section class="mt-24 mb-5">
         <h1 class="text-center text-3xl text-gray-700 mb-6">NUESTROS CURSOS</h1>
         <div
-            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-8">
             @foreach ($cursos as $curso)
                 <article class="bg-white shadow-white rounded overflow-hidden">
                     @if (isset($curso->image->url))

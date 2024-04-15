@@ -12,6 +12,24 @@
         @if (Auth::user()->hasRole('Profesor'))
 
             <div class="row">
+                @foreach ($MisCursos2 as $curso)
+                    <div class="col-md-4 mb-4">
+                        <div class="card curso-card shadow">
+                            <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Curso">
+                            <div class="card-body">
+                                <div style="height: 5rem;">
+                                    <h2 class="card-title text-lg font-semibold text-gray-800">{{ $curso->nombre }}</h2>
+                                </div>
+                                @foreach ($curso->ciclo as $ciclo)
+                                    <p class=" text-gray-600">Ciclo: {{ $ciclo->nombre }}</p>
+                                    {{-- <p class=" text-gray-600">Profesor: {{ $ciclo->user->name }}</p> --}}
+                                    <a href="{{ route('admin.ciclos.show', $ciclo) }}" class="btn btn-primary">Ir al Curso</a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
                 @forelse ($MisCursos as $curso)
                     @foreach ($curso->ciclo as $Ciclo)
                         <div class="col-md-4 mb-4">
@@ -19,17 +37,16 @@
                                 <img src="{{ Storage::disk('s3')->url($Ciclo->curso->image->url) }}" alt="Curso">
                                 <div class="card-body">
                                     <div style="height: 5rem;">
-                                        <h2 class="card-title text-lg font-semibold text-gray-800">{{ $Ciclo->curso->nombre }}</h2>
+                                        <h2 class="card-title text-lg font-semibold text-gray-800">
+                                            {{ $Ciclo->curso->nombre }}</h2>
                                     </div>
                                     <p class=" text-gray-600">Ciclo: {{ $Ciclo->nombre }}</p>
                                     <p class=" text-gray-600">Profesor: {{ $Ciclo->curso->user->name }}</p>
-                                    <a href="{{ route('admin.ciclos.show', $Ciclo) }}" class="btn btn-primary">Ir al
-                                        Curso</a>
+                                    <a href="{{ route('admin.ciclos.show', $Ciclo) }}" class="btn btn-primary">Ir al Curso</a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
-
                 @empty
                     <div class="col-md-12">
                         <div class="alert alert-info" role="alert">

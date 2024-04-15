@@ -36,7 +36,7 @@
                                 <i class="far fa-clock mr-2 text-gray-100"></i>
                                 <span class="text-gray-100 font-bold">HORARIO</span><br>
                                 @if (isset($curso->horario))
-                                    <span class="text-gray-100 font-bold">{{$curso->horario}}</span>
+                                    <span class="text-gray-100 font-bold">{{ $curso->horario }}</span>
                                 @endif
                             </div>
                         </li>
@@ -109,16 +109,58 @@
     <div class="mx-auto px-4 py-12 relative bg-gradient-to-r bg-slate-300">
         <h2 class="text-3xl font-semibold mb-5 text-center text-gray-700">DOCENTE A CARGO</h2>
         <div class="flex flex-col items-center justify-center">
+            {{-- @foreach ($profesoresConPerfil as $profesor) --}}
+
+            @foreach ($curso->users as $user)
+                <div
+                    class="relative flex flex-col sm:flex-row w-full max-w-[48rem] rounded-xl bg-white shadow-md overflow-hidden mb-6">
+                    <div class="w-full sm:w-1/3 bg-gradient-to-r flex justify-center items-center">
+                        <img src="{{ optional($user)->profile_photo_path ? asset('storage/' . $user->profile_photo_path) : 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png' }}"
+                            alt="Foto de perfil"
+                            class="object-cover h-64 w-full sm:h-full rounded-tl-xl sm:rounded-tl-none sm:rounded-l-xl">
+                    </div>
+                    <div class="p-6 w-full sm:w-2/3">
+                        <h6 class="mb-2 flex items-center text-sm font-semibold text-gray-600 uppercase">
+                            <i class="fas fa-chalkboard-teacher mr-2"></i> Profesor
+                        </h6>
+
+                        @if (isset($user->name))
+                            <h4 class="mb-3 text-2xl font-semibold text-gray-800">
+
+                                {{ $user->name . ' ' . $user->profile->apellidos }}
+                            </h4>
+                        @endif
+                        @if (isset($user->profile->biografia))
+                            <p class="mb-4 text-base text-gray-700">{{ $user->profile->biografia }}</p>
+                        @endif
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                            <div class="mb-4 sm:mb-0">
+                                <h6 class="mb-2 flex items-center text-sm font-semibold text-gray-600 uppercase">
+                                    <i class="fas fa-graduation-cap mr-2"></i> Especialidad
+                                </h6>
+                                @if (isset($user->profile->especialidad))
+                                    <p class="text-base text-gray-700">{{ $user->profile->especialidad }}</p>
+                                @endif
+                            </div>
+                            <div>
+                                <h6 class="mb-2 flex items-center text-sm font-semibold text-gray-600 uppercase">
+                                    <i class="fas fa-envelope mr-2"></i> Contacto
+                                </h6>
+                                @if (isset($user->email))
+                                    <p class="text-base text-gray-700">{{ $user->email }}</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
             <div
                 class="relative flex flex-col sm:flex-row w-full max-w-[48rem] rounded-xl bg-white shadow-md overflow-hidden">
                 <div class="w-full sm:w-1/3 bg-gradient-to-r flex justify-center items-center">
-
                     <img src="{{ optional($curso->user)->profile_photo_path ? asset('storage/' . $curso->user->profile_photo_path) : 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png' }}"
                         alt="Foto de perfil"
                         class="object-cover h-64 w-full sm:h-full rounded-tl-xl sm:rounded-tl-none sm:rounded-l-xl">
-
-
-
                 </div>
                 <div class="p-6 w-full sm:w-2/3">
                     <h6 class="mb-2 flex items-center text-sm font-semibold text-gray-600 uppercase">
@@ -154,6 +196,7 @@
                     </div>
                 </div>
             </div>
+            {{-- @endforeach --}}
         </div>
     </div>
 

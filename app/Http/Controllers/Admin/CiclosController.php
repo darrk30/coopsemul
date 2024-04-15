@@ -65,10 +65,14 @@ class CiclosController extends Controller
 
     public function show(Ciclo $ciclo)
     {
+        
         //Verificar si el usuario tiene permiso para ver el curso
         $user = Auth::user();
         // Verificar si el usuario es el profesor del curso
-        $isProfessor = $ciclo->curso->user()->where('users.id', $user->id)->exists();
+        
+        $isProfessor = $ciclo->curso->user()->where('users.id', $user->id)->exists() ||
+               $ciclo->curso->users()->where('users.id', $user->id)->exists();
+
 
         // Verificar si el usuario es un alumno inscrito en el curso
         $isStudent = $ciclo->users()->where('users.id', $user->id)->exists();
@@ -188,27 +192,56 @@ class CiclosController extends Controller
 
     public function eliminar($tipo, $id)
     {
-        // Verificar el tipo de elemento a eliminar
         if ($tipo === 'semana') {
             // Eliminar la semana y todos sus recursos asociados
             $semana = Semana::findOrFail($id);
             foreach ($semana->recursos as $recurso) {
-                // Eliminar el archivo asociado al recurso en S3
-                Storage::disk('s3')->delete($recurso->documento);
-                $recurso->delete();
+                // Verificar si el recurso tiene un documento antes de intentar eliminarlo de S3
+                if ($recurso->documento) {
+                    Storage::disk('s3')->delete($recurso->documento);
+                }
+                $recurso->delete(); // Eliminar el recurso de la base de datos
             }
             $semana->delete(); // Eliminar la semana
-            return redirect()->back()->with('error', 'Semana eliminada correctamente');
+            return redirect()->back()->with('success', 'Semana eliminada correctamente');
         } elseif ($tipo === 'recurso') {
-            // Eliminar el recurso y su archivo asociado en S3
+            // Eliminar el recurso y, si existe, su archivo asociado en S3
             $recurso = Recurso::findOrFail($id);
-            Storage::disk('s3')->delete($recurso->documento);
+            if ($recurso->documento) {
+                Storage::disk('s3')->delete($recurso->documento);
+            }
             $recurso->delete();
-            return redirect()->back()->with('error', 'Recurso eliminado correctamente');
+            return redirect()->back()->with('success', 'Recurso eliminado correctamente');
         } else {
-            return redirect()->back()->with('error', 'ERROR');
+            // Manejar errores desconocidos
+            return redirect()->back()->with('error', 'Tipo de elemento no válido');
         }
     }
+
+
+    // public function eliminar($tipo, $id)
+    // {
+    //     // Verificar el tipo de elemento a eliminar
+    //     if ($tipo === 'semana') {
+    //         // Eliminar la semana y todos sus recursos asociados
+    //         $semana = Semana::findOrFail($id);
+    //         foreach ($semana->recursos as $recurso) {
+    //             // Eliminar el archivo asociado al recurso en S3
+    //             Storage::disk('s3')->delete($recurso->documento);
+    //             $recurso->delete();
+    //         }
+    //         $semana->delete(); // Eliminar la semana
+    //         return redirect()->back()->with('error', 'Semana eliminada correctamente');
+    //     } elseif ($tipo === 'recurso') {
+    //         // Eliminar el recurso y su archivo asociado en S3
+    //         $recurso = Recurso::findOrFail($id);
+    //         Storage::disk('s3')->delete($recurso->documento);
+    //         $recurso->delete();
+    //         return redirect()->back()->with('error', 'Recurso eliminado correctamente');
+    //     } else {
+    //         return redirect()->back()->with('error', 'ERROR');
+    //     }
+    // }
 
     public function crear_recurso(Request $request, $id_semana, $curso_nombre, $ciclo_nombre)
     {
