@@ -34,18 +34,18 @@ class ConsultasController extends Controller
                 if (!empty($codigo) && !empty($Dni)) {
                     // Realizar la consulta utilizando la conexión "otra_conexion"
                     $resultados = DB::connection('conexion_codigos')
-                                    ->table('clientes')
-                                    ->where('numeroDoc', $Dni)
-                                    ->where('apellidos', $ResolucionSeleccionada)
-                                    ->where('direccion', $codigo)
+                                    ->table('Codigos')
+                                    ->where('Dni', $Dni)
+                                    ->where('Resolucion', $ResolucionSeleccionada)
+                                    ->where('Codigo', $codigo)
                                     ->first();
 
                     // Comprobar si se encontraron resultados
                     if ($resultados) {
                         $response['success'] = true;
                         $response['data'] = [
-                            'documento' => $resultados->numeroDoc,
-                            'nombres' => $resultados->nombres 
+                            'documento' => $resultados->Documento,
+                            'nombres' => $resultados->Nombres . ' ' . $resultados->Paterno . ' ' . $resultados->Materno,                        
                         ];
                     } else {
                         $response['success'] = false;

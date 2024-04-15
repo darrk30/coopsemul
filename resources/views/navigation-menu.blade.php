@@ -49,7 +49,6 @@
                             {{ $nav_link['name'] }}
                         </x-nav-link>
                     @endforeach
-
                 </div>
             </div>
 
@@ -178,15 +177,14 @@
                             </x-slot>
                         </x-dropdown>
                     @else
-                    <a href="{{ route('login') }}"
-                    class="inline-block px-4 py-2 bg-slate-400 text-white font-semibold rounded-md shadow-md hover:bg-slate-600 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    Iniciar Sesión
-                </a>
-                <a href="{{ route('register') }}"
-                    class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 ml-4">
-                    Registrar
-                </a>
-                
+                        <a href="{{ route('login') }}"
+                            class="inline-block px-4 py-2 bg-slate-400 text-white font-semibold rounded-md shadow-md hover:bg-slate-600 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                            Iniciar Sesión
+                        </a>
+                        <a href="{{ route('register') }}"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 ml-4">
+                            Registrar
+                        </a>
                     @endauth
 
 

@@ -167,23 +167,21 @@
         <div
             class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-8">
             @foreach ($cursos as $curso)
-                <article class="bg-white shadow-white rounded overflow-hidden">
+                <article class="bg-white shadow-lg rounded overflow-hidden">
                     @if (isset($curso->image->url))
                         <img src="{{ Storage::disk('s3')->url($curso->image->url) }}" alt="Imagen del Curso"
-                            class="lg:block md:hidden block rounded-lg shadow-lg" style="width: 400px; height: 300px;">
+                            class="w-full h-48 object-cover rounded-t-lg"> <!-- Adjusted line -->
                     @else
-                        <!-- Aquí puedes poner una imagen predeterminada o dejarlo en blanco según prefieras -->
                         <img src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"
-                            alt="Imagen predeterminada del Curso" class="lg:block md:hidden block rounded-lg shadow-lg"
-                            style="width: 400px; height: 300px;">
+                            alt="Imagen predeterminada del Curso" class="w-full h-48 object-cover rounded-t-lg"> <!-- Adjusted line -->
                     @endif
-
+    
                     <div class="px-5 py-4">
                         <div class="mb-2 h-14">
                             <h1 class="text-base text-gray-700 mb-2 leading-6">
                                 {{ Str::limit($curso->nombre, 50, '...') }}</h1>
                         </div>
-
+    
                         <div class="mb-2">
                             @if (isset($curso->user->name) && isset($curso->user->profile->apellidos))
                                 <p class="text-gray-500 text-sm">Prof: {{ $curso->user->name }}
@@ -208,6 +206,7 @@
             @endforeach
         </div>
     </section>
+    
 
 
     <section class="mt-24 mb-24 bg-gray-700 py-12">

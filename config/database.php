@@ -97,9 +97,9 @@ return [
             'driver' => 'sqlsrv',
             'host' => '127.0.0.1',
             'port' => '1433',
-            'database' => 'pc_master_final',
-            'username' => 'sa',
-            'password' => '12345678',
+            'database' => 'dbcoopsemul',
+            'username' => 'Coopsemul',
+            'password' => '@Coopsemul',
         ],
 
     ],

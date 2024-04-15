@@ -72,7 +72,7 @@
                     var spnMensaje = $('#lblmensaje');
 
                     if (data.success) {
-                        if (data.data.documento === "75235618") {
+                        if (data.data.documento === "Capacitación" || data.data.documento === "Actualización") {
                             spnDocumento.html('<span class="certificado-text">Certificado de:</span><br>' + data
                                 .data.documento);
                         } else {
