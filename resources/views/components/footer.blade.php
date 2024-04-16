@@ -17,7 +17,7 @@
                 <div class="flex flex-col items-start mt-5 space-y-2">
                     <a href="https://losquemassaben.com" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Inicio</a>
                     <a href="https://losquemassaben.com/nosotros" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Quiénes Somos</a>
-                    <a href="https://losquemassaben.com/noticias" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Ultimas Noticias</a>
+                    <a href="https://losquemassaben.com/noticias" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Últimas Noticias</a>
                     <a href="https://losquemassaben.com/cursos" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Cursos</a>
                 </div>
             </div>
