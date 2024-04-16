@@ -21,15 +21,6 @@
                     <a href="https://losquemassaben.com/cursos" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Cursos</a>
                 </div>
             </div>
-            {{-- <div>
-                <p class="font-semibold text-gray-800 dark:text-white">Industrias</p>
-
-                <div class="flex flex-col items-start mt-5 space-y-2">
-                    <a href="#" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Retail & E-Commerce</a>
-                    <a href="#" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Tecnología de la Información</a>
-                    <a href="#" class="text-gray-600 transition-colors duration-300 dark:text-white dark:hover:text-blue-400 hover:underline hover:text-blue-600">Finanzas & Seguros</a>
-                </div>
-            </div> --}}
         </div>
         
         <hr class="my-6 border-gray-200 md:my-8 dark:border-gray-700">
@@ -38,7 +29,9 @@
             <a href="#">
                 <x-application-mark class="block h-9 w-auto" />
             </a>
-            
+            <p class="text-gray-600 dark:text-white text-xs md:text-sm">
+                Copyright © Coopsemul "Los que mas saben" - Todos los derechos reservados 2024
+            </p>
             <div class="flex -mx-2">
                 <a href="#" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-white hover:text-blue-600 dark:hover:text-blue-400" aria-label="Facebook">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="none"
@@ -48,9 +41,11 @@
                         </path>
                     </svg>
                 </a>
-
-                {{-- Aquí puedes agregar más enlaces sociales si lo deseas --}}
+                <!-- Additional social links can be added here -->
             </div>
+            
+            
         </div>
     </div>
 </footer>
+

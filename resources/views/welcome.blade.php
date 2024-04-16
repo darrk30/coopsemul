@@ -225,18 +225,9 @@
                 class="bg-white flex items-center justify-center rounded-full h-12 w-12 hover:bg-gray-200">
                 <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp" class="rounded-full"
                     loading="lazy">
-            </a>
-            <!-- Botón de Instagram -->
-            <a href="#"
-                class="bg-white flex items-center justify-center rounded-full h-12 w-12 hover:bg-gray-200">
-                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" class="rounded-full"
-                    loading="lazy">
-            </a>
+            </a>            
         </div>
     </section>
-
-
-
 
     <script>
         var swiper = new Swiper('.swiper-container', {
@@ -246,6 +237,5 @@
             },
         });
     </script>
-
 
 </x-app-layout>
