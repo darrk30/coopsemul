@@ -203,7 +203,7 @@
                 <img src="{{ asset('img/baners/GERENTE.jpg') }}" alt="Promotor General Percy Chingo Coronel"
                     class="w-full object-cover object-center">
                 <div class="p-4">
-                    <h2 class="text-xl font-bold text-gray-800">Promotor General Percy Chingo Coronel</h2>
+                    <h2 class="text-xl font-bold text-gray-800 text-center">Promotor General</h2>
                     <p class="mt-2 text-gray-600 text-sm text-justify">
                         Percy Chingo Coronel es un destacado educador y líder fundador de Coopsemul "Los que más saben", una institución clave en la capacitación profesional de docentes. Desde el inicio, visionó este espacio como un centro de innovación pedagógica, preparando a los docentes para exámenes de nombramiento y ascenso, y fomentando el desarrollo de habilidades modernas. Su liderazgo ha sido crucial en la creación de alianzas estratégicas con otras instituciones y organismos gubernamentales, expandiendo el alcance y la influencia de Coopsemul en el sector educativo.
                     </p>
@@ -214,7 +214,7 @@
                 <img src="{{ asset('img/baners/promotor.png') }}" alt="Promotor General Percy Chingo Coronel"
                     class="w-full object-cover object-center">
                 <div class="p-4">
-                    <h2 class="text-xl font-bold text-gray-800">Director General de Proyectos Académicos</h2>
+                    <h2 class="text-xl font-bold text-gray-800 text-center">Director General de Proyectos Académicos</h2>
                     <p class="mt-2 text-gray-600 text-sm text-justify">
                         Ram J. Ruiz Molina es un reconocido docente en el área de Comunicación y experto en Comprensión
                         Lectora, con poco más de 24 años en la docencia preuniversitaria y una trayectoria reconocida a
