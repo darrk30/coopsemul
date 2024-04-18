@@ -127,7 +127,14 @@
         </div>
 
     </section>
-    <div class="container mx-auto text-gray-600 text-center mb-6 px-4">
+
+
+
+
+
+
+
+    {{-- <div class="container mx-auto text-gray-600 text-center mb-6 px-4">
         <div class="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden mx-auto max-w-4xl">
             <div class="md:w-1/3">
                 <img src="{{ asset('img/baners/GERENTE.jpg') }}" alt="Promotor General Percy Chingo Coronel"
@@ -156,8 +163,8 @@
                 </p>
             </div>
         </div>
-    </div>
-    
+    </div> --}}
+
 
 
 
@@ -173,15 +180,16 @@
                             class="w-full h-48 object-cover rounded-t-lg"> <!-- Adjusted line -->
                     @else
                         <img src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"
-                            alt="Imagen predeterminada del Curso" class="w-full h-48 object-cover rounded-t-lg"> <!-- Adjusted line -->
+                            alt="Imagen predeterminada del Curso" class="w-full h-48 object-cover rounded-t-lg">
+                        <!-- Adjusted line -->
                     @endif
-    
+
                     <div class="px-5 py-4">
                         <div class="mb-2 h-14">
                             <h1 class="text-base text-gray-700 mb-2 leading-6">
                                 {{ Str::limit($curso->nombre, 50, '...') }}</h1>
                         </div>
-    
+
                         <div class="mb-2">
                             @if (isset($curso->user->name) && isset($curso->user->profile->apellidos))
                                 <p class="text-gray-500 text-sm">Prof: {{ $curso->user->name }}
@@ -206,12 +214,11 @@
             @endforeach
         </div>
     </section>
-    
-
 
     <section class="mt-24 mb-24 bg-gray-700 py-12">
         <h1 class="text-center text-white text-3xl">Únete a nuestros grupos gratuitos</h1>
-        <p class="text-center text-white mt-2">Compartimos material de mucho interés para ti. Ingresa de manera gratuita
+        <p class="text-center text-white mt-2">Compartimos material de mucho interés para ti. Ingresa de manera
+            gratuita
             dándole click al enlace de abajo o desde aquí.</p>
         <div class="flex justify-center mt-5 space-x-4">
             <!-- Botón de Facebook -->
@@ -225,9 +232,48 @@
                 class="bg-white flex items-center justify-center rounded-full h-12 w-12 hover:bg-gray-200">
                 <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp" class="rounded-full"
                     loading="lazy">
-            </a>            
+            </a>
         </div>
     </section>
+
+    <div class="container mx-auto px-4 py-6 mt-24">
+        <h1 class="text-center text-gray-700 text-3xl  mb-5">REPRESENTANTES</h1>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2  gap-x-6 gap-y-8">
+            <!-- Primera tarjeta -->
+            <div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto">
+                <img src="{{ asset('img/baners/GERENTE.jpg') }}" alt="Promotor General Percy Chingo Coronel"
+                    class="w-full object-cover object-center">
+                <div class="p-4">
+                    <h2 class="text-xl font-bold text-gray-800">Promotor General Percy Chingo Coronel</h2>
+                    <p class="mt-2 text-gray-600 text-sm text-justify">
+                        Percy Chingo Coronel es un destacado educador y líder fundador de Coopsemul "Los que más saben", una institución clave en la capacitación profesional de docentes. Desde el inicio, visionó este espacio como un centro de innovación pedagógica, preparando a los docentes para exámenes de nombramiento y ascenso, y fomentando el desarrollo de habilidades modernas. Su liderazgo ha sido crucial en la creación de alianzas estratégicas con otras instituciones y organismos gubernamentales, expandiendo el alcance y la influencia de Coopsemul en el sector educativo.
+                    </p>
+                </div>
+            </div>
+            <!-- Segunda tarjeta -->
+            <div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto">
+                <img src="{{ asset('img/baners/promotor.png') }}" alt="Promotor General Percy Chingo Coronel"
+                    class="w-full object-cover object-center">
+                <div class="p-4">
+                    <h2 class="text-xl font-bold text-gray-800">Director General de Proyectos Académicos</h2>
+                    <p class="mt-2 text-gray-600 text-sm text-justify">
+                        Ram J. Ruiz Molina es un reconocido docente en el área de Comunicación y experto en Comprensión
+                        Lectora, con poco más de 24 años en la docencia preuniversitaria y una trayectoria reconocida a
+                        nivel regional y nacional. Profesor Principal en el curso de Habilidad Verbal de las mejores
+                        Academias Preuniversitarias del norte del país. Capacitador Docente de las más reconocidas e
+                        importantes Empresas Educativas a Nivel de todo el Perú. Autor de diversas publicaciones como:
+                        "Análisis y Compresión de Textos", "Ortografía Básica de la Lengua", "Comprensión Lectora:
+                        Textos Discontinuos", "Comunicación: teoría y práctica", "Resúmenes de Lujo en la
+                        Literatura Peruana"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
     <script>
         var swiper = new Swiper('.swiper-container', {
