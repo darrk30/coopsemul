@@ -35,8 +35,9 @@
             }
         }
     </style>
+    
     <div class="swiper-container">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper " id="simple-slider">
             <div class="swiper-slide">
                 <img class="swiper-slide-pc" src="{{ asset('img/baners/PORTADA_1_PC.jpg') }}" alt="Capacitación docente">
                 <img class="swiper-slide-mobile" src="{{ asset('img/baners/PORTADA_2_MOVIL.jpg') }}"
@@ -47,8 +48,6 @@
                 <img class="swiper-slide-mobile" src="{{ asset('img/baners/banerMovil.jpg') }}"
                     alt="Banner para móvil">
             </div>
-
-            <!-- Agrega más slides según sea necesario -->
         </div>
         <!-- Controles de navegación -->
         <div class="swiper-button-next"></div>

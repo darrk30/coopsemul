@@ -10,8 +10,18 @@
             @csrf
 
             <div>
+                <x-label for="DNI" value="{{ __('DNI') }}" />
+                <x-input id="DNI" class="block mt-1 w-full" type="text" name="DNI" :value="old('DNI')" required autofocus autocomplete="DNI" />
+            </div>
+
+            <div class="mt-4">
                 <x-label for="name" value="{{ __('Nombre') }}" />
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="apellidos" value="{{ __('Apellidos') }}" />
+                <x-input id="apellidos" class="block mt-1 w-full" type="text" name="apellidos" :value="old('apellidos')" required autofocus autocomplete="apellidos" />
             </div>
 
             <div class="mt-4">

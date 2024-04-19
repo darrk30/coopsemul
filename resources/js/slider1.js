@@ -6,6 +6,7 @@
        el: ".swiper-pagination",
        clickable: true,
      },
+     
      breakpoints: {
         1024: {
          slidesPerView: 4,
