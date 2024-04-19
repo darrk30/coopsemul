@@ -43,9 +43,9 @@
                     alt="Banner para móvil">
             </div>
             <div class="swiper-slide">
-                <img class="swiper-slide-pc" src="{{ asset('img/baners/baner_03.png') }}" alt="Capacitación docente">
-                {{-- <img class="swiper-slide-mobile" src="{{ asset('img/baners/PORTADA_2_MOVIL.jpg') }}"
-                    alt="Banner para móvil"> --}}
+                <img class="swiper-slide-pc" src="{{ asset('img/baners/banerPc.jpg') }}" alt="Capacitación docente">
+                <img class="swiper-slide-mobile" src="{{ asset('img/baners/banerMovil.jpg') }}"
+                    alt="Banner para móvil">
             </div>
 
             <!-- Agrega más slides según sea necesario -->
