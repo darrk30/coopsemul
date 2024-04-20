@@ -24,7 +24,7 @@ class CicloEstudiantes extends Component
 
     public function render()
     {
-        $estudiantes = $this->ciclo->users()->where('name', 'LIKE', '%'. $this->search . '%')->latest('id')->paginate(5);
+        $estudiantes = $this->ciclo->users()->where('name', 'LIKE', '%'. $this->search . '%')->latest('id')->paginate(20);
         return view('livewire.admin.ciclo.ciclo-estudiantes', compact('estudiantes'));
     }
 }
