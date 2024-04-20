@@ -27,12 +27,16 @@
                 <h1 class="text-2xl font-bold">INSCRIBIR ALUMNO</h1>
                 <hr class="mt-2 mb-6">
 
-
+                <button class="btn btn-secondary mb-3" id="enableEditing">Habilitar Edición</button>
                 {!! Form::open(['route' => 'admin.matricula.store', 'method' => 'post']) !!}
 
                 <div class="form-group">
                     {!! Form::label('curso', 'Curso:') !!}
-                    {!! Form::text('curso', $ciclo->curso->nombre, ['class' => 'form-control', 'placeholder' => 'Curso', 'readonly']) !!}
+                    {!! Form::text('curso', $ciclo->curso->nombre, [
+                        'class' => 'form-control',
+                        'placeholder' => 'Curso',
+                        'readonly',
+                    ]) !!}
                     {!! Form::hidden('id', $ciclo->id, ['class' => 'form-control', 'readonly']) !!}
                     @error('curso')
                         <span class="text-danger">{{ $message }}</span>
@@ -58,13 +62,6 @@
                     @enderror
                 </div>
 
-                {{-- <div class="form-group">
-                    {!! Form::label('dni', 'DNI:') !!}
-                    {!! Form::text('dni', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el DNI del estudiante']) !!}
-                    @error('dni')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div> --}}
 
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre:') !!}
@@ -128,8 +125,6 @@
             </div>
         </div>
     </div>
-
-
 @stop
 
 @section('css')
@@ -144,7 +139,7 @@
     </style>
 @stop
 
-@section('js')
+
 @section('js')
     <script>
         var dniFound = false;
@@ -221,8 +216,15 @@
             });
         }
     </script>
-@stop
 
-
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Escuchar el clic del botón para habilitar la edición
+            document.getElementById('enableEditing').addEventListener('click', function() {
+                // Quitar el atributo readonly de los campos Nombre y Apellidos
+                document.getElementById('name').removeAttribute('readonly');
+                document.getElementById('apellidos').removeAttribute('readonly');
+            });
+        });
+    </script>
 @stop

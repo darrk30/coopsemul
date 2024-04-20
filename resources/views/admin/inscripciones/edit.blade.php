@@ -40,14 +40,6 @@
                                     Curso</label>
                             </div>
 
-
-                            {{-- <div class="custom-control custom-checkbox d-inline-block"> <!-- Hacer el checkbox en línea -->
-                                {!! Form::checkbox('activate_curso', 'activate', false, [
-                                    'class' => 'custom-control-input',
-                                    'id' => 'activate_curso',
-                                ]) !!}
-                                <label class="custom-control-label" for="activate_curso">Activar Curso</label>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -89,95 +81,6 @@
                 </div>
 
 
-                <script>
-                    document.getElementById('activate_curso').addEventListener('change', function() {
-                        var checkbox = this;
-                        var cursoInput = document.getElementById('curso');
-                        var cicloIdInput = document.getElementById('codigo');
-                        var selectCurso = document.getElementById('select_curso');
-                        var labelCurso = document.querySelector('label[for="curso"]');
-                        var labelCambio = document.getElementById('label_cambio');
-                
-                        if (checkbox.checked) {
-                            cursoInput.style.display = 'none';
-                            cursoInput.value = ''; // Limpiar el campo de texto
-                            cicloIdInput.style.display = 'none';
-                            cicloIdInput.value = ''; // Limpiar el campo oculto
-                            labelCurso.style.display = 'none'; // Ocultar el label del campo de texto
-                
-                            // Mostrar el campo de selección
-                            selectCurso.style.display = 'block';
-                
-                            // Limpiar el contenido del campo de selección
-                            selectCurso.value = '';
-                
-                            // Cambiar el texto y estilo del label del checkbox
-                            labelCambio.textContent = 'Cancelar Cambio';
-                            labelCambio.style.color = 'red';
-                        } else {
-                            // Mostrar el campo de texto y el input hidden
-                            cursoInput.style.display = 'block';
-                            cursoInput.value = '{{ $ciclo->curso->nombre }}';
-                            cicloIdInput.style.display = 'block';
-                            cicloIdInput.value = '{{ $ciclo->id }}';
-                            labelCurso.style.display = 'block'; // Mostrar el label del campo de texto
-                
-                            // Ocultar el campo de selección
-                            selectCurso.style.display = 'none';
-                
-                            // Limpiar el contenido del campo de selección
-                            selectCurso.value = '';
-                
-                            // Cambiar el texto y estilo del label del checkbox
-                            labelCambio.textContent = 'Cambiar Curso';
-                            labelCambio.style.color = 'black';
-                        }
-                    });
-                </script>
-                
-
-
-
-
-
-                {{-- <script>
-                    document.getElementById('activate_curso').addEventListener('change', function() {
-                        var checkbox = this;
-                        var cursoInput = document.getElementById('curso');
-                        // var codigoInput = document.getElementById('codigo');
-                        var labelCambio = document.getElementById('label_cambio');
-                
-                        if (checkbox.checked) {
-                            // Limpiar el contenido y cambiar el ID del input de texto
-                            cursoInput.value = '';
-                            cursoInput.removeAttribute('readonly');
-                            cursoInput.setAttribute('id', 'codigo');
-                            cursoInput.setAttribute('name', 'codigo');
-                            cursoInput.setAttribute('codigo', 'codigo');
-                            cursoInput.setAttribute('value', "");
-                            // Cambiar el placeholder del input de texto
-                            cursoInput.setAttribute('placeholder', 'Ingrese el código del curso a cambiar');
-                
-                            // Cambiar el texto y estilo del label del checkbox
-                            labelCambio.textContent = 'Cancelar Cambio';
-                            labelCambio.style.color = 'red';
-                
-                            // Limpiar el contenido del input oculto
-                            // codigoInput.value = '';
-                        } else {
-                            // Actualizar la página
-                            location.reload();
-                        }
-                    });
-                </script> --}}
-                {{-- <div class="form-group">
-                    {!! Form::label('curso', 'Curso:') !!}
-                    {!! Form::text('curso', $curso->nombre, ['class' => 'form-control', 'placeholder' => 'Curso', 'readonly']) !!}
-                    {!! Form::hidden('id', $curso->id, ['class' => 'form-control']) !!}
-                    @error('curso')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div> --}}
                 <div class="form-group">
                     {!! Form::label('dni', 'DNI:') !!}
                     <div class="input-group">
@@ -281,8 +184,52 @@
     </div>
 @stop
 
-@section('css')
-
-
 @section('js')
+
+<script>
+    document.getElementById('activate_curso').addEventListener('change', function() {
+        var checkbox = this;
+        var cursoInput = document.getElementById('curso');
+        var cicloIdInput = document.getElementById('codigo');
+        var selectCurso = document.getElementById('select_curso');
+        var labelCurso = document.querySelector('label[for="curso"]');
+        var labelCambio = document.getElementById('label_cambio');
+
+        if (checkbox.checked) {
+            cursoInput.style.display = 'none';
+            cursoInput.value = ''; // Limpiar el campo de texto
+            cicloIdInput.style.display = 'none';
+            cicloIdInput.value = ''; // Limpiar el campo oculto
+            labelCurso.style.display = 'none'; // Ocultar el label del campo de texto
+
+            // Mostrar el campo de selección
+            selectCurso.style.display = 'block';
+
+            // Limpiar el contenido del campo de selección
+            selectCurso.value = '';
+
+            // Cambiar el texto y estilo del label del checkbox
+            labelCambio.textContent = 'Cancelar Cambio';
+            labelCambio.style.color = 'red';
+        } else {
+            // Mostrar el campo de texto y el input hidden
+            cursoInput.style.display = 'block';
+            cursoInput.value = '{{ $ciclo->curso->nombre }}';
+            cicloIdInput.style.display = 'block';
+            cicloIdInput.value = '{{ $ciclo->id }}';
+            labelCurso.style.display = 'block'; // Mostrar el label del campo de texto
+
+            // Ocultar el campo de selección
+            selectCurso.style.display = 'none';
+
+            // Limpiar el contenido del campo de selección
+            selectCurso.value = '';
+
+            // Cambiar el texto y estilo del label del checkbox
+            labelCambio.textContent = 'Cambiar Curso';
+            labelCambio.style.color = 'black';
+        }
+    });
+</script>
+
 @stop
