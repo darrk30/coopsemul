@@ -39,7 +39,7 @@
                                                     style="width: 50px; height: 50px; border-radius: 50%;">
                                             </td>
                                             <td>{{ $estudiante->name }}</td>
-                                            <td>{{ $estudiante->profile->apellidos }}</td>
+                                            <td>{{ optional($estudiante->profile)->apellidos ?? 'No especificado' }}</td>
                                             <td>{{ $estudiante->profile->DNI }}</td>
                                             <td>{{ $estudiante->email }}</td>
                                             <td>
@@ -55,11 +55,6 @@
                                                     @endif
                                                 @endforeach
 
-                                                {{-- @if ($estudiante->cursos->status == 1)
-                                                    <span class="badge badge-success">Inscrito</span>
-                                                @else
-                                                    <span class="badge badge-danger">Retirado</span>
-                                                @endif --}}
                                             </td>
 
                                             <td>
