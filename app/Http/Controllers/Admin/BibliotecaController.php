@@ -101,7 +101,7 @@ class BibliotecaController extends Controller
             'descripcion' => 'required|string',
             'anio_publicacion' => 'required|integer',
             'category_id' => 'required|exists:categories,id',
-            'archivo' => 'nullable|mimes:pdf,doc,docx', // Archivo opcional
+            'archivo' => 'nullable|mimes:pdf,doc,docx|max:10240', // Archivo opcional
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Imagen opcional
         ]);
 

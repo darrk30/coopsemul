@@ -229,6 +229,14 @@
         </div>
     </div>
 
+    <section class="mt-24 bg-gray-700 py-12 mb-24">
+        <h1 class="text-center text-white text-3xl">Rumbo al Ascenso y Nombramiento Docente 2024-2025 (BLOQUE 1)</h1>       
+        <div class="flex justify-center mt-5">
+            <img src="{{ asset('img/home/horarioBloque1.jpg') }}" alt="Horario Bloque 1" width="700px">
+        </div>
+
+    </section>
+
 
     <script>
         var swiper = new Swiper('.swiper-container', {
