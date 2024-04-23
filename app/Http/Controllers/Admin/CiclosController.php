@@ -65,19 +65,24 @@ class CiclosController extends Controller
 
     public function show(Ciclo $ciclo)
     {
-        
-        //Verificar si el usuario tiene permiso para ver el curso
+        $isAdmin = false;
         $user = Auth::user();
-        // Verificar si el usuario es el profesor del curso
-        
-        $isProfessor = $ciclo->curso->user()->where('users.id', $user->id)->exists() ||
-               $ciclo->curso->users()->where('users.id', $user->id)->exists();
+        $rol = $user->roles->first()->name;
+ 
+        // Verificar si el usuario es administrador
+        if($rol === 'Administrador'){
+            $isAdmin = true;  // Ajusta esta línea según cómo determines el rol de un usuario en tu aplicación
+        }
 
+        // Verificar si el usuario es el profesor del curso
+        $isProfessor = $ciclo->curso->user()->where('users.id', $user->id)->exists() ||
+            $ciclo->curso->users()->where('users.id', $user->id)->exists();
 
         // Verificar si el usuario es un alumno inscrito en el curso
         $isStudent = $ciclo->users()->where('users.id', $user->id)->exists();
 
-        if (!$isProfessor && !$isStudent) {
+        // Permitir acceso si el usuario es profesor, alumno o administrador
+        if (!$isAdmin == true && !$isProfessor && !$isStudent) {
             abort(403, 'PAGINA NO ENCONTRADA');
         }
 
@@ -87,6 +92,7 @@ class CiclosController extends Controller
         // Devolver la vista con los datos
         return view('admin.ciclos.show', compact('ciclo', 'semanas'));
     }
+
 
     public function edit(Ciclo $ciclo)
     {
@@ -219,30 +225,6 @@ class CiclosController extends Controller
     }
 
 
-    // public function eliminar($tipo, $id)
-    // {
-    //     // Verificar el tipo de elemento a eliminar
-    //     if ($tipo === 'semana') {
-    //         // Eliminar la semana y todos sus recursos asociados
-    //         $semana = Semana::findOrFail($id);
-    //         foreach ($semana->recursos as $recurso) {
-    //             // Eliminar el archivo asociado al recurso en S3
-    //             Storage::disk('s3')->delete($recurso->documento);
-    //             $recurso->delete();
-    //         }
-    //         $semana->delete(); // Eliminar la semana
-    //         return redirect()->back()->with('error', 'Semana eliminada correctamente');
-    //     } elseif ($tipo === 'recurso') {
-    //         // Eliminar el recurso y su archivo asociado en S3
-    //         $recurso = Recurso::findOrFail($id);
-    //         Storage::disk('s3')->delete($recurso->documento);
-    //         $recurso->delete();
-    //         return redirect()->back()->with('error', 'Recurso eliminado correctamente');
-    //     } else {
-    //         return redirect()->back()->with('error', 'ERROR');
-    //     }
-    // }
-
     public function crear_recurso(Request $request, $id_semana, $curso_nombre, $ciclo_nombre)
     {
         // Validar los campos del formulario
@@ -299,5 +281,15 @@ class CiclosController extends Controller
             $string
         );
         return preg_replace('/[^a-z0-9]/', '', $string); // Eliminar caracteres no alfanuméricos
+    }
+
+    public function abrirArchivo($recursoId)
+    {
+        $recurso = Recurso::findOrFail($recursoId);
+
+        // Obtener la URL del libro
+        $urlArchivo = $recurso->documento;
+        // Verificar la autenticación y los permisos del usuario aquí
+        return view('admin.ciclos.verArchivo', compact('urlArchivo'));
     }
 }

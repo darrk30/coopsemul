@@ -307,7 +307,7 @@ return [
             'icon' => 'fas fa-fw fa-book',
             'route'        => 'admin.cursos.index',
             'can'        => 'admin.cursos.index',
-            'active'    => ['*admin/cursos*'],
+            'active'    => ['*admin/cursos/*'],
             'active'    => ['*admin/ciclos/*'],
         ],
         [
@@ -326,14 +326,15 @@ return [
             'route' => 'admin.ciclos.index',
             'icon' => 'fas fa-sync-alt',
             'can'        => 'admin.ciclos.index',
-            'active'    => ['*admin/ciclos*'],           
+            'active'    => ['*admin/ciclos/*'],           
+            'active'    => ['*admin/matriculados/*'],
         ],
         [
             'text' => 'Lista de Cursos',
             'route' => 'admin.curso.index',
             'icon' => 'fas fa-fw fa-book',
             'can'        => 'admin.curso.index',
-            'active'    => ['*admin/curso*'],
+            'active'    => ['*admin/curso/*'],
         ],
         [
             'text' => 'Biblioteca',

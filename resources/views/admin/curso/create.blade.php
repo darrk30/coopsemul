@@ -26,17 +26,6 @@
             </div>
         </div>
     </div>
-
-    {{-- <div class="card container">
-    <div class="card-body">
-        {!! Form::open(['route' => 'admin.curso.store', 'autocomplete' => 'off', 'files' => true]) !!}
-                            
-            @include('admin.curso.partials.form')
-
-            {!! Form::submit('Crear Curso', ['class' => 'btn btn-primary']) !!}
-        {!! Form::close() !!}
-    </div>
-</div> --}}
 @stop
 
 @section('js')

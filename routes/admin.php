@@ -81,7 +81,7 @@ Route::resource('niveles', NivelesController::class)->names('admin.niveles')->ex
 //administrar ciclos
 Route::resource('ciclos', CiclosController::class)->names('admin.ciclos')->except(['destroy']);
 
-Route::get('ciclos/{ciclo}/students', [CiclosController::class, 'Students'])->name('admin.ciclos.students');
+Route::get('matriculados/{ciclo}/students', [CiclosController::class, 'Students'])->name('admin.ciclos.students');
 Route::get('ciclos/{ciclo}/matricular', [InscripcionController::class, 'matricular'])->name('admin.matricular.crear');
 Route::post('ciclos/agregarSemana', [CiclosController::class, 'agregarSemana'])->name('admin.ciclos.agregarSemana');
 
@@ -92,4 +92,6 @@ Route::delete('ciclos/eliminar/{tipo}/{id}', [CiclosController::class, 'eliminar
 Route::post('ciclos/crear_recurso/{semana_id}/{curso_nombre}/{ciclo_nombre}', [CiclosController::class, 'crear_recurso'])->name('admin.ciclos.crear_recurso');
 
 Route::post('ciclos/descargar-recurso/{recursoId}', [CiclosController::class, 'descargar_recurso'])->name('admin.ciclos.descargar-recurso');
+
+Route::get('ciclos/abrir-archivo/{recursoId}', [CiclosController::class, 'abrirArchivo'])->name('admin.ciclos.abrir-archivo');
 

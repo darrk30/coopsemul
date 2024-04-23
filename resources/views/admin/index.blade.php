@@ -2,35 +2,86 @@
 @section('title', 'Dashboard | Coopsemul')
 
 @section('content_header')
-     <!-- Fonts -->
-     <link rel="preconnect" href="https://fonts.bunny.net">
-     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-     {{-- <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}"> --}}
- 
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
- 
-     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    {{-- <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}"> --}}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 @stop
 
 @section('content')
-   
-    <div class="swiper-banner">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"
-                style="background-image: url('{{asset('img/baners/bienvenidos.png')}}'); ">
+<div class="swiper-banner d-none d-md-block">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image: url('{{ asset('img/baners/bienvenidos.png') }}');"></div>            
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Navigation Buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
+<img src="{{ asset('img/baners/baner_bienvenida_movil.png') }}" alt="" class="d-block d-md-none" style="width: 100%;">
+
+    <section class="mt-24 bg-gray-700 py-12 mb-24">
+        <div class="flex justify-center mt-5">
+            <div class="card curso-card shadow" style="width: 18rem; margin: 0; background-color: #faee95;">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><strong>CRONOGRAMA DE ACTIVIDADES</strong> </h5>                    
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cronogramaModal">
+                        VER
+                    </button>
+                </div>
             </div>
-            
-            <!-- Agrega más slides según sea necesario -->
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- Add Navigation Buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cronogramaModal" tabindex="-1" role="dialog" aria-labelledby="cronogramaModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cronogramaModalLabel">Cronograma de Actividades</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ asset('img/baners/cronograma_actividades.png') }}" alt="Cronograma de Actividades"
+                        class="img-fluid">
+                </div>
+            </div>
+        </div>
     </div>
 @stop
 
+
 @section('css')
+
+<style>
+    .curso-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .curso-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .curso-card .card-body {
+        padding: 1.25rem;
+    }
+
+    .curso-card .card-text {
+        margin-top: 10px;
+    }
+
+</style>
     <style>
         .swiper-banner {
             max-width: 100%;
@@ -108,18 +159,18 @@
 @section('js')
     <script>
         var swiper = new Swiper('.swiper-banner', {
-    loop: true,
-    autoplay: {
-        delay: 5000, // Cambia el valor según sea necesario (en milisegundos)
-    },
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-});
+            loop: true,
+            autoplay: {
+                delay: 5000, // Cambia el valor según sea necesario (en milisegundos)
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
     </script>
 @stop

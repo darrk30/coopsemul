@@ -33,18 +33,20 @@ class CursosController extends Controller
             // Obtenemos el primer rol del usuario
             $rol = $usuario->roles->first()->name;
 
+
             // Verifica si el usuario tiene el rol de "Profesor"
             if ($rol === "Profesor") {
                 // Obtén los cursos del profesor directamente a través de la relación cursos
                 $MisCursos = $usuario->cursos()
-                    ->where('status', 1)
+                    ->whereNotIn('status', [0])
                     ->with('ciclo')
                     ->whereHas('ciclo', function ($query) {
                         $query->where('status', 1);
                     })->get();
 
+
                 $MisCursos2 = $usuario->curso()->get();
-                
+
                 return view('admin.cursos.index', compact('MisCursos', 'MisCursos2'));
             } elseif ($rol === "Estudiante") {
                 // Si el usuario es estudiante, también obtén los cursos del estudiante
@@ -55,6 +57,16 @@ class CursosController extends Controller
 
 
                 return view('admin.cursos.index', compact('MisCiclos'));
+            } elseif ($rol === "Administrador") {
+                // Obtener todos los cursos que no están en estado 0 y que su ciclo esté activo en estado 1, paginados de 10 en 10
+                $MisCursos = Curso::whereNotIn('status', [0])
+                    ->whereHas('ciclo', function ($query) {
+                        $query->where('status', 1);
+                    })
+                    ->with('ciclo')
+                    ->paginate(10);
+
+                return view('admin.cursos.index', compact('MisCursos'));
             } else {
                 // En caso de que el usuario no tenga ningún rol asignado, lanza una excepción
                 abort(403, 'Usuario no tiene roles asignados');

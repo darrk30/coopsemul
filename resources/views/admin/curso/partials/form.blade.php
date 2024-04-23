@@ -123,7 +123,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 {!! Form::label('status', 'Estado') !!}
-                {!! Form::select('status', ['1' => 'Activo', '0' => 'No activo'], null, [
+                {!! Form::select('status', ['1' => 'Activo', '0' => 'No activo', '2' => 'Interno'], null, [
                     'class' => 'form-control',
                     'placeholder' => 'Seleccione una opción',
                 ]) !!}

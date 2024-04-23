@@ -8,7 +8,8 @@
         <a class="btn btn-primary btn-sm" href="{{ route('admin.curso.create') }}">Nuevo Curso</a>
     </div>
     <div class="input-group mb-3">
-        <input wire:model.live.debounce.250ms="search" type="text" class="form-control rounded" placeholder="Buscar Curso">
+        <input wire:model.live.debounce.250ms="search" type="text" class="form-control rounded"
+            placeholder="Buscar Curso">
     </div>
 
     {{-- @if ($cursos->count())
@@ -91,14 +92,14 @@
         <div class="container">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table  class="table table-striped table-auto">
+                    <table class="table table-striped table-auto">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>Codigo</th>
                                 <th>Nombre</th>
                                 <th>Semanas</th>
-                                <th>Certificación</th>                            
+                                <th>Certificación</th>
                                 <th>Precio</th>
                                 <th>Estado</th>
                                 <th>Creado</th>
@@ -118,7 +119,7 @@
                                                 style="width: 50px; height: 50px; border-radius: 50%;">
                                         @endif
                                     </td>
-                                    <td>{{ $curso->codigo}}</td>
+                                    <td>{{ $curso->codigo }}</td>
                                     <td>{{ $curso->nombre }}</td>
                                     <td>{{ $curso->duracion }}</td>
                                     <td>
@@ -128,13 +129,16 @@
                                             No
                                         @endif
                                     </td>
-                                    <td>S/ {{ $curso->precio->value }}</td>                                
+                                    <td>S/ {{ $curso->precio->value }}</td>
                                     <td>
                                         @if ($curso->status == 1)
                                             <span class="badge badge-success">Activo</span>
+                                        @elseif ($curso->status == 2)
+                                            <span class="badge badge-warning">Interno</span>
                                         @else
                                             <span class="badge badge-secondary">No activo</span>
                                         @endif
+
                                     </td>
                                     <td>{{ $curso->created_at }}</td>
                                     @can('admin.curso.edit')

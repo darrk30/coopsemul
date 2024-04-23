@@ -25,32 +25,34 @@
                 </a>
             @endif
             {{-- carta para las clases --}}
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Clases en linea</h3>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-link mr-2"></i>
-                                @if ($ciclo->curso->link && $ciclo->curso->link->url)
-                                    <a href="{{ $ciclo->curso->link->url }}" target="_blank" class="text-decoration-none">Ir
-                                        a la clase</a>
-                                @endif
+            @if ($ciclo->curso->status != 2)
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Clases en linea</h3>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-link mr-2"></i>
+                                    @if ($ciclo->curso->link && $ciclo->curso->link->url)
+                                        <a href="{{ $ciclo->curso->link->url }}" target="_blank"
+                                            class="text-decoration-none">Ir
+                                            a la clase</a>
+                                    @endif
 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
             <div class="row mt-3">
                 @foreach ($semanas as $semana)
                     <div class="col-md-12">
                         <div class="card mb-3">
-                            <div class="card-body">
+                            <div class="card-body" style="cursor: pointer">
                                 <h3>
                                     <span>{{ $semana->nombre }}</span>
-
                                     <span class="float-right">
                                         {{-- boton para crear un recurso de la semana --}}
                                         @can('admin.ciclos.crear_recurso')
@@ -82,6 +84,7 @@
                                 </h3>
                                 <p>{{ $semana->descripcion }}</p>
                             </div>
+
                             <div class="card-footer" style="display: none;">
                                 <div class="row">
                                     @foreach ($semana->recursos as $recurso)
@@ -107,7 +110,8 @@
                                                             @if (isset($recurso->url))
                                                                 <a href="{{ $recurso->url }}">{{ $recurso->url }}</a>
                                                             @endif
-                                                            @if (isset($recurso->documento) && in_array(strtolower(pathinfo($recurso->documento, PATHINFO_EXTENSION)), ['jpg','jpeg','png']))
+                                                            @if (isset($recurso->documento) &&
+                                                                    in_array(strtolower(pathinfo($recurso->documento, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png']))
                                                                 <img src="{{ Storage::disk('s3')->url($recurso->documento) }}"
                                                                     alt="Imagen del recurso" class="img-fluid"
                                                                     width="150px" style="margin-bottom: 5px;"><br>
@@ -122,18 +126,29 @@
                                                             @if (isset($recurso->documento))
                                                                 @can('admin.ciclos.descargar-recurso')
                                                                     {{-- boton para descargar recurso --}}
-                                                                    <form
-                                                                        action="{{ route('admin.ciclos.descargar-recurso', ['recursoId' => $recurso->id]) }}"
-                                                                        method="POST"
-                                                                        style="display: inline; margin-left: 10px;">
-                                                                        @csrf
-                                                                        <button type="submit" class="btn btn-primary btn-sm "
-                                                                            data-toggle="tooltip" data-placement="top"
-                                                                            title="Descargar Recurso">
-                                                                            {{ $recurso->nombre }}<i
-                                                                                class="fas fa-download ml-2"></i>
-                                                                        </button>
-                                                                    </form>
+                                                                    @if ($ciclo->curso->status != 2)
+                                                                        <form
+                                                                            action="{{ route('admin.ciclos.descargar-recurso', ['recursoId' => $recurso->id]) }}"
+                                                                            method="POST"
+                                                                            style="display: inline; margin-left: 10px;">
+                                                                            @csrf
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary btn-sm mb-1"
+                                                                                data-toggle="tooltip" data-placement="top"
+                                                                                title="Descargar Recurso">
+                                                                                {{ Str::limit($recurso->nombre, 20) }}
+<i
+                                                                                    class="fas fa-download ml-2"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                    @endif
+                                                                    {{-- Botón para ver el archivo directamente en el navegador --}}
+                                                                    @if ($recurso->documento)
+                                                                        <a href="{{ route('admin.ciclos.abrir-archivo', ['recursoId' => $recurso->id]) }}"
+                                                                            target="_blank" class="btn btn-info btn-sm">
+                                                                            Ver Archivo <i class="fas fa-eye"></i> 
+                                                                        </a>
+                                                                    @endif
                                                                 @endcan
                                                             @endif
                                                 </div>
@@ -146,8 +161,7 @@
                     </div>
                 @endforeach
             </div>
-
-
+        </div>
     </section>
 
 
@@ -267,13 +281,4 @@
             }
         }
     </script>
-
-
-
-
-
-
-
-
-
 @stop
