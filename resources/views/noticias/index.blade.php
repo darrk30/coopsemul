@@ -34,7 +34,7 @@
                     @foreach ($noticias as $key => $noticia)
                         <div id="noticia{{ $key + 1 }}" class="noticia mt-4  {{ $key === 0 ? '' : 'hidden' }}">
                             <h2 class="text-2xl font-bold mb-2 text-sky-500">{{ $noticia->titulo }}</h2>
-                            <p class="text-slate-500 text-justify">{{ $noticia->descripcion }}</p>
+                            <p class="text-slate-500 text-justify">{!! $noticia->descripcion !!}</p>
                             <div class="fecha-publicacion">
                                 <span class="fecha-label">Fecha de publicación</span>
                                 <span class="fecha-label">{{ $noticia->fecha }}</span>
@@ -42,6 +42,7 @@
                         </div>
                     @endforeach
                 </div>
+                
             </div>
             <!-- Barra lateral (2/5 del ancho) -->
             <div class="bg-white rounded-md p-4 shadow-md md:flex-2 md:ml-4 w-full md:w-2/5" style="height: 100%;">
