@@ -28,7 +28,7 @@
                 <hr class="mt-2 mb-6">
 
                 <button class="btn btn-secondary mb-3" id="enableEditing">Habilitar Edición</button>
-                {!! Form::open(['route' => 'admin.matricula.store', 'method' => 'post']) !!}
+                {!! Form::open(['route' => 'admin.matricula.store', 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
 
                 <div class="form-group">
                     {!! Form::label('curso', 'Curso:') !!}
@@ -42,6 +42,7 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
                 <div class="form-group">
                     {!! Form::label('dni', 'DNI:') !!}
                     <div class="input-group">
@@ -51,17 +52,14 @@
                             'id' => 'dni',
                         ]) !!}
                         {!! Form::hidden('user_id', null, ['id' => 'user_id']) !!}
-
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button" id="searchDNI">Buscar</button>
                         </div>
                     </div>
-
                     @error('dni')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
 
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre:') !!}
@@ -75,7 +73,6 @@
                     @enderror
                 </div>
 
-
                 <div class="form-group">
                     {!! Form::label('apellidos', 'Apellidos:') !!}
                     {!! Form::text('apellidos', null, [
@@ -88,7 +85,6 @@
                     @enderror
                 </div>
 
-
                 <div class="form-group">
                     {!! Form::label('email', 'Email:') !!}
                     {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el Correo del estudiante']) !!}
@@ -96,7 +92,6 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
 
                 <div class="form-group">
                     {!! Form::label('password', 'Contraseña:') !!}
@@ -109,7 +104,6 @@
                     @enderror
                 </div>
 
-
                 <div class="form-group">
                     {!! Form::label('status', 'Status:') !!}
                     {!! Form::select('status', ['1' => 'Inscrito', '0' => 'Retirado'], '1', ['class' => 'form-control']) !!}
@@ -118,10 +112,19 @@
                     @enderror
                 </div>
 
+                <!-- Campo para subir foto -->
+                <div class="form-group">
+                    {!! Form::label('photo', 'Foto del Estudiante:') !!}
+                    {!! Form::file('photo', ['class' => 'form-control']) !!}
+                    @error('photo')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
 
                 {!! Form::submit('Enviar', ['class' => 'btn btn-primary']) !!}
 
                 {!! Form::close() !!}
+
             </div>
         </div>
     </div>

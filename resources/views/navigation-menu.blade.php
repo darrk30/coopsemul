@@ -25,6 +25,11 @@
             'route' => route('consultas.index'),
             'active' => request()->routeIs('consultas.index'),
         ],
+        [
+            'name' => 'Docentes',
+            'route' => route('docentes.index'),
+            'active' => request()->routeIs('docentes.index'),
+        ],
     ];
 @endphp
 

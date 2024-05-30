@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConsultasController;
 use App\Http\Controllers\CursosController;
+use App\Http\Controllers\DocentesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NosotrosController;
@@ -20,6 +21,8 @@ Route::get('noticias', [NoticiasController::class, 'index'])->name('noticias.ind
 Route::get('Consultasunt', [ConsultasController::class, 'index'])->name('consultas.index');
 Route::get('consultas/resolucion', [ConsultasController::class, 'resolucion'])->name('consultas.resolucion');
 
+
+Route::get('docentes', [DocentesController::class, 'index'])->name('docentes.index');
 // Route::middleware(['auth:sanctum', 'verified'])->get('/admin', function () {
 //     return view('admin.index');
 // })->name('admin.home');

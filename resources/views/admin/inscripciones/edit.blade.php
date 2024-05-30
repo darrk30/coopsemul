@@ -48,6 +48,7 @@
                     'route' => ['admin.matricula.update', $user], // Asegúrate de pasar el ID del usuario como parámetro
                     'autocomplete' => 'off',
                     'method' => 'PUT',
+                    'enctype' => 'multipart/form-data'
                 ]) !!}
                 @if ($errors->any() && session('transaction_failed'))
                     <div class="alert alert-danger">
@@ -160,7 +161,14 @@
                     });
                 </script>
 
-
+                <!-- Campo para subir foto -->
+                <div class="form-group">
+                    {!! Form::label('photo', 'Foto del Estudiante:') !!}
+                    {!! Form::file('photo', ['class' => 'form-control']) !!}
+                    @error('photo')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
 
                 <div class="form-group">
                     {!! Form::label('status', 'Status:') !!}

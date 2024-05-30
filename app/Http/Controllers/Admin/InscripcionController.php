@@ -13,6 +13,7 @@ use Throwable;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
 class InscripcionController extends Controller
 {
@@ -74,6 +75,8 @@ class InscripcionController extends Controller
                     DB::commit();
                 }
             } else {
+                //                return $request;
+
                 $validator = $this->validateFields($request);
 
                 // Si la validación falla, redirigir de vuelta con los errores
@@ -85,6 +88,11 @@ class InscripcionController extends Controller
                 $user->name = $request->name;
                 $user->email = $request->email;
                 $user->password = bcrypt($request->password);
+                // Manejar la subida de la imagen
+                if ($request->hasFile('photo')) {
+                    $path =  $request->file('photo')->store('profile-photos', 'public');
+                    $user->profile_photo_path = $path;
+                }
                 $user->save();
 
                 // Asignar el rol de "estudiante" al usuario
@@ -211,12 +219,12 @@ class InscripcionController extends Controller
             $curso = Curso::where('id', $request->curso_id)->first();
 
             if ($curso && $curso->status == 1) {
-                
+
                 // Verificar si hay ciclos asociados al curso
                 if ($curso->ciclo->isNotEmpty()) {
-                    
-                    foreach ($curso->ciclo as $ciclo) {                        
-                        if ($ciclo->status == 1) {                           
+
+                    foreach ($curso->ciclo as $ciclo) {
+                        if ($ciclo->status == 1) {
                             // Verificar si el usuario ya está inscrito en el nuevo curso
                             $inscripcionExistente = DB::table('ciclo_user')
                                 ->where('ciclo_id', $ciclo->id)
@@ -230,7 +238,7 @@ class InscripcionController extends Controller
                             $user->ciclos()->detach($ciclo_id);
                             // Vincular al usuario con el nuevo curso y actualizar su estado
                             $user->ciclos()->attach($ciclo->id, ['status' => $request->status]);
-                        }else{
+                        } else {
                             return back()->withErrors(['error' => 'El curso no tiene ciclos activos']);
                         }
                     }
@@ -244,6 +252,16 @@ class InscripcionController extends Controller
 
         // Actualizar datos del usuario
         $user->email = $request->email;
+        // Manejar la subida de la nueva imagen
+        if ($request->hasFile('photo')) {
+            // Eliminar la foto antigua si existe
+            if ($user->profile_photo_path) {
+                Storage::disk('public')->delete($user->profile_photo_path);
+            }
+            // Guardar la nueva foto
+            $path = $request->file('photo')->store('profile-photos', 'public');
+            $user->profile_photo_path = $path;
+        }
         $user->save();
 
         // Obtener la entrada en la tabla intermedia curso_user para el usuario y el curso en cuestión
@@ -266,7 +284,6 @@ class InscripcionController extends Controller
 
     public function destroy(string $id)
     {
-        
     }
 
 
