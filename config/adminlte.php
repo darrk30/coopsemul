@@ -311,6 +311,14 @@ return [
             'active'    => ['*admin/ciclos/*'],
         ],
         [
+            'text'       => 'Examenes',
+            'icon' => 'fas fa-fw fa-clipboard',
+            'route'        => 'admin.examenes.index',
+            'can'        => 'admin.examenes.index',
+            'active'    => ['*admin/exams/*'],
+            'active'    => ['*admin/exams/*'],
+        ],
+        [
             'text'       => 'Mi Biblioteca',
             'icon' => 'fas fa-fw fa-archive',
             'route'        => 'admin.miBiblioteca.index',
@@ -326,7 +334,7 @@ return [
             'route' => 'admin.ciclos.index',
             'icon' => 'fas fa-sync-alt',
             'can'        => 'admin.ciclos.index',
-            'active'    => ['*admin/ciclos/*'],           
+            'active'    => ['*admin/ciclos/*'],
             'active'    => ['*admin/matriculados/*'],
         ],
         [
@@ -371,14 +379,14 @@ return [
                 ],
                 [
                     'text' => 'Categorias',
-                    'icon' => 'fas fa-tags',                  
+                    'icon' => 'fas fa-tags',
                     'route'        => 'admin.categorias.index',
                     'can'        => 'admin.categorias.index',
                     'active'    => ['*admin/categorias*']
                 ],
                 [
                     'text' => 'Niveles',
-                    'icon' => 'fas fa-layer-group',                   
+                    'icon' => 'fas fa-layer-group',
                     'route'        => 'admin.niveles.index',
                     'can'        => 'admin.niveles.index',
                     'active'    => ['*admin/niveles*']

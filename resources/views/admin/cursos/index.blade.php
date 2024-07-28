@@ -10,7 +10,6 @@
 @section('content')
     <section class="container">
         @if (Auth::user()->hasRole('Profesor') || Auth::user()->hasRole('Administrador'))
-
             <div class="row">
                 @isset($MisCursos2)
                     @foreach ($MisCursos2 as $curso)
@@ -27,7 +26,11 @@
                                     </div>
                                     @foreach ($curso->ciclo as $ciclo)
                                         <p class=" text-gray-600">Ciclo: {{ $ciclo->nombre }}</p>
-                                        <p class=" text-gray-600">@isset($Ciclo->curso->user->name)Profesor: {{ $ciclo->user->name }}@endisset</p>
+                                        <p class=" text-gray-600">
+                                            @isset($Ciclo->curso->user->name)
+                                                Profesor: {{ $ciclo->user->name }}
+                                            @endisset
+                                        </p>
                                         <a href="{{ route('admin.ciclos.show', $ciclo) }}" class="btn btn-primary">Ir al
                                             Curso</a>
                                     @endforeach
@@ -47,7 +50,9 @@
                                             {{ $Ciclo->curso->nombre }}</h2>
                                     </div>
                                     <p class=" text-gray-600">Ciclo: {{ $Ciclo->nombre }}</p>
-                                    <p class=" text-gray-600">@isset($Ciclo->curso->user->name)Profesor:
+                                    <p class=" text-gray-600">
+                                        @isset($Ciclo->curso->user->name)
+                                            Profesor:
                                             {{ $Ciclo->curso->user->name }}
                                         @endisset
                                     </p>
@@ -65,28 +70,28 @@
                     </div>
                 @endforelse
             </div>
-            @if(Auth::user()->hasRole('Administrador'))
-            <nav aria-label="Page navigation example">
-                <ul class="pagination ">
-                    <li class="page-item">
-                        <a class="page-link" href="{{ $MisCursos->previousPageUrl() }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                    </li>
-                    <li class="page-item disabled">
-                        <span class="page-link">Página {{ $MisCursos->currentPage() }} de
-                            {{ $MisCursos->lastPage() }}</span>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="{{ $MisCursos->nextPageUrl() }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Siguiente</span>
-                        </a>
-                    </li>
-        
-                </ul>
-            </nav>
+            @if (Auth::user()->hasRole('Administrador'))
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination ">
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $MisCursos->previousPageUrl() }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Anterior</span>
+                            </a>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">Página {{ $MisCursos->currentPage() }} de
+                                {{ $MisCursos->lastPage() }}</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $MisCursos->nextPageUrl() }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Siguiente</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
             @endif
         @else
             <div class="row">
@@ -100,7 +105,9 @@
                                     </h2>
                                 </div>
                                 <p class=" text-gray-600">Ciclo: {{ $ciclo->nombre }}</p>
-                                <p class=" text-gray-600">@isset($Ciclo->curso->user->name)Profesor:
+                                <p class=" text-gray-600">
+                                    @isset($Ciclo->curso->user->name)
+                                        Profesor:
                                         {{ $ciclo->curso->user->name }}
                                     @endisset
                                 </p>
@@ -117,9 +124,9 @@
                 @endforelse
             </div>
         @endif
-       
+
     </section>
-    
+
 
     <style>
         .curso-card {

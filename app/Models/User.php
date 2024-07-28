@@ -120,4 +120,15 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Profile');
     }
+
+    public function userExamenes()
+    {
+        return $this->hasMany('App\Models\user_examen');
+    }
+
+    public function examenes()
+    {
+        return $this->hasMany('App\Models\Exam');
+    }
+
 }

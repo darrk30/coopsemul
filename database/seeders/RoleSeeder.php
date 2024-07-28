@@ -100,6 +100,21 @@ class RoleSeeder extends Seeder
 
 
 
-        
+        Permission::create(['name' => 'admin.examenes.index','description' => 'Lista de Examenes'])->syncRoles([$role1, $role2, $role3]);
+        Permission::create(['name' => 'admin.examenes.create','description' => 'Crear Examen'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.examenes.edit','description' => 'Editar Examen'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.examenes.destroy','description' => 'Eliminar Examen'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.examenes.show','description' => 'Detalles del Examen'])->syncRoles([$role1, $role2, $role3]);        
+
+
+        Permission::create(['name' => 'admin.questions.index','description' => 'Mostrar Examen'])->syncRoles([$role1, $role2, $role3]);
+        Permission::create(['name' => 'admin.questions.create','description' => 'Crear Nueva Pregunta'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.questions.edit','description' => 'Editar Examen'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.questions.destroy','description' => 'Eliminar Pregunta del Examen'])->syncRoles([$role1, $role2]);
+        // Permission::create(['name' => 'admin.questions.store','description' => 'Detalles del Examen'])->syncRoles([$role1, $role2, $role3]);
+
+
+        Permission::create(['name' => 'admin.detalleExamen.store','description' => 'Enviar Examen'])->syncRoles([$role3]);        
+
     }
 }

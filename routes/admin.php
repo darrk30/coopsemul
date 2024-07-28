@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controller\Admins\UploadController as AdminsUploadController;
 use App\Http\Controllers\Admin\BibliotecaController;
 use App\Http\Controllers\Admin\CategoriasController;
 use App\Http\Controllers\Admin\CiclosController;
@@ -7,14 +8,18 @@ use App\Http\Controllers\Admin\ColaboradoresController;
 use App\Http\Controllers\Admin\ContenidoController;
 use App\Http\Controllers\Admin\CursoController;
 use App\Http\Controllers\Admin\CursosController;
+use App\Http\Controllers\Admin\DetalleExamen;
+use App\Http\Controllers\Admin\ExamsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\InscripcionController;
 use App\Http\Controllers\Admin\LeccionesController;
 use App\Http\Controllers\Admin\MiBiblioteca;
 use App\Http\Controllers\Admin\NivelesController;
-use App\Http\Controllers\Admin\Precios;
 use App\Http\Controllers\Admin\PreciosController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\QuestionsController;
+use App\Http\Controllers\UploadController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.home');
@@ -26,11 +31,26 @@ Route::resource('roles', RoleController::class)->except('show')->names('admin.ro
 // rutas para los cursos de los profesores y alumnos
 Route::resource('cursos', CursosController::class)->names('admin.cursos');
 
+// rutas para crear examenes admin.examenes
+Route::resource('exams', ExamsController::class)->names('admin.examenes');
 
+
+Route::resource('questions', QuestionsController::class)->names('admin.questions')->except(['index', 'create', 'destroy']);
+Route::get('exams/{exam}/questions', [QuestionsController::class, 'index'])->name('admin.questions.index');
+Route::delete('exams/questions/{id}', [QuestionsController::class, 'destroy'])->name('admin.questions.destroy');
+Route::get('exams/{examId}/questions/create', [QuestionsController::class, 'create'])->name('admin.questions.create');
+Route::delete('exams/questions/options/{option}/image',  [QuestionsController::class, 'destroyImage'])->name('questions.options.image.destroy');
+Route::delete('exams/questions/options/{option}',  [QuestionsController::class, 'destroyOption'])->name('questions.options.destroy');
+
+
+Route::resource('detallesExamen', DetalleExamen::class)->names('admin.detalleExamen');
+
+
+Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload.image');
+Route::delete('/delete', [UploadController::class, 'deleteImage'])->name('delete.image');
 
 
 // rutas para crear un curso
-
 Route::resource('curso', CursoController::class)->names('admin.curso')->except(['destroy', 'show']);
 Route::get('curso/buscarProfesor', [CursoController::class, 'BuscarProfesor'])->name('admin.curso.buscarProfesor');
 Route::get('curso/{curso}/contenido', [CursoController::class, 'Contenido'])->name('admin.curso.contenido');
@@ -58,12 +78,12 @@ Route::resource('users', ColaboradoresController::class)->names('admin.colaborad
 
 
 //ruta para administrar el contenido del curso
-Route::resource('contenidos', ContenidoController::class)->names('admin.contenidos')->except(['create','update','index','destroy', 'show', 'edit']);
+Route::resource('contenidos', ContenidoController::class)->names('admin.contenidos')->except(['create', 'update', 'index', 'destroy', 'show', 'edit']);
 Route::post('contenidos/modificar', [ContenidoController::class, 'modificar'])->name('admin.contenidos.modificar');
 Route::post('contenidos/eliminar', [ContenidoController::class, 'eliminar'])->name('admin.contenidos.eliminar');
 
 //ruta para administrar el contenido del curso
-Route::resource('lecciones', LeccionesController::class)->names('admin.lecciones')->except(['create','update','index','destroy', 'show', 'edit']);
+Route::resource('lecciones', LeccionesController::class)->names('admin.lecciones')->except(['create', 'update', 'index', 'destroy', 'show', 'edit']);
 Route::post('lecciones/modificar', [LeccionesController::class, 'modificar'])->name('admin.lecciones.modificar');
 Route::post('lecciones/eliminar', [LeccionesController::class, 'eliminar'])->name('admin.lecciones.eliminar');
 
@@ -94,4 +114,3 @@ Route::post('ciclos/crear_recurso/{semana_id}/{curso_nombre}/{ciclo_nombre}', [C
 Route::post('ciclos/descargar-recurso/{recursoId}', [CiclosController::class, 'descargar_recurso'])->name('admin.ciclos.descargar-recurso');
 
 Route::get('ciclos/abrir-archivo/{recursoId}', [CiclosController::class, 'abrirArchivo'])->name('admin.ciclos.abrir-archivo');
-

@@ -26,13 +26,10 @@ class CursosController extends Controller
     {
         $usuario = Auth::user();
         $id = $usuario->id;
-
-
         // Verifica si el usuario tiene roles asignados
         if ($usuario->roles->isNotEmpty()) {
             // Obtenemos el primer rol del usuario
             $rol = $usuario->roles->first()->name;
-
 
             // Verifica si el usuario tiene el rol de "Profesor"
             if ($rol === "Profesor") {
@@ -43,10 +40,7 @@ class CursosController extends Controller
                     ->whereHas('ciclo', function ($query) {
                         $query->where('status', 1);
                     })->get();
-
-
                 $MisCursos2 = $usuario->curso()->get();
-
                 return view('admin.cursos.index', compact('MisCursos', 'MisCursos2'));
             } elseif ($rol === "Estudiante") {
                 // Si el usuario es estudiante, también obtén los cursos del estudiante
@@ -54,8 +48,6 @@ class CursosController extends Controller
                     ->wherePivot('status', 1)
                     ->where('ciclos.status', 1)
                     ->get();
-
-
                 return view('admin.cursos.index', compact('MisCiclos'));
             } elseif ($rol === "Administrador") {
                 // Obtener todos los cursos que no están en estado 0 y que su ciclo esté activo en estado 1, paginados de 10 en 10

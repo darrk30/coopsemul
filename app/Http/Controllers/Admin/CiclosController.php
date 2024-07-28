@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Ciclo;
 use App\Models\Curso;
+use App\Models\Puntaje;
 use App\Models\Recurso;
 use App\Models\Semana;
 use Illuminate\Http\Request;
@@ -68,30 +69,41 @@ class CiclosController extends Controller
         $isAdmin = false;
         $user = Auth::user();
         $rol = $user->roles->first()->name;
- 
+    
         // Verificar si el usuario es administrador
-        if($rol === 'Administrador'){
-            $isAdmin = true;  // Ajusta esta línea según cómo determines el rol de un usuario en tu aplicación
+        if ($rol === 'Administrador') {
+            $isAdmin = true;
         }
-
+    
         // Verificar si el usuario es el profesor del curso
         $isProfessor = $ciclo->curso->user()->where('users.id', $user->id)->exists() ||
             $ciclo->curso->users()->where('users.id', $user->id)->exists();
-
+    
         // Verificar si el usuario es un alumno inscrito en el curso
         $isStudent = $ciclo->users()->where('users.id', $user->id)->exists();
-
+    
         // Permitir acceso si el usuario es profesor, alumno o administrador
-        if (!$isAdmin == true && !$isProfessor && !$isStudent) {
+        if (!$isAdmin && !$isProfessor && !$isStudent) {
             abort(403, 'PAGINA NO ENCONTRADA');
         }
-
-        // Obtener todas las semanas del curso con sus recursos
-        $semanas = $ciclo->semanas()->with('recursos')->get();
-
+    
+        // Obtener todas las semanas del curso con sus recursos y exámenes
+        //$semanas = $ciclo->semanas()->with(['recursos', 'examenes'])->get();
+        $semanas = $ciclo->semanas()->with(['recursos'])->get();
+        // Obtener puntajes del usuario autenticado
+        // $puntajes = Puntaje::where('user_id', $user->id)->get()->keyBy('exam_id');
+    
+        // // Asignar los puntajes a los exámenes correspondientes
+        // foreach ($semanas as $semana) {
+        //     foreach ($semana->examenes as $examen) {
+        //         $examen->puntaje = $puntajes->get($examen->id)->puntaje ?? null;
+        //     }
+        // }
+    
         // Devolver la vista con los datos
         return view('admin.ciclos.show', compact('ciclo', 'semanas'));
     }
+    
 
 
     public function edit(Ciclo $ciclo)

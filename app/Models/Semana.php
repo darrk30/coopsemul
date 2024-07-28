@@ -20,4 +20,9 @@ class Semana extends Model
         return $this->hasMany('App\Models\Recurso');
     }
 
+    public function examenes()
+    {
+        return $this->hasMany('App\Models\Exam');
+    }
+
 }

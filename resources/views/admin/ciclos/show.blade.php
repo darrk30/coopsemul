@@ -17,8 +17,19 @@
 @stop
 
 @section('content')
+
     <section>
         <div class="container">
+            @if ($errors->any())
+                <div id="errorMessages" class="alert alert-danger" role="alert">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
+
+
+
             @if (isset($ciclo->link_Wspp))
                 <a href="{{ $ciclo->link_Wspp }}" class="btn btn-success mb-3 mr-3" target="_blank">
                     <i class="fab fa-whatsapp mr-1"></i> Grupo de Cursos
@@ -54,10 +65,18 @@
                                 <h3>
                                     <span>{{ $semana->nombre }}</span>
                                     <span class="float-right">
+
+                                        {{-- <!-- Botón para crear un examen -->
+                                        <button type="button" class="btn btn-primary btn-sm miBoton" data-toggle="modal"
+                                            data-target="#miModal" data-semana-id="{{ $semana->id }}">
+                                            <i class="fas fa-clipboard"></i>
+                                        </button> --}}
+
+
                                         {{-- boton para crear un recurso de la semana --}}
                                         @can('admin.ciclos.crear_recurso')
                                             <!-- Botón para crear un nuevo recurso -->
-                                            <button type="button" class="btn btn-secondary btn-sm ml-2" data-toggle="modal"
+                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
                                                 data-target="#modalAgregarRecurso" data-semana-id="{{ $semana->id }}"
                                                 data-curso-nombre="{{ $ciclo->curso->nombre }}"
                                                 data-ciclo-nombre="{{ $ciclo->nombre }}" data-toggle="tooltip"
@@ -137,8 +156,7 @@
                                                                                 data-toggle="tooltip" data-placement="top"
                                                                                 title="Descargar Recurso">
                                                                                 {{ Str::limit($recurso->nombre, 20) }}
-<i
-                                                                                    class="fas fa-download ml-2"></i>
+                                                                                <i class="fas fa-download ml-2"></i>
                                                                             </button>
                                                                         </form>
                                                                     @endif
@@ -146,7 +164,7 @@
                                                                     @if ($recurso->documento)
                                                                         <a href="{{ route('admin.ciclos.abrir-archivo', ['recursoId' => $recurso->id]) }}"
                                                                             target="_blank" class="btn btn-info btn-sm">
-                                                                            Ver Archivo <i class="fas fa-eye"></i> 
+                                                                            Ver Archivo <i class="fas fa-eye"></i>
                                                                         </a>
                                                                     @endif
                                                                 @endcan
@@ -155,6 +173,49 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                    {{-- @foreach ($semana->examenes as $examen)
+                                        <div class="col-md-12">
+                                            <div class="card mb-3"> --}}
+                                                {{-- <div class="card-body" style="position: relative; cursor: pointer;">
+                                                    <strong style="font-size: 18px; color: #333;">Examen: </strong><span
+                                                        style="font-size: 18px; color: #333; margin-bottom: 10px;">
+                                                        <a href="#" class="examen-link"
+                                                            data-examen-id="{{ $examen->id }}">{{ $examen->titulo }}</a></span><br>
+                                                    <strong style="font-size: 18px; color: #333;">Tiempo: </strong><span
+                                                        class="text-muted">{{ $examen->tiempo }} minutos</span><br>
+                                                    @if ($examen->puntaje !== null)
+                                                        <strong style="font-size: 18px; color: #333;">Puntaje:
+                                                        </strong><span
+                                                            class="text-muted">{{ $examen->puntaje }}</span><br>
+                                                    @else
+                                                        <strong style="font-size: 18px; color: #333;">Puntaje:
+                                                        </strong><span class="text-muted">N/A</span><br>
+                                                    @endif
+                                                    <div class="text-muted"
+                                                        style="position: absolute; bottom: 5px; right: 5px;">
+                                                        Fecha de Creación: {{ $examen->fecha }}
+                                                    </div>
+                                                </div> --}}
+                                                {{-- @can('admin.ciclos.eliminar_S_R') --}}
+                                                    {{-- botón para recurso de la semana --}}
+                                                    {{-- <form
+                                                        action="{{ route('admin.examenes.eliminarExam', ['exam_id' => $examen->id, 'ciclo' => $ciclo->id]) }}"
+                                                        method="POST" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="confirmarEliminar(event)" data-toggle="tooltip"
+                                                            data-placement="top" title="Eliminar Examen"
+                                                            style="position: absolute; top: 5px; right: 5px;">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form> --}}
+                                                {{-- @endcan
+                                            </div>
+                                        </div>
+                                    @endforeach --}}
+
+
                                 </div>
                             </div>
                         </div>
@@ -226,7 +287,62 @@
         </div>
     @endcan
 
+{{-- 
+    <!-- Modal para agregar examen -->
+    <!-- Modal -->
+    <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-blue">
+                    <h5 class="modal-title" id="modalLabel">Crear Examen</h5>
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
 
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.examenes.crearExamen') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <input type="text" class="form-control" id="semanaIdInput" name="semanaIdInput"
+                                value="" readonly>
+
+                            <!-- Campo para el título -->
+                            <div class="form-group">
+                                <label for="titulo">Título:</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" required>
+                            </div>
+
+                            <!-- Campo para el tiempo (entero) -->
+                            <div class="form-group">
+                                <label for="tiempo">Tiempo (minutos):</label>
+                                <input type="number" class="form-control" id="tiempo" name="tiempo" required>
+                            </div>
+
+                            <!-- Campo para la fecha con calendario -->
+                            <div class="form-group">
+                                <label for="fecha">Fecha:</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                            </div>
+
+                            <!-- Selector para el estado -->
+                            <div class="form-group">
+                                <label for="status">Estado:</label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="" disabled selected>Seleccione un estado</option>
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Crear Examen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 
 
 
@@ -241,6 +357,7 @@
             var semana_id = button.data('semana-id');
             var curso_nombre = button.data('curso-nombre');
             var ciclo_nombre = button.data('ciclo-nombre');
+
             $.ajax({
                 url: "{{ route('admin.ciclos.formulario') }}",
                 type: "GET",
@@ -259,7 +376,6 @@
             });
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.card-body').click(function(event) {
@@ -270,15 +386,41 @@
         });
     </script>
 
-
     <script>
-        // funcion para confirmar la eliminacion
-        function confirmarEliminar(event) {
-            event.preventDefault();
-            if (confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
-                // Si el usuario confirma, enviar el formulario
-                event.target.closest('form').submit();
-            }
-        }
+        $('.miBoton').click(function() {
+            var semanaId = $(this).data('semana-id'); // Captura el data-semana-id del botón clickeado
+            $('#semanaIdInput').val(semanaId); // Asigna el valor al input dentro del modal
+        });
+
+        // Opcional: Limpiar el input cuando el modal se cierra
+        $('#miModal').on('hidden.bs.modal', function() {
+            $('#semanaIdInput').val(''); // Limpia el valor del input
+        });
     </script>
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.examen-link').forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default link behavior
+
+                    let examenId = this.getAttribute('data-examen-id');
+                    let cicloId = this.getAttribute('data-ciclo-id');
+                    let url =
+                        "{{ route('admin.examenes.showExamen', ['examen' => ':examenId']) }}";
+                    url = url.replace(':examenId', examenId);
+
+                    if (confirm('¿Seguro que quieres ir al examen?')) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    </script> --}}
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @stop

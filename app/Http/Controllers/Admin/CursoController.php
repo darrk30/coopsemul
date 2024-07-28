@@ -118,7 +118,7 @@ class CursoController extends Controller
         return view('admin.curso.edit', compact('curso', 'categorias', 'niveles', 'precios'));
     }
 
-    public function update(Request $request, Curso $curso)
+    public function update(Request $request, Curso $curso )
     {
         $linkId = $curso->link->id ?? null;
         $request->validate([
