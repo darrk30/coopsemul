@@ -13,14 +13,13 @@
             <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
                 <input type="file" id="photo" class="hidden" wire:model.live="photo" x-ref="photo"
-                    x-on:change="
-                                    photoName = $refs.photo.files[0].name;
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => {
-                                        photoPreview = e.target.result;
-                                    };
-                                    reader.readAsDataURL($refs.photo.files[0]);
-                            " />
+                    x-on:change=" photoName = $refs.photo.files[0].name;
+                                  const reader = new FileReader();
+                                  reader.onload = (e) => {
+                                    photoPreview = e.target.result;
+                                  };
+                                  reader.readAsDataURL($refs.photo.files[0]);
+                                " />
 
                 <x-label for="photo" value="{{ __('Foto') }}" />
 
@@ -62,7 +61,7 @@
         <div class="col-span-6 sm:col-span-4">
             <x-label for="name" value="{{ __('Nombre') }}" />
             <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" disabled
-                autocomplete="name"/>
+                autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
         </div>
 
@@ -70,9 +69,10 @@
         <div class="col-span-6 sm:col-span-4">
             <x-label for="apellidos" value="{{ __('Apellidos') }}" />
             @if (isset(Auth::user()->profile->apellidos))
-                <x-input id="apellidos" type="text" class="mt-1 block w-full" value="{{ Auth::user()->profile->apellidos }}" disabled autocomplete="name" />            
+                <x-input id="apellidos" type="text" class="mt-1 block w-full"
+                    value="{{ Auth::user()->profile->apellidos }}" disabled autocomplete="name" />
             @endif
-                
+
             <x-input-error for="name" class="mt-2" />
         </div>
 
