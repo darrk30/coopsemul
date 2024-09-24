@@ -35,7 +35,7 @@
             }
         }
     </style>
-    
+
     <div class="swiper-container">
         <div class="swiper-wrapper " id="simple-slider">
             <div class="swiper-slide">
@@ -45,8 +45,7 @@
             </div>
             <div class="swiper-slide">
                 <img class="swiper-slide-pc" src="{{ asset('img/baners/banerPc.jpg') }}" alt="Capacitación docente">
-                <img class="swiper-slide-mobile" src="{{ asset('img/baners/banerMovil.jpg') }}"
-                    alt="Banner para móvil">
+                <img class="swiper-slide-mobile" src="{{ asset('img/baners/banerMovil.jpg') }}" alt="Banner para móvil">
             </div>
         </div>
         <!-- Controles de navegación -->
@@ -204,7 +203,12 @@
                 <div class="p-4">
                     <h2 class="text-xl font-bold text-gray-800 text-center">Promotor General</h2>
                     <p class="mt-2 text-gray-600 text-sm text-justify">
-                        Percy Chingo Coronel es un destacado educador y líder fundador de Coopsemul "Los que más saben", una institución clave en la capacitación profesional de docentes. Desde el inicio, visionó este espacio como un centro de innovación pedagógica, preparando a los docentes para exámenes de nombramiento y ascenso, y fomentando el desarrollo de habilidades modernas. Su liderazgo ha sido crucial en la creación de alianzas estratégicas con otras instituciones y organismos gubernamentales, expandiendo el alcance y la influencia de Coopsemul en el sector educativo.
+                        Percy Chingo Coronel es un destacado educador y líder fundador de Coopsemul "Los que más saben",
+                        una institución clave en la capacitación profesional de docentes. Desde el inicio, visionó este
+                        espacio como un centro de innovación pedagógica, preparando a los docentes para exámenes de
+                        nombramiento y ascenso, y fomentando el desarrollo de habilidades modernas. Su liderazgo ha sido
+                        crucial en la creación de alianzas estratégicas con otras instituciones y organismos
+                        gubernamentales, expandiendo el alcance y la influencia de Coopsemul en el sector educativo.
                     </p>
                 </div>
             </div>
@@ -213,7 +217,8 @@
                 <img src="{{ asset('img/baners/promotor.png') }}" alt="Promotor General Percy Chingo Coronel"
                     class="w-full object-cover object-center">
                 <div class="p-4">
-                    <h2 class="text-xl font-bold text-gray-800 text-center">Director General de Proyectos Académicos</h2>
+                    <h2 class="text-xl font-bold text-gray-800 text-center">Director General de Proyectos Académicos
+                    </h2>
                     <p class="mt-2 text-gray-600 text-sm text-justify">
                         Ram J. Ruiz Molina es un reconocido docente en el área de Comunicación y experto en Comprensión
                         Lectora, con poco más de 24 años en la docencia preuniversitaria y una trayectoria reconocida a
@@ -229,13 +234,61 @@
         </div>
     </div>
 
-    <section class="mt-24 bg-gray-700 py-12 mb-24">
+    <div class="max-w-7xl mx-auto px-4 mt-24 mb-24">
+        <h1 class="text-center text-gray-700 text-3xl  mb-5">LOS MEJORES CAPACITADORES A NIVEL NACIONAL REUNIDOS PARA LOGRAR TU ASCENSO DE ESCALA</h1>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <!-- Imagen 1 -->
+            <img src="{{ asset('img/docentes/comunicacion.jpg') }}" alt="Imagen 1" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+            <!-- Imagen 2 -->
+            <img src="{{ asset('img/docentes/comunicacion2.jpg') }}" alt="Imagen 2" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+            <!-- Imagen 3 -->
+            <img src="{{ asset('img/docentes/cyt.jpg') }}" alt="Imagen 3" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+            <!-- Imagen 4 -->
+            <img src="{{ asset('img/docentes/ept.jpg') }}" alt="Imagen 4" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+            <!-- Imagen 5 -->
+            <img src="{{ asset('img/docentes/inicial.jpg') }}" alt="Imagen 5" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+            <!-- Imagen 6 -->
+            <img src="{{ asset('img/docentes/primaria.jpg') }}" alt="Imagen 6" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+            <!-- Imagen 7 -->
+            <img src="{{ asset('img/docentes/matematica.jpg') }}" alt="Imagen 7" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+            <!-- Imagen 8 -->
+            <img src="{{ asset('img/docentes/arteycultura.jpg') }}" alt="Imagen 8" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden">
+        <span class="absolute top-5 right-5 text-white text-3xl cursor-pointer" onclick="closeModal()">×</span>
+        <img id="modalImage" src="" class="max-w-full max-h-full rounded">
+    </div>
+
+    <script>
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+        }
+    </script>
+    {{-- <section class="mt-24 bg-gray-700 py-12 mb-24">
         <h1 class="text-center text-white text-3xl">Rumbo al Ascenso y Nombramiento Docente 2024-2025 (BLOQUE 1)</h1>       
         <div class="flex justify-center mt-5">
             <img src="{{ asset('img/home/horarioBloque1.jpg') }}" alt="Horario Bloque 1" width="700px">
         </div>
 
-    </section>
+    </section> --}}
 
 
     <script>

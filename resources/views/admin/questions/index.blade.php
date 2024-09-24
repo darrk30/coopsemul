@@ -6,7 +6,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
     <div class="container">
         @if (session('info'))
             <div id="alerta" class="alert alert-success">
@@ -80,6 +79,12 @@
                             @endphp
                             <p class="option-text {{ $isSelected ? ($isCorrect ? 'correct' : 'incorrect') : '' }}">
                                 {{ $option->option }}
+
+                                @isset($option->image->url)
+                                    <br>
+                                    <img src="{{ Storage::disk('s3')->url($option->image->url) }}" alt="Imagen de opción"
+                                        class="fixed-size-img" width="150px">
+                                @endisset
                             </p>
                         @endforeach
                     </div>
@@ -330,6 +335,7 @@
         @if (!$userExam)
             <script>
                 let finish = false;
+
                 function enviarExamen() {
                     Swal.fire({
                         title: 'Se finalizara el examen. ¿Desea continuar?',
@@ -404,15 +410,15 @@
                         tiempoContainer.classList.toggle('show');
                     }
                 }
-                if(finish === false){
-                    // ALERTA DE ACTUALIZAR PAGINA O ABANDONO DE PAGINA
-                    window.addEventListener('beforeunload', function(event) {
-                        // Mostramos una alerta cuando el usuario intente salir                    
-                        event.returnValue =
-                            'Si sales de esta página, se perderá tu progreso del examen. ¿Estás seguro que deseas continuar?';
-                    });                
-                }
-
+                //CAMBIO 1
+                // if(finish === false){
+                //     //ALERTA DE ACTUALIZAR PAGINA O ABANDONO DE PAGINA
+                //     window.addEventListener('beforeunload', function(event) {
+                //         Mostramos una alerta cuando el usuario intente salir                    
+                //         event.returnValue =
+                //             'Si sales de esta página, se perderá tu progreso del examen. ¿Estás seguro que deseas continuar?';
+                //     });                
+                // }
             } else {
                 console.log('Usuario no autorizado para ver el temporizador.');
             }

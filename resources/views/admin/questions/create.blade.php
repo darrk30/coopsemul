@@ -12,6 +12,12 @@
                 <strong>{{ session('error') }}</strong>
             </div>
         @endif
+
+        @if ($errors->has('error'))
+            <div class="alert alert-danger">
+                {{ $errors->first('error') }}
+            </div>
+        @endif
     </div>
 @stop
 
@@ -236,29 +242,6 @@
                         </a>
                     </div>
                 `;
-                // alternativeItem.innerHTML = `
-            //     <div class="option-container">
-            //         <input type="radio" name="correct[${optionIndex}]" value="${optionIndex}">
-            //         <input type="text" class="form-control" name="alternatives[]" placeholder="Ingrese la alternativa">
-            //         <div style="position: relative;">
-            //             <i class="far fa-image" style="position: absolute; margin-top: 13px; margin-left: 12.5px; font-size: 1.5rem;"></i>
-            //             <button class="icon-button" type="button">
-            //                 <input type="file" accept="image/*" name="file[${optionIndex}]" class="file-input">
-            //             </button>
-            //             <i class="fas fa-times" style="position: absolute; margin-top: 13px; margin-left: 17px; font-size: 1.5rem;"></i>
-            //             <button class="icon-button-delete btn-remove-option" type="button"></button>
-            //         </div>
-            //     </div>
-            //     <div class="image-container" >
-            //         <img class="image-preview"  style="display: none;">
-            //         <a class="icon-delete" type="button">
-            //             <i class="fas fa-trash"></i>
-            //         </a>
-            //     </div>
-            // `;
-
-
-
                 alternativesContainer.appendChild(alternativeItem);
                 optionIndex++;
             });
