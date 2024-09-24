@@ -238,28 +238,34 @@
         <h1 class="text-center text-gray-700 text-3xl  mb-5">LOS MEJORES CAPACITADORES A NIVEL NACIONAL REUNIDOS PARA LOGRAR TU ASCENSO DE ESCALA</h1>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             <!-- Imagen 1 -->
-            <img src="{{ asset('img/docentes/comunicacion.jpg') }}" alt="Imagen 1" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+            <img src="{{ asset('img/docentes/comunicacion.jpg') }}" alt="comunicacion" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
                 onclick="openModal(this.src)">
             <!-- Imagen 2 -->
-            <img src="{{ asset('img/docentes/comunicacion2.jpg') }}" alt="Imagen 2" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+            <img src="{{ asset('img/docentes/comunicacion2.jpg') }}" alt="comunicacion" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
                 onclick="openModal(this.src)">
             <!-- Imagen 3 -->
-            <img src="{{ asset('img/docentes/cyt.jpg') }}" alt="Imagen 3" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+            <img src="{{ asset('img/docentes/cyt.jpg') }}" alt="ciencia y tecnología" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
                 onclick="openModal(this.src)">
             <!-- Imagen 4 -->
-            <img src="{{ asset('img/docentes/ept.jpg') }}" alt="Imagen 4" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+            <img src="{{ asset('img/docentes/ept.jpg') }}" alt="EPT" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
                 onclick="openModal(this.src)">
             <!-- Imagen 5 -->
-            <img src="{{ asset('img/docentes/inicial.jpg') }}" alt="Imagen 5" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+            <img src="{{ asset('img/docentes/inicial.jpg') }}" alt="INICIAL" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
                 onclick="openModal(this.src)">
             <!-- Imagen 6 -->
-            <img src="{{ asset('img/docentes/primaria.jpg') }}" alt="Imagen 6" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+            <img src="{{ asset('img/docentes/primaria.jpg') }}" alt="PRIMARIA" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
                 onclick="openModal(this.src)">
             <!-- Imagen 7 -->
-            <img src="{{ asset('img/docentes/matematica.jpg') }}" alt="Imagen 7" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+            <img src="{{ asset('img/docentes/matematica.jpg') }}" alt="matematica" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
                 onclick="openModal(this.src)">
             <!-- Imagen 8 -->
-            <img src="{{ asset('img/docentes/arteycultura.jpg') }}" alt="Imagen 8" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+            <img src="{{ asset('img/docentes/arteycultura.jpg') }}" alt="arte y cultura" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+            <!-- Imagen 8 -->
+            <img src="{{ asset('img/docentes/cienciaytecnologia.jpg') }}" alt="ciencia y tecnologia" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
+                onclick="openModal(this.src)">
+            <!-- Imagen 8 -->
+            <img src="{{ asset('img/docentes/educacionfisica.jpg') }}" alt="eduacion fisica" class="cursor-pointer rounded transition-transform transform hover:scale-105 hover:shadow-lg"
                 onclick="openModal(this.src)">
         </div>
     </div>
