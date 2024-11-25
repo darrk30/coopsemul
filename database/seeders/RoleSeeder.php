@@ -97,6 +97,11 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.ciclos.formulario', 'description' => 'Ver Formulario para Crear Recurso(Profesor)'])->syncRoles([$role2]);
         Permission::create(['name' => 'admin.ciclos.descargar-recurso', 'description' => 'Descargar Recurso(Profesor y Alumno)'])->syncRoles([$role2, $role3]);
         Permission::create(['name' => 'admin.ciclos.eliminar_S_R', 'description' => 'Eliminar Semana o Recurso(Profesor)'])->syncRoles([$role2]);
+
+
+        Permission::create(['name' => 'admin.certificados.index', 'description' => 'Ver lista de Certificados'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.certificados.create', 'description' => 'Crear Certificados'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.certificados.edit', 'description' => 'Editar Certificados'])->syncRoles([$role1]);
        
 
     }

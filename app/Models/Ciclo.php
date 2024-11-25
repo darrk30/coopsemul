@@ -29,5 +29,10 @@ class Ciclo extends Model
         return $this->hasMany('App\Models\Semana');
     }
 
+    public function pagos()
+    {
+        return $this->hasMany('App\Models\Pagos');
+    }
+
     
 }

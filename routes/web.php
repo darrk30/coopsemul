@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CertificadosController;
+use App\Http\Controllers\BuscarCertificadoController;
 use App\Http\Controllers\ConsultasController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\DocentesController;
@@ -23,6 +25,8 @@ Route::get('consultas/resolucion', [ConsultasController::class, 'resolucion'])->
 
 
 Route::get('docentes', [DocentesController::class, 'index'])->name('docentes.index');
+Route::get('certificados/BuscarCertificado', [BuscarCertificadoController::class, 'BuscarCertificado'])->name('certificados.BuscarCertificado');
+
 // Route::middleware(['auth:sanctum', 'verified'])->get('/admin', function () {
 //     return view('admin.index');
 // })->name('admin.home');

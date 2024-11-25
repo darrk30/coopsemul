@@ -352,11 +352,25 @@ return [
             'active'    => ['*admin/libros*'],
         ],
         [
+            'text'       => 'Certificados',
+            'icon' => 'fas  fa-users-cog',
+            'route'        => 'admin.certificados.index',
+            'can'        => 'admin.certificados.index',
+            'active'    => ['*admin/certificados*']
+        ],
+        [
             'text' => 'Usuarios',
             'route' => 'admin.colaboradores.index',
             'icon' => 'fas fa-users',
             'can'        => 'admin.colaboradores.index',
             'active'    => ['*admin/users*'],
+        ],
+        [
+            // 'text'       => 'Pagos',
+            // 'icon' => 'fas fa-dollar-sign',
+            // 'route'        => 'admin.pagos.index',
+            // // 'can'        => 'admin.pagos.index',
+            // 'active'    => ['*admin/pagos*']
         ],
         [
             'text'       => 'Lista de Roles',

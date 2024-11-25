@@ -3,6 +3,7 @@
 use App\Http\Controller\Admins\UploadController as AdminsUploadController;
 use App\Http\Controllers\Admin\BibliotecaController;
 use App\Http\Controllers\Admin\CategoriasController;
+use App\Http\Controllers\Admin\CertificadosController;
 use App\Http\Controllers\Admin\CiclosController;
 use App\Http\Controllers\Admin\ColaboradoresController;
 use App\Http\Controllers\Admin\ContenidoController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Admin\InscripcionController;
 use App\Http\Controllers\Admin\LeccionesController;
 use App\Http\Controllers\Admin\MiBiblioteca;
 use App\Http\Controllers\Admin\NivelesController;
+use App\Http\Controllers\Admin\PagosController;
 use App\Http\Controllers\Admin\PreciosController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\QuestionsController;
@@ -114,3 +116,16 @@ Route::post('ciclos/crear_recurso/{semana_id}/{curso_nombre}/{ciclo_nombre}', [C
 Route::post('ciclos/descargar-recurso/{recursoId}', [CiclosController::class, 'descargar_recurso'])->name('admin.ciclos.descargar-recurso');
 
 Route::get('ciclos/abrir-archivo/{recursoId}', [CiclosController::class, 'abrirArchivo'])->name('admin.ciclos.abrir-archivo');
+
+//ruta para administrar los pagos
+Route::resource('pagos', PagosController::class)->except('show')->names('admin.pagos');
+Route::get('pagos/{docente}/ciclos', [PagosController::class, 'ciclos'])->name('admin.pagos.ciclos');
+Route::get('pagos/listadepagos', [PagosController::class, 'pagos'])->name('admin.pagos.listadepagos');
+
+
+//ruta para administrar los certificados
+Route::resource('certificados', CertificadosController::class)->names('admin.certificados');
+Route::post('certificados/{recursoId}', [CertificadosController::class, 'descargar_recurso'])->name('admin.certificado.descargar-recurso');
+Route::get('certificados/usuario/buscarDNI', [CertificadosController::class, 'buscarDNI'])->name('admin.certificados.buscarDNI');
+
+
