@@ -10,15 +10,10 @@ class Certificado extends Model
     use HasFactory;
 
     protected $fillable = [
-        'curso', 'rutaArchivo', 'codigo', 'resolucion', 
-        'users_id', 'users_id_promotor', 'users_id_trabajador', 
-        'empresas_id', 'tipo_pago_id', 'tipo_inscripcion_id', 'especialidad_id'
+        'curso', 'rutaArchivo', 'codigo', 'resolucion', 'empresa',
+        'users_id', 'users_id_promotor', 'users_id_trabajador', 'tipo_pago_id', 'tipo_inscripcion_id', 'especialidad_id'
     ];
-
-    public function empresa()
-    {
-        return $this->belongsTo(Empresas::class, 'empresas_id');
-    }
+    
 
     public function tipoPago()
     {

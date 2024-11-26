@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nombre', 100);
             $table->string('ruc', 11);
             $table->string('status', 1);
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign( 'user_id' )->references( 'id' )->on( 'users' )->onDelete('cascade');
             $table->timestamps();
         });
     }

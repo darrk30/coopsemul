@@ -158,20 +158,24 @@
 
             <div class="mb-3">
                 <label for="empresas_id" class="form-label">Empresa</label>
-                <select name="empresas_id" id="empresas_id" class="form-control">
-                    <option value="">Seleccione una empresa</option>
-                    @if ($empresas->isNotEmpty())
+                @if ($empresas->count() == 1)
+                    <!-- Si solo hay una empresa, mostramos un input con el nombre de la empresa -->
+                    <input type="text" class="form-control" value="{{ $empresas->first()->nombre }}" readonly>
+                    <input type="hidden" name="empresas_id" value="{{ $empresas->first()->id }}">
+                @else
+                    <!-- Si hay varias empresas, mostramos el select normal -->
+                    <select name="empresas_id" id="empresas_id" class="form-control">
+                        <option value="">Seleccione una empresa</option>
                         @foreach ($empresas as $empresa)
                             <option value="{{ $empresa->id }}"
                                 {{ old('empresas_id') == $empresa->id ? 'selected' : '' }}>
                                 {{ $empresa->nombre }}
                             </option>
                         @endforeach
-                    @else
-                        <option value="" disabled>Sin datos disponibles</option>
-                    @endif
-                </select>
+                    </select>
+                @endif
             </div>
+
 
 
             <div class="mb-3">

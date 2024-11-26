@@ -20,31 +20,32 @@ class CertificadosController extends Controller
     {
         $this->middleware('can:admin.certificados.index')->only('index');
         $this->middleware('can:admin.certificados.create')->only('create', 'store');
-        $this->middleware('can:admin.certificados.edit')->only('edit', 'update');     
+        $this->middleware('can:admin.certificados.edit')->only('edit', 'update');
     }
 
     public function index()
-{
-    // Obtener el usuario autenticado
-    $usuario = auth()->user();
+    {
+        // Obtener el usuario autenticado
+        $usuario = auth()->user();
 
-    // Verificar si el usuario tiene el rol "Administrador"
-    if ($usuario->hasRole('Administrador')) {
-        // Mostrar todos los certificados para administradores
-        $certificados = Certificado::all();
-    } else {
-        // Mostrar solo los certificados relacionados con el usuario autenticado
-        $certificados = Certificado::where('users_id_trabajador', $usuario->id)->get();
+        // Verificar si el usuario tiene el rol "Administrador"
+        if ($usuario->hasRole('Administrador')) {
+            // Mostrar todos los certificados para administradores
+            $certificados = Certificado::all();
+        } else {
+            // Mostrar solo los certificados relacionados con el usuario autenticado
+            $certificados = Certificado::where('users_id_trabajador', $usuario->id)->get();
+        }
+
+        return view('admin.certificados.index', compact('certificados'));
     }
-
-    return view('admin.certificados.index', compact('certificados'));
-}
 
 
     public function create()
     {
         // Obtener las empresas, tipos de pago y especialidades
-        $empresas = Empresas::all();
+        // $empresas = Empresas::all();
+        $empresas = Empresas::where('user_id', auth()->id())->get();
         $tiposPago = TipoPago::all();
         $tipoInscripciones = TipoInscripcion::all();
         $especialidades = Especialidad::all();
@@ -61,10 +62,9 @@ class CertificadosController extends Controller
         $request->validate([
             'curso' => 'required|string|max:45',
             'rutaArchivo' => 'required|file|mimes:pdf,doc,docx|max:10048', // Ajusta los tipos y tamaños según necesidad
-            'codigo' => 'required|string|max:45',
+            'codigo' => 'required|string|max:45|unique:certificados,codigo',
             'resolucion' => 'required|string|max:45',
             'users_id_trabajador' => 'required|exists:users,id',
-            'empresas_id' => 'nullable|exists:empresas,id',
             'tipo_pago_id' => 'nullable|exists:tipo_pagos,id',
             'tipo_inscripcion_id' => 'nullable|exists:tipo_inscripcions,id',
             'especialidad_id' => 'nullable|exists:especialidads,id',
@@ -75,6 +75,9 @@ class CertificadosController extends Controller
 
         // Verificar si ya existe el `user_id`
         $userId = $request->input('user_id');
+
+        // Obtener el ID de la empresa del formulario
+
 
         if (!$userId) {
             // Si no existe el `user_id`, creamos un nuevo usuario
@@ -123,16 +126,29 @@ class CertificadosController extends Controller
             $filePath = $request->file('rutaArchivo')->storeAs('', $filePath, 's3');
         }
 
+        $empresaId = $request->input('empresas_id');
+
+        // Buscar la empresa con ese ID
+        $empresa = Empresas::find($empresaId);
+        if ($empresa) {
+            // Si la empresa existe, asignamos su nombre
+            $empresaNombre = $empresa->nombre;
+        } else {
+            // Si no se encuentra la empresa, asignamos un valor por defecto o gestionamos el error
+            $empresaNombre = 'Empresa no encontrada';
+        }
+
+
         // Crear el certificado
         Certificado::create([
             'curso' => $request->input('curso'),
             'rutaArchivo' => $filePath ?? null, // Guardar la ruta del archivo en la base de datos
             'codigo' => $request->input('codigo'),
             'resolucion' => $request->input('resolucion'),
+            'empresa' => $empresaNombre,
             'users_id' => $users_id, // Guardar el user_id del trabajador (usuario buscado o recién creado)
             'users_id_trabajador' => auth()->user()->id, // El ID del usuario autenticado como creador
             'users_id_promotor' => $request->input('users_id_promotor'),
-            'empresas_id' => $request->input('empresas_id'),
             'tipo_pago_id' => $request->input('tipo_pago_id'),
             'tipo_inscripcion_id' => $request->input('tipo_inscripcion_id'),
             'especialidad_id' => $request->input('especialidad_id'),
@@ -164,14 +180,14 @@ class CertificadosController extends Controller
         return view('admin.certificados.edit', compact('certificado', 'tiposPago', 'especialidades', 'tipoInscripciones', 'empresas', 'promotores'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Certificado $certificado)
     {
         // Validar los datos del formulario
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
             'curso' => 'required|string|max:255',
             'resolucion' => 'required|string|max:255',
-            'codigo' => 'required|string|max:255|unique:certificados,codigo,' . $id,
+            'codigo' => "required|unique:certificados,codigo,$certificado->id",
             'especialidad_id' => 'required|exists:especialidads,id',
             'rutaArchivo' => 'nullable|file|mimes:pdf,jpg,png|max:10048',
             'tipo_pago_id' => 'required|exists:tipo_pagos,id',
@@ -181,7 +197,21 @@ class CertificadosController extends Controller
         ]);
 
         // Buscar el certificado por su ID
-        $certificado = Certificado::findOrFail($id);
+        $certificado = Certificado::findOrFail($certificado->id);
+
+        // Obtener el ID de la empresa del formulario
+        $empresaId = $request->input('empresas_id');
+
+        // Buscar la empresa con ese ID
+        $empresa = Empresas::find($empresaId);
+
+        if ($empresa) {
+            // Si la empresa existe, asignamos su nombre
+            $empresaNombre = $empresa->nombre;
+        } else {
+            // Si no se encuentra la empresa, asignamos un valor por defecto o gestionamos el error
+            $empresaNombre = 'Empresa no encontrada';
+        }
 
         // Actualizar los campos del certificado
         $certificado->users_id = $validatedData['user_id'];
@@ -192,7 +222,7 @@ class CertificadosController extends Controller
         $certificado->tipo_pago_id = $validatedData['tipo_pago_id'];
         $certificado->users_id_promotor = $validatedData['users_id_promotor'];
         $certificado->tipo_inscripcion_id = $validatedData['tipo_inscripcion_id'];
-        $certificado->empresas_id = $validatedData['empresas_id'];
+        $certificado->empresa = $empresaNombre;
 
         if ($request->hasFile('rutaArchivo')) {
             // Si existe un archivo previo en S3, eliminarlo
@@ -266,5 +296,4 @@ class CertificadosController extends Controller
             ]);
         }
     }
-   
 }

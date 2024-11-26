@@ -353,7 +353,7 @@ return [
         ],
         [
             'text'       => 'Certificados',
-            'icon' => 'fas  fa-users-cog',
+            'icon' => 'fas fa-award',
             'route'        => 'admin.certificados.index',
             'can'        => 'admin.certificados.index',
             'active'    => ['*admin/certificados*']

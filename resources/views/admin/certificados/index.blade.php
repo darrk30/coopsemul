@@ -41,7 +41,7 @@
                             <td>{{ $certificado->curso }}</td>
                             <td>{{ $certificado->resolucion }}</td>
                             <td>{{ $certificado->codigo }}</td>
-                            <td>{{ $certificado->empresa->nombre ?? 'Sin empresa' }}</td>
+                            <td>{{ $certificado->empresa ?? 'Sin empresa' }}</td>
                             <td>{{ $certificado->promotor->name ?? 'Sin promotor' }}</td>
                             <td>{{ $certificado->trabajador->name ?? 'Sin trabajador' }}</td>
                             <td>                                

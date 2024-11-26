@@ -20,8 +20,8 @@
         @endif
 
         {!! Form::model($certificado, [
-            'route' => isset($certificado->id) ? ['admin.certificados.update', $certificado] : 'admin.certificados.store',
-            'method' => isset($certificado->id) ? 'PUT' : 'POST',
+            'route' => isset($certificado) ? ['admin.certificados.update', $certificado] : 'admin.certificados.store',
+            'method' => isset($certificado) ? 'PUT' : 'POST',
             'enctype' => 'multipart/form-data',
             'id' => 'form-certificado',
         ]) !!}
@@ -111,14 +111,26 @@
         </div>
 
         <!-- Empresa -->
-        <div class="form-group">
-            {!! Form::label('empresas_id', 'Empresa:') !!}
-            {!! Form::select('empresas_id', $empresas->pluck('nombre', 'id'), null, [
-                'class' => 'form-control',
-                'placeholder' => 'Seleccione una empresa',
-                'required',
-            ]) !!}
+        <div class="mb-3">
+            <label for="empresas_id" class="form-label">Empresa</label>
+            @if ($empresas->count() == 1)
+                <!-- Si solo hay una empresa, mostramos un input con el nombre de la empresa -->
+                <input type="text" class="form-control" value="{{ $empresas->first()->nombre }}" readonly>
+                <input type="hidden" name="empresas_id" value="{{ old('empresas_id', $certificado->empresas_id ?? $empresas->first()->id) }}">
+            @else
+                <!-- Si hay varias empresas, mostramos el select normal -->
+                <select name="empresas_id" id="empresas_id" class="form-control">
+                    <option value="">Seleccione una empresa</option>
+                    @foreach ($empresas as $empresa)
+                        <option value="{{ $empresa->id }}"
+                            {{ old('empresas_id', $certificado->empresas_id) == $empresa->id ? 'selected' : '' }}>
+                            {{ $empresa->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            @endif
         </div>
+        
 
         <!-- Trabajador -->
         <div class="form-group">

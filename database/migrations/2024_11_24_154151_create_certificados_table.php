@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('rutaArchivo', 255);
             $table->string('codigo', 45);
             $table->string('resolucion', 45);
+            $table->string('empresa', 150);
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('users_id_promotor');
             $table->unsignedBigInteger('users_id_trabajador');
-            $table->unsignedBigInteger('empresas_id');
+            // $table->unsignedBigInteger('empresas_id');
             $table->unsignedBigInteger('tipo_pago_id');
             $table->unsignedBigInteger('tipo_inscripcion_id');
             $table->unsignedBigInteger('especialidad_id');
@@ -30,7 +31,7 @@ return new class extends Migration
             $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('users_id_promotor')->references('id')->on('users');
             $table->foreign('users_id_trabajador')->references('id')->on('users');
-            $table->foreign('empresas_id')->references('id')->on('empresas');
+            // $table->foreign('empresas_id')->references('id')->on('empresas');
             $table->foreign('tipo_pago_id')->references('id')->on('tipo_pagos');
             $table->foreign('tipo_inscripcion_id')->references('id')->on('tipo_inscripcions');
             $table->foreign('especialidad_id')->references('id')->on('especialidads');           

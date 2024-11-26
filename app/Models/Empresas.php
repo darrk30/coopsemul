@@ -9,10 +9,10 @@ class Empresas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'ruc', 'status'];
+    protected $fillable = ['nombre', 'ruc', 'status','user_id'];
 
-    public function certificados()
+    public function user()
     {
-        return $this->hasMany(Certificado::class, 'empresas_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
