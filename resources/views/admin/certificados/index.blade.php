@@ -74,7 +74,7 @@
             </table>
 
             <div class="d-flex justify-content-center">
-                {{-- {{ $certificados->links() }} <!-- Paginación --> --}}
+                {{ $certificados->links() }} <!-- Paginación -->
             </div>
         @else
             <p>No hay certificados disponibles.</p>

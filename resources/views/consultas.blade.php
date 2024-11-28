@@ -17,7 +17,7 @@
                 </div>
                 <p class="text-sm text-center text-gray-600">DUPGCCSSCONSULTAS@GMAIL.COM</p>
             </form>
-            
+
 
             <!-- Resultados de la Consulta -->
             <div class="mt-8 hidden" id="resultadosContainer">
@@ -63,32 +63,35 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function consultar() {
-    var dni = $('#Dni').val();
+            var dni = $('#Dni').val();
 
-    // Validar que se haya ingresado un DNI
-    if (!dni) {
-        alert("Por favor, ingrese su DNI.");
-        return;
-    }
+            // Validar que se haya ingresado un DNI
+            if (!dni) {
+                alert("Por favor, ingrese su DNI.");
+                return;
+            }
 
-    $.ajax({
-        url: "{{ route('certificados.BuscarCertificado') }}", // Cambia la ruta a la de tu consulta por DNI
-        type: "GET",
-        data: { dni: dni },
-        dataType: 'json',
+            $.ajax({
+                url: "{{ route('certificados.BuscarCertificado') }}", // Cambia la ruta a la de tu consulta por DNI
+                type: "GET",
+                data: {
+                    dni: dni
+                },
+                dataType: 'json',
 
-        success: function(data) {
-            // Mostrar el contenedor de resultados
-            $('#resultadosContainer').show();
+                success: function(data) {
+                    // Mostrar el contenedor de resultados
+                    $('#resultadosContainer').show();
 
-            // Limpiar tablas antes de agregar nuevos datos
-            $('#tablaDatosPersonales').empty();
-            $('#tablaDatosCertificado').empty();
+                    // Limpiar tablas antes de agregar nuevos datos
+                    $('#tablaDatosPersonales').empty();
+                    $('#tablaDatosCertificado').empty();
 
-            if (data.success) {
-                // Tabla de Datos Personales (basada en el primer certificado)
-                var personalData = data.data[0]; // Todos los certificados tienen los mismos datos personales
-                $('#tablaDatosPersonales').append(`
+                    if (data.success) {
+                        // Tabla de Datos Personales (basada en el primer certificado)
+                        var personalData = data.data[
+                        0]; // Todos los certificados tienen los mismos datos personales
+                        $('#tablaDatosPersonales').append(`
                     <tr>
                         <td class="px-4 py-2 border-b">${personalData.dni}</td>
                         <td class="px-4 py-2 border-b">${personalData.nombres}</td>
@@ -96,10 +99,10 @@
                     </tr>
                 `);
 
-                // Tabla de Datos del Certificado (iterar sobre los certificados)
-                var tablaDatosCertificado = $('#tablaDatosCertificado');
-                data.data.forEach(certificado => {
-                    tablaDatosCertificado.append(`
+                        // Tabla de Datos del Certificado (iterar sobre los certificados)
+                        var tablaDatosCertificado = $('#tablaDatosCertificado');
+                        data.data.forEach(certificado => {
+                            tablaDatosCertificado.append(`
                         <tr>
                             <td class="px-4 py-2 border-b">${certificado.curso}</td>
                             <td class="px-4 py-2 border-b">${certificado.resolucion}</td>
@@ -110,16 +113,15 @@
                             </td>
                         </tr>
                     `);
-                });
-            } else {
-                alert(data.message); // Mostrar mensaje de error si no se encuentra el DNI
-            }
-        },
-        error: function(xhr, status, error) {
-            alert("Error en la solicitud. Por favor, inténtelo de nuevo.");
+                        });
+                    } else {
+                        alert(data.message); // Mostrar mensaje de error si no se encuentra el DNI
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("Error en la solicitud. Por favor, inténtelo de nuevo.");
+                }
+            });
         }
-    });
-}
-
     </script>
 </x-app-layout>

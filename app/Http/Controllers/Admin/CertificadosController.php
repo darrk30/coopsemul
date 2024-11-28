@@ -22,24 +22,23 @@ class CertificadosController extends Controller
         $this->middleware('can:admin.certificados.create')->only('create', 'store');
         $this->middleware('can:admin.certificados.edit')->only('edit', 'update');
     }
-
     public function index()
     {
         // Obtener el usuario autenticado
         $usuario = auth()->user();
-
+    
         // Verificar si el usuario tiene el rol "Administrador"
         if ($usuario->hasRole('Administrador')) {
-            // Mostrar todos los certificados para administradores
-            $certificados = Certificado::all();
+            // Mostrar todos los certificados para administradores con paginación de 30 en 30
+            $certificados = Certificado::orderBy('id', 'desc')->paginate(2);
         } else {
-            // Mostrar solo los certificados relacionados con el usuario autenticado
-            $certificados = Certificado::where('users_id_trabajador', $usuario->id)->get();
+            // Mostrar solo los certificados relacionados con el usuario autenticado con paginación de 30 en 30
+            $certificados = Certificado::where('users_id_trabajador', $usuario->id)->orderBy('id', 'desc')->paginate(30);
         }
-
+    
         return view('admin.certificados.index', compact('certificados'));
     }
-
+    
 
     public function create()
     {

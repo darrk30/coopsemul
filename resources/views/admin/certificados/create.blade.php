@@ -77,9 +77,13 @@
 
             <div class="mb-3">
                 <label for="resolucion" class="form-label">Resolución</label>
-                <input type="text" name="resolucion" id="resolucion" class="form-control" value="{{ old('resolucion') }}"
-                    required>
-            </div>
+                <select name="resolucion" id="resolucion" class="form-control" value="{{ old('resolucion') }}" required>
+                       <option value="">Seleccionar Resolución</option>
+                       <option value="0001-A2022-DUPG/CC.SS">0001-A2022-DUPG/CC.SS</option>
+                       <option value="0001-A-2024-DUPG/CC.SS">0001-A-2024-DUPG/CC.SS</option>
+                </select>
+
+            </div>
 
             <div class="mb-3">
                 <label for="codigo" class="form-label">Código</label>
