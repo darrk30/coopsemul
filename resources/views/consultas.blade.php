@@ -63,62 +63,63 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function consultar() {
-            var dni = $('#Dni').val();
+    var dni = $('#Dni').val();
 
-            // Validar que se haya ingresado un DNI
-            if (!dni) {
-                alert("Por favor, ingrese su DNI.");
-                return;
+    // Validar que se haya ingresado un DNI
+    if (!dni) {
+        alert("Por favor, ingrese su DNI.");
+        return;
+    }
+
+    $.ajax({
+        url: "{{ route('certificados.BuscarCertificado') }}", // Cambia la ruta a la de tu consulta por DNI
+        type: "GET",
+        data: { dni: dni },
+        dataType: 'json',
+
+        success: function(data) {
+            // Mostrar el contenedor de resultados
+            $('#resultadosContainer').show();
+
+            // Limpiar tablas antes de agregar nuevos datos
+            $('#tablaDatosPersonales').empty();
+            $('#tablaDatosCertificado').empty();
+
+            if (data.success) {
+                // Tabla de Datos Personales (basada en el primer certificado)
+                var personalData = data.data[0]; // Todos los certificados tienen los mismos datos personales
+                $('#tablaDatosPersonales').append(`
+                    <tr>
+                        <td class="px-4 py-2 border-b">${personalData.dni}</td>
+                        <td class="px-4 py-2 border-b">${personalData.nombres}</td>
+                        <td class="px-4 py-2 border-b">${personalData.apellidos}</td>
+                    </tr>
+                `);
+
+                // Tabla de Datos del Certificado (iterar sobre los certificados)
+                var tablaDatosCertificado = $('#tablaDatosCertificado');
+                data.data.forEach(certificado => {
+                    tablaDatosCertificado.append(`
+                        <tr>
+                            <td class="px-4 py-2 border-b">${certificado.curso}</td>
+                            <td class="px-4 py-2 border-b">${certificado.resolucion}</td>
+                            <td class="px-4 py-2 border-b">${certificado.codigo}</td>
+                            <td class="px-4 py-2 border-b">
+                                <a href="${certificado.documento}" download target="_blank"
+                                    class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Descargar</a>
+                            </td>
+                        </tr>
+                    `);
+                });
+            } else {
+                alert(data.message); // Mostrar mensaje de error si no se encuentra el DNI
             }
-
-            $.ajax({
-                url: "{{ route('certificados.BuscarCertificado') }}", // Cambia la ruta a la de tu consulta por DNI
-                type: "GET",
-                data: {
-                    dni: dni
-                },
-                dataType: 'json',
-
-                success: function(data) {
-                    // Mostrar el contenedor de resultados
-                    $('#resultadosContainer').show();
-
-                    // Limpiar tablas antes de agregar nuevos datos
-                    $('#tablaDatosPersonales').empty();
-                    $('#tablaDatosCertificado').empty();
-
-                    if (data.success) {
-                        // Tabla de Datos Personales
-                        var tablaDatosPersonales = $('#tablaDatosPersonales');
-                        tablaDatosPersonales.append(`
-                            <tr>
-                                <td class="px-4 py-2 border-b">${data.data.dni}</td>
-                                <td class="px-4 py-2 border-b">${data.data.nombres}</td>
-                                <td class="px-4 py-2 border-b">${data.data.apellidos}</td>
-                            </tr>
-                        `);
-
-                        // Tabla de Datos del Certificado
-                        var tablaDatosCertificado = $('#tablaDatosCertificado');
-                        tablaDatosCertificado.append(`
-                            <tr>
-                                <td class="px-4 py-2 border-b">${data.data.curso}</td>
-                                <td class="px-4 py-2 border-b">${data.data.resolucion}</td>
-                                <td class="px-4 py-2 border-b">${data.data.codigo}</td>
-                                <td class="px-4 py-2 border-b">
-                                    <a href="${data.data.documento}" download target="_blank"
-                                        class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Descargar</a>
-                                </td>
-                            </tr>
-                        `);
-                    } else {
-                        alert(data.message); // Mostrar mensaje de error si no se encuentra el DNI
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert("Error en la solicitud. Por favor, inténtelo de nuevo.");
-                }
-            });
+        },
+        error: function(xhr, status, error) {
+            alert("Error en la solicitud. Por favor, inténtelo de nuevo.");
         }
+    });
+}
+
     </script>
 </x-app-layout>
