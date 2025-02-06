@@ -29,7 +29,7 @@
         <div class="flex justify-center mt-5">
             <div class="card curso-card shadow" style="width: 18rem; margin: 0; background-color: #faee95;">
                 <div class="card-body">
-                    <h5 class="card-title mb-3"><strong>CRONOGRAMA DE ACTIVIDADES</strong> </h5>                    
+                    <h5 class="card-title mb-3"><strong>CRONOGRAMAA DE ACTIVIDADES</strong> </h5>                    
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cronogramaModal">
                         VER
                     </button>
